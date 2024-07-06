@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+
+import '../../../utils/constants/sizes.dart';
+
+class EGridLayout extends StatelessWidget {
+  const EGridLayout({
+    super.key,
+    required this.itemCount,
+    this.mainAxisExtent = 200,
+    required this.itemBuilder,
+  });
+  final int itemCount;
+  final double? mainAxisExtent;
+  final Widget? Function(BuildContext, int) itemBuilder;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: ESizes.gridViewSpacing,
+          crossAxisSpacing: ESizes.gridViewSpacing,
+          mainAxisExtent: mainAxisExtent),
+      itemCount: itemCount,
+      shrinkWrap: true,
+      itemBuilder: itemBuilder,
+    );
+  }
+}
