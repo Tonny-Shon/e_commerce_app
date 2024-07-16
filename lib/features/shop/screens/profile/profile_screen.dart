@@ -80,77 +80,77 @@ class ProfileScreen extends StatelessWidget {
                     subTitle: 'In-progress and Completed Orders',
                     onTap: () => Get.to(() => const OrdersScreen()),
                   ),
-                  ESettingsTile(
-                    icon: Iconsax.bank,
-                    title: 'Bank Account',
-                    subTitle: 'Withdraw balance to registered bank account',
-                    onTap: () {},
-                  ),
-                  ESettingsTile(
-                    icon: Iconsax.discount_shape,
-                    title: 'My Coupons',
-                    subTitle: 'List all the discounted coupons',
-                    onTap: () {},
-                  ),
-                  ESettingsTile(
-                    icon: Iconsax.notification,
-                    title: 'Notifications',
-                    subTitle: 'Get any kind of notification message',
-                    onTap: () {},
-                  ),
-                  ESettingsTile(
-                    icon: Iconsax.security_card,
-                    title: 'Account Privacy',
-                    subTitle: 'Manage data usage and connected accounts',
-                    onTap: () {},
-                  ),
+                  // ESettingsTile(
+                  //   icon: Iconsax.bank,
+                  //   title: 'Bank Account',
+                  //   subTitle: 'Withdraw balance to registered bank account',
+                  //   onTap: () {},
+                  // ),
+                  // ESettingsTile(
+                  //   icon: Iconsax.discount_shape,
+                  //   title: 'My Coupons',
+                  //   subTitle: 'List all the discounted coupons',
+                  //   onTap: () {},
+                  // ),
+                  // ESettingsTile(
+                  //   icon: Iconsax.notification,
+                  //   title: 'Notifications',
+                  //   subTitle: 'Get any kind of notification message',
+                  //   onTap: () {},
+                  // ),
+                  // ESettingsTile(
+                  //   icon: Iconsax.security_card,
+                  //   title: 'Account Privacy',
+                  //   subTitle: 'Manage data usage and connected accounts',
+                  //   onTap: () {},
+                  // ),
 
                   //app settings
-                  const SizedBox(
-                    height: ESizes.spaceBtnSections,
-                  ),
-                  const ESectionHeading(
-                    title: 'App Settings',
-                    showActionButton: false,
-                  ),
-                  const SizedBox(
-                    height: ESizes.spaceBtnItems,
-                  ),
-                  const ESettingsTile(
-                      icon: Iconsax.document_upload,
-                      title: 'Load Data',
-                      subTitle: 'Upload Data to your cloud'),
+                  // const SizedBox(
+                  //   height: ESizes.spaceBtnSections,
+                  // ),
+                  // const ESectionHeading(
+                  //   title: 'App Settings',
+                  //   showActionButton: false,
+                  // ),
+                  // const SizedBox(
+                  //   height: ESizes.spaceBtnItems,
+                  // ),
+                  // const ESettingsTile(
+                  //     icon: Iconsax.document_upload,
+                  //     title: 'Load Data',
+                  //     subTitle: 'Upload Data to your cloud'),
 
-                  ESettingsTile(
-                    icon: Iconsax.location,
-                    title: 'Geolocation',
-                    subTitle: 'Get recommendation based on location',
-                    onTap: () {},
-                    trailing: Switch(
-                      value: true,
-                      onChanged: (value) {},
-                    ),
-                  ),
-                  ESettingsTile(
-                    icon: Iconsax.security_user,
-                    title: 'Safe mode',
-                    subTitle: 'Search result for all ages',
-                    onTap: () {},
-                    trailing: Switch(
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                  ),
-                  ESettingsTile(
-                    icon: Iconsax.image,
-                    title: 'No Image quality',
-                    subTitle: 'Set Image Quality to be seen',
-                    onTap: () {},
-                    trailing: Switch(
-                      value: true,
-                      onChanged: (value) {},
-                    ),
-                  ),
+                  // ESettingsTile(
+                  //   icon: Iconsax.location,
+                  //   title: 'Geolocation',
+                  //   subTitle: 'Get recommendation based on location',
+                  //   onTap: () {},
+                  //   trailing: Switch(
+                  //     value: true,
+                  //     onChanged: (value) {},
+                  //   ),
+                  // ),
+                  // ESettingsTile(
+                  //   icon: Iconsax.security_user,
+                  //   title: 'Safe mode',
+                  //   subTitle: 'Search result for all ages',
+                  //   onTap: () {},
+                  //   trailing: Switch(
+                  //     value: false,
+                  //     onChanged: (value) {},
+                  //   ),
+                  // ),
+                  // ESettingsTile(
+                  //   icon: Iconsax.image,
+                  //   title: 'No Image quality',
+                  //   subTitle: 'Set Image Quality to be seen',
+                  //   onTap: () {},
+                  //   trailing: Switch(
+                  //     value: true,
+                  //     onChanged: (value) {},
+                  //   ),
+                  // ),
 
                   //logout button
                   const SizedBox(

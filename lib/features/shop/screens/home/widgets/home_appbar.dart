@@ -42,9 +42,8 @@ class EHomeAppBar extends StatelessWidget {
           }),
         ],
       ),
-      actions: [
+      actions: const [
         ECartControlIcon(
-          onPressed: () {},
           iconColor: EColors.white,
         )
       ],

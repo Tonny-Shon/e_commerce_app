@@ -1,9 +1,9 @@
+import 'package:e_commerce_app/features/shop/models/brand_model.dart';
 import 'package:e_commerce_app/features/shop/screens/store/widgets/brand_title_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../common/common_shapes/containers/circular_container.dart';
 import '../../../../../common/widgets/cicular_image/circular_image.dart';
-import '../../../../../images/images.dart';
 import '../../../../../utils/constants/enums.dart';
 import '../../../../../utils/constants/sizes.dart';
 
@@ -11,13 +11,13 @@ class EBrandCard extends StatelessWidget {
   const EBrandCard({
     super.key,
     required this.showBorder,
-    this.title = 'Beds',
-    this.subTitle = '40 products',
     this.onTap,
+    required this.brand,
   });
   final bool showBorder;
-  final String? title, subTitle;
+
   final void Function()? onTap;
+  final BrandModel brand;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,10 @@ class EBrandCard extends StatelessWidget {
         child: Row(
           children: [
             //Icon
-            const Flexible(
+            Flexible(
               child: ECircularImage(
-                image: EImages.icBeddings,
-                isNetworkImage: false,
+                image: brand.image,
+                isNetworkImage: true,
                 backgroundColor: Colors.transparent,
                 // overlayColor: EHelperFunctions.isDarkMode(context)
                 //     ? EColors.black
@@ -47,12 +47,12 @@ class EBrandCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const EBrandTitleVerifiedIcon(
-                  title: 'Beds',
+                EBrandTitleVerifiedIcon(
+                  title: brand.name,
                   brandTextSize: TextSizes.large,
                 ),
                 Text(
-                  '40 products',
+                  '${brand.productCount ?? 0} products',
                   style: Theme.of(context).textTheme.labelMedium,
                   overflow: TextOverflow.ellipsis,
                 )

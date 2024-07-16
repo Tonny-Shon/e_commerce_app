@@ -9,7 +9,13 @@ import '../../../../utils/helpers/helper_functions.dart';
 class EProductWithAddAndRemoveButton extends StatelessWidget {
   const EProductWithAddAndRemoveButton({
     super.key,
+    required this.removeButton,
+    required this.addButton,
+    this.quantity = 0,
   });
+
+  final VoidCallback removeButton, addButton;
+  final int quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +32,26 @@ class EProductWithAddAndRemoveButton extends StatelessWidget {
           backgroundColor: EHelperFunctions.isDarkMode(context)
               ? EColors.darkerGrey
               : EColors.light,
+          onPressed: removeButton,
         ),
         const SizedBox(
           width: ESizes.spaceBtnItems,
         ),
         Text(
-          '2',
+          quantity.toString(),
           style: Theme.of(context).textTheme.titleSmall,
         ),
         const SizedBox(
           width: ESizes.spaceBtnItems,
         ),
-        const ECircularIcon(
+        ECircularIcon(
           icon: Iconsax.add,
           width: 32,
           height: 32,
           size: ESizes.md,
           color: EColors.white,
           backgroundColor: EColors.primaryColor,
+          onPressed: addButton,
         ),
       ],
     );

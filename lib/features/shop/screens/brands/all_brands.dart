@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/common/common_shapes/layouts/grid_layout.dart';
 import 'package:e_commerce_app/common/widgets/appbar/appbar.dart';
 import 'package:e_commerce_app/common/widgets/texts/section_heading.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/brand_controller.dart';
 import 'package:e_commerce_app/features/shop/screens/brands/brand_products.dart';
 import 'package:e_commerce_app/features/shop/screens/store/widgets/brand_card.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
@@ -12,6 +13,7 @@ class AllBrandsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brandController = BrandController.instance;
     return Scaffold(
       appBar: const EAppBar(
         title: Text('Brands'),
@@ -29,16 +31,39 @@ class AllBrandsScreen extends StatelessWidget {
               const SizedBox(
                 height: ESizes.spaceBtnItems,
               ),
-              EGridLayout(
-                itemCount: 10,
-                mainAxisExtent: 80,
-                itemBuilder: (context, index) => EBrandCard(
-                  showBorder: true,
-                  onTap: () => Get.to(
-                    () => const BrandProducts(),
-                  ),
-                ),
-              ),
+              Obx(() {
+                if (brandController.isLoading.value) {
+                  return const CircularProgressIndicator();
+                  //EBrandShimmer();
+                }
+
+                if (brandController.allBrands.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No Data Found.',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .apply(color: Colors.white),
+                    ),
+                  );
+                }
+                return EGridLayout(
+                  mainAxisExtent: 55,
+                  itemCount: brandController.allBrands.length,
+                  itemBuilder: (_, index) {
+                    final brand = brandController.allBrands[index];
+
+                    return EBrandCard(
+                      showBorder: true,
+                      onTap: () => Get.to(() => BrandProducts(
+                            brand: brand,
+                          )),
+                      brand: brand,
+                    );
+                  },
+                );
+              }),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/common/common_shapes/containers/circular_container.dart';
-import 'package:e_commerce_app/images/images.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/product_controller.dart';
+import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,17 @@ import '../../../../../utils/constants/enums.dart';
 import '../widgets/brand_text.dart';
 
 class EProductMetaData extends StatelessWidget {
-  const EProductMetaData({super.key});
+  const EProductMetaData({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     //final darkMode = EHelperFunctions.isDarkMode(context);
+    final controller = ProductController.instance;
+    final salePricePercentage =
+        controller.calculateSalePercentage(product.price, product.salePrice);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,7 +35,7 @@ class EProductMetaData extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: ESizes.sm, vertical: ESizes.xs),
               child: Text(
-                '25%',
+                '$salePricePercentage',
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
@@ -40,18 +47,26 @@ class EProductMetaData extends StatelessWidget {
             ),
 
             //price
-            Text(
-              'Ugx 400k',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall!
-                  .apply(decoration: TextDecoration.lineThrough),
-            ),
+            if (product.productType == ProductType.single.toString() &&
+                product.salePrice > 0)
+              Text(
+                'Ugx ${product.price}',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .apply(decoration: TextDecoration.lineThrough),
+              ),
             const SizedBox(
               width: ESizes.spaceBtnItems,
             ),
-            const EProductPriceText(
-              price: '370k',
+            if (product.productType == ProductType.single.toString() &&
+                product.salePrice > 0)
+              const SizedBox(
+                width: ESizes.spaceBtnItems,
+              ),
+            EProductPriceText(
+              price: product.price.toString(),
+              //controller.getProductPrice(product),
               isLarge: true,
             )
           ],
@@ -60,8 +75,8 @@ class EProductMetaData extends StatelessWidget {
           height: ESizes.spaceBtnItems / 1.5,
         ),
         //title
-        const EProductTitleText(
-          title: '6 x 6 inch King size Bed',
+        EProductTitleText(
+          title: product.title,
         ),
         const SizedBox(
           height: ESizes.spaceBtnItems / 1.5,
@@ -75,7 +90,7 @@ class EProductMetaData extends StatelessWidget {
               width: 8,
             ),
             Text(
-              'In Stock',
+              controller.getProductStockStatus(product.stock),
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
@@ -85,16 +100,17 @@ class EProductMetaData extends StatelessWidget {
         ),
 
         //Brand
-        const Row(
+        Row(
           children: [
             ECircularImage(
-              image: EImages.icBeddings,
+              image: product.brand != null ? product.brand!.image : '',
+              isNetworkImage: true,
               width: 40,
               height: 40,
               //overlayColor: darkMode ? EColors.white : EColors.black,
             ),
             EBrandTitleText(
-              title: 'King Size Bed',
+              title: product.brand != null ? product.brand!.name : '',
               brandTextSize: TextSizes.medium,
             ),
           ],

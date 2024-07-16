@@ -3,11 +3,14 @@ import 'package:e_commerce_app/common/common_shapes/layouts/grid_layout.dart';
 import 'package:e_commerce_app/common/products_cart/cart_menu_icon.dart';
 import 'package:e_commerce_app/common/widgets/appbar/appbar.dart';
 import 'package:e_commerce_app/common/widgets/texts/section_heading.dart';
-import 'package:e_commerce_app/features/shop/screens/all_products/sortable.dart';
+import 'package:e_commerce_app/features/shop/controllers/category_controller.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/brand_controller.dart';
+import 'package:e_commerce_app/features/shop/screens/brands/brand_products.dart';
 import 'package:e_commerce_app/features/shop/screens/store/widgets/brand_card.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 
 import 'package:e_commerce_app/utils/constants/sizes.dart';
+import 'package:e_commerce_app/utils/effects/brand_shimmer.dart';
 import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,15 +24,17 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brandController = Get.put(BrandController());
+    final controller = CategoryController.instance.featuredCategories;
     return DefaultTabController(
-      length: 5,
+      length: controller.length,
       child: Scaffold(
         appBar: EAppBar(
           title: Text(
             'Store',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          actions: [ECartControlIcon(onPressed: () {})],
+          actions: const [ECartControlIcon()],
         ),
         body: NestedScrollView(
           headerSliverBuilder: (_, innerBoxIsScrolled) {
@@ -68,52 +73,56 @@ class StoreScreen extends StatelessWidget {
                         onPressed: () => Get.to(() => const AllBrandsScreen()),
                       ),
                       const SizedBox(height: ESizes.spaceBtnItems / 1.5),
-                      EGridLayout(
-                        mainAxisExtent: 55,
-                        itemCount: 4,
-                        itemBuilder: (_, index) {
-                          return EBrandCard(
-                            showBorder: true,
-                            onTap: () => const ESortableProducts(),
+                      Obx(() {
+                        if (brandController.isLoading.value) {
+                          return const EBrandShimmer();
+                        }
+                        if (brandController.featuredBrands.isEmpty) {
+                          return Center(
+                            child: Text(
+                              'No Data Found.',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .apply(color: Colors.black),
+                            ),
                           );
-                        },
-                      ),
+                        }
+                        return EGridLayout(
+                          mainAxisExtent: 55,
+                          itemCount: brandController.featuredBrands.length,
+                          itemBuilder: (_, index) {
+                            final brand = brandController.featuredBrands[index];
+
+                            return EBrandCard(
+                              showBorder: true,
+                              onTap: () =>
+                                  Get.to(() => BrandProducts(brand: brand)),
+                              brand: brand,
+                            );
+                          },
+                        );
+                      }),
                     ],
                   ),
                 ),
 
                 //tabs
-                bottom: const ETabBar(
-                  tabs: [
-                    Tab(
-                      child: Text('Sports'),
-                    ),
-                    Tab(
-                      child: Text('Furniture'),
-                    ),
-                    Tab(
-                      child: Text('Electronics'),
-                    ),
-                    Tab(
-                      child: Text('Clothes'),
-                    ),
-                    Tab(
-                      child: Text('Cosmetics'),
-                    )
-                  ],
+                bottom: ETabBar(
+                  tabs: controller
+                      .map((category) => Tab(
+                            child: Text(category.name),
+                          ))
+                      .toList(),
                 ),
               ),
             ];
           },
           //body
-          body: const TabBarView(
-            children: [
-              ECategoryTab(),
-              ECategoryTab(),
-              ECategoryTab(),
-              ECategoryTab(),
-              ECategoryTab(),
-            ],
+          body: TabBarView(
+            children: controller
+                .map((category) => ECategoryTab(category: category))
+                .toList(),
           ),
         ),
       ),

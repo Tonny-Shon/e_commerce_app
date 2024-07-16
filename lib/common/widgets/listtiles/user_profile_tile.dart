@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/features/authentication/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 
-import '../../../images/images.dart';
 import '../../../utils/constants/colors.dart';
 import '../cicular_image/circular_image.dart';
 

@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/common_shapes/slider_images/slider_images.dart';
 import '../../../../common/product_size_text.dart';
-import '../../../../images/images.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../models/cart_item_model.dart';
 import '../store/widgets/brand_title_icon.dart';
 
 class ECartItem extends StatelessWidget {
   const ECartItem({
     super.key,
+    required this.cartItem,
   });
+  final CartItemModel cartItem;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +21,10 @@ class ECartItem extends StatelessWidget {
       children: [
         //image
         ERoundedImage(
-          imageUrl: EImages.icBeddings,
+          imageUrl: cartItem.image ?? '',
           width: 60,
           height: 60,
+          isNetworkImage: true,
           padding: const EdgeInsets.all(ESizes.sm),
           backgroundColor: EHelperFunctions.isDarkMode(context)
               ? EColors.darkerGrey
@@ -38,29 +41,11 @@ class ECartItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const EBrandTitleVerifiedIcon(title: 'King Size Bed'),
-              const Flexible(
+              EBrandTitleVerifiedIcon(title: cartItem.brandName ?? ''),
+              Flexible(
                 child: EProductTitleText(
-                  title: '6 x 6 King Bed',
+                  title: cartItem.title,
                   maxlines: 1,
-                ),
-              ),
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                        text: 'Color ',
-                        style: Theme.of(context).textTheme.bodySmall),
-                    TextSpan(
-                        text: 'Blue ',
-                        style: Theme.of(context).textTheme.bodyLarge),
-                    TextSpan(
-                        text: 'Size ',
-                        style: Theme.of(context).textTheme.bodySmall),
-                    TextSpan(
-                        text: '6 x 6 ',
-                        style: Theme.of(context).textTheme.bodyLarge),
-                  ],
                 ),
               ),
             ],

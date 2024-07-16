@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../features/shop/controllers/product/cart_controller.dart';
 import '../../utils/constants/colors.dart';
 
 class ECartControlIcon extends StatelessWidget {
   const ECartControlIcon({
     super.key,
     this.iconColor,
-    required this.onPressed,
   });
   final Color? iconColor;
-  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CartController());
     return Stack(
       children: [
         IconButton(
@@ -32,12 +32,14 @@ class ECartControlIcon extends StatelessWidget {
               borderRadius: BorderRadius.circular(200),
             ),
             child: Center(
-              child: Text(
-                '2',
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .apply(color: EColors.white, fontSizeFactor: 1),
+              child: Obx(
+                () => Text(
+                  controller.numberOfCartItems.value.toString(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .apply(color: EColors.white, fontSizeFactor: 1),
+                ),
               ),
             ),
           ),

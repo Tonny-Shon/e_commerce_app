@@ -4,6 +4,7 @@ import 'package:e_commerce_app/features/shop/screens/home/widgets/carousel_slide
 import 'package:e_commerce_app/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/constants/texts.dart';
+import 'package:e_commerce_app/utils/effects/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -13,13 +14,16 @@ import '../../../../common/common_shapes/containers/search_container.dart';
 import '../../../../common/common_shapes/home_categories/home_categories.dart';
 import '../../../../common/common_shapes/layouts/grid_layout.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
-import '../../../../images/images.dart';
+import '../../controllers/product/product_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProductController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -73,23 +77,40 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(ESizes.defaultSpace),
               child: Column(
                 children: [
-                  const ECarouselSlider(
-                    banners: [
-                      EImages.slider1,
-                      EImages.slider2,
-                      EImages.slider3
-                    ],
-                  ),
+                  const ECarouselSlider(),
                   const SizedBox(
                     height: ESizes.spaceBtnItems,
                   ),
                   ESectionHeading(
-                      title: 'Popular products',
-                      onPressed: () => Get.to(() => const AllProducts())),
-                  EGridLayout(
-                    itemCount: 4,
-                    itemBuilder: (_, index) => const EProductCardVertical(),
+                    title: 'Popular products',
+                    onPressed: () => Get.to(
+                      () => AllProducts(
+                        title: 'Popular Products',
+                        //query: FirebaseFirestore.instance.collection('Products').where('IsFeatured', isEqualTo: true).limit(2),
+                        futureMethod: controller.fetchAllFeaturedProducts(),
+                      ),
+                    ),
                   ),
+                  Obx(() {
+                    if (controller.isLoading.value) {
+                      return const EShimmerEffect(width: 55, height: 55);
+                    }
+                    if (controller.featuredProducts.isEmpty) {
+                      return Center(
+                        child: Text(
+                          'No Featured Products found!',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      );
+                    } else {
+                      return EGridLayout(
+                        itemCount: controller.featuredProducts.length,
+                        itemBuilder: (_, index) => EProductCardVertical(
+                          product: controller.featuredProducts[index],
+                        ),
+                      );
+                    }
+                  }),
                 ],
               ),
             ),

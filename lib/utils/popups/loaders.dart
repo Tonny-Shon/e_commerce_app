@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -7,6 +8,28 @@ import '../constants/colors.dart';
 class ELoaders {
   static hideSnackBar() =>
       ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
+
+  static customToast({required message}) {
+    ScaffoldMessenger.of(Get.context!).showSnackBar(
+      SnackBar(
+        content: Container(
+            padding: const EdgeInsets.all(12.0),
+            margin: const EdgeInsets.symmetric(horizontal: 30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: EHelperFunctions.isDarkMode(Get.context!)
+                  ? EColors.darkerGrey.withOpacity(0.1)
+                  : EColors.grey.withOpacity(0.9),
+            ),
+            child: Center(
+              child: Text(
+                message,
+                style: Theme.of(Get.context!).textTheme.labelLarge,
+              ),
+            )),
+      ),
+    );
+  }
 
   static successSnackBar({required title, message = '', duration = 3}) {
     Get.snackbar(title, message,
