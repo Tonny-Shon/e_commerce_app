@@ -143,9 +143,7 @@ class ProductRepository extends GetxController {
   }
 
   //searching for products in the system
-  final Rx<List<ProductModel>?> searchResults = Rx<List<ProductModel>?>(null);
-
-  Future<void> searchProducts(String searchTerm) async {
+  Future<List<ProductModel>> searchProducts(String searchTerm) async {
     try {
       final query = _db
           .collection('Products')
@@ -157,11 +155,9 @@ class ProductRepository extends GetxController {
           .docs
           .map((e) => ProductModel.fromQuerySnapshot(e))
           .toList();
-      print('Found ${result.length} products matching "$searchTerm"');
-      searchResults.value = result;
+      return result;
     } catch (e) {
-      print('Error searching products: $e');
-      searchResults.value = [];
+      throw Exception(e.toString());
     }
   }
 }

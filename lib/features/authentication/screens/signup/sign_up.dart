@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../../../common/widgets/applogo_widget.dart';
 import '../../../../common/widgets/bg_widget.dart';
 import '../../../../common/widgets/our_button.dart';
 import '../../../../utils/constants/colors.dart';
@@ -26,89 +27,76 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return bgWidget(
-      child: Stack(children: [
-        Container(
-            width: MediaQuery.of(context).size.height / 2,
-            decoration: const BoxDecoration(
-              color: Colors.redAccent,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10.0),
-                bottomRight: Radius.circular(10.0),
-              ),
-            ),
-            child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      // (context.screenHeight * 0.1).heightBox,
-                      //applogoWidget(),
-
-                      "Sign Up to ${ETexts.appname2}"
-                          .text
-                          .fontFamily('${FontWeight.bold}')
-                          .color(EColors.redColor)
-                          .size(18)
-                          .make(),
-                      10.heightBox,
-                      Column(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: false,
+        body: Center(
+          child: Column(
+            children: [
+              (context.screenHeight * 0.1).heightBox,
+              applogoWidget(),
+              "Sign Up to ${ETexts.appname2}"
+                  .text
+                  .fontFamily('${FontWeight.bold}')
+                  .color(EColors.whiteColor)
+                  .size(18)
+                  .make(),
+              10.heightBox,
+              Column(
+                children: [
+                  const ESignInForm(),
+                  const ETermsAndConditionsCheckBox(),
+                  8.heightBox,
+                  Obx(
+                    () => ourButton(
+                            onPress: () => controller.signupuser()
+                            //Get.to(() => const VerifyEmailScreen())
+                            ,
+                            color: !controller.privacyPolicy.value
+                                ? EColors.lightGrey
+                                : EColors.redColor,
+                            textColor: EColors.whiteColor,
+                            title: ETexts.signup,
+                            size: 17)
+                        .box
+                        .width(context.screenWidth - 50)
+                        .make(),
+                  ),
+                  10.heightBox,
+                  InkWell(
+                    onTap: () => Get.to(() => const LoginScreen()),
+                    child: RichText(
+                      text: const TextSpan(
                         children: [
-                          const ESignInForm(),
-                          const ETermsAndConditionsCheckBox(),
-                          8.heightBox,
-                          Obx(
-                            () => ourButton(
-                                    onPress: () => controller.signupuser()
-                                    //Get.to(() => const VerifyEmailScreen())
-                                    ,
-                                    color: !controller.privacyPolicy.value
-                                        ? EColors.lightGrey
-                                        : EColors.redColor,
-                                    textColor: EColors.whiteColor,
-                                    title: ETexts.signup,
-                                    size: 17)
-                                .box
-                                .width(context.screenWidth - 50)
-                                .make(),
+                          TextSpan(
+                            text: alreadyHaveAnAccount,
+                            style: TextStyle(
+                                fontFamily: bold, color: Colors.black),
                           ),
-                          10.heightBox,
-                          InkWell(
-                            onTap: () => Get.to(() => const LoginScreen()),
-                            child: RichText(
-                              text: const TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: alreadyHaveAnAccount,
-                                    style: TextStyle(
-                                        fontFamily: bold, color: Colors.black),
-                                  ),
-                                  TextSpan(
-                                    text: ETexts.login,
-                                    style: TextStyle(
-                                        fontFamily: bold,
-                                        color: EColors.redColor,
-                                        fontSize: 17),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          TextSpan(
+                            text: ETexts.login,
+                            style: TextStyle(
+                                fontFamily: bold,
+                                color: EColors.redColor,
+                                fontSize: 17),
                           ),
                         ],
-                      )
-                          .box
-                          .white
-                          .rounded
-                          .padding(const EdgeInsets.all(16))
-                          .width(context.screenWidth - 70)
-                          .shadowSm
-                          .make(),
-                    ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            )),
-      ]),
+                ],
+              )
+                  .box
+                  .white
+                  .rounded
+                  .padding(const EdgeInsets.all(16))
+                  .width(context.screenWidth - 70)
+                  .shadowSm
+                  .make(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:e_commerce_app/features/authentication/screens/onBoarding/widget
 import 'package:e_commerce_app/features/authentication/screens/password_configuration/forgot_password.dart';
 import 'package:e_commerce_app/features/authentication/screens/signup/sign_up.dart';
 import 'package:e_commerce_app/features/authentication/screens/signup/verify_email.dart';
-import 'package:e_commerce_app/features/personalization/screens/addresses/addresses.dart';
 import 'package:e_commerce_app/features/shop/screens/cart/cart.dart';
 import 'package:e_commerce_app/features/shop/screens/cart/checkout/check_out.dart';
 import 'package:e_commerce_app/features/shop/screens/home/home_screen.dart';
@@ -28,7 +27,7 @@ class AppRoutes {
     GetPage(name: ERoutes.checkout, page: () => const CheckoutScreen()),
     GetPage(name: ERoutes.cart, page: () => const CartScreen()),
     GetPage(name: ERoutes.userProfile, page: () => const UserProfileScreen()),
-    GetPage(name: ERoutes.userAddress, page: () => const UserAddressScreen()),
+    //GetPage(name: ERoutes.userAddress, page: () => const UserAddressScreen()),
     GetPage(name: ERoutes.signup, page: () => const SignUpScreen()),
     GetPage(name: ERoutes.verifyEmail, page: () => const VerifyEmailScreen()),
     GetPage(name: ERoutes.signIn, page: () => const LoginScreen()),

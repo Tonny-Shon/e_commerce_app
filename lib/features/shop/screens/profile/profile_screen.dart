@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/common/widgets/appbar/appbar.dart';
 import 'package:e_commerce_app/data/repositories/authentication/authentication_repository.dart';
-import 'package:e_commerce_app/features/personalization/screens/addresses/addresses.dart';
+import 'package:e_commerce_app/features/shop/screens/cart/cart.dart';
 import 'package:e_commerce_app/features/shop/screens/orders/oders.dart';
 import 'package:e_commerce_app/features/shop/screens/profile/widgets/user_profile.dart';
 import 'package:flutter/material.dart';
@@ -61,18 +61,18 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     height: ESizes.spaceBtnItems,
                   ),
-                  ESettingsTile(
-                    icon: Iconsax.safe_home,
-                    title: 'My Address',
-                    subTitle: 'Set shopping delivery address',
-                    onTap: () => Get.to(() => const UserAddressScreen()),
-                  ),
+                  // ESettingsTile(
+                  //   icon: Iconsax.safe_home,
+                  //   title: 'My Address',
+                  //   subTitle: 'Set shopping delivery address',
+                  //   onTap: () => Get.to(() => const UserAddressScreen()),
+                  // ),
 
                   ESettingsTile(
                     icon: Iconsax.shopping_cart,
                     title: 'My Cart',
                     subTitle: 'Add, remove products and move to checkout',
-                    onTap: () {},
+                    onTap: () => Get.to(() => const CartScreen()),
                   ),
                   ESettingsTile(
                     icon: Iconsax.bag_tick,

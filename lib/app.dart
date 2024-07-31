@@ -1,6 +1,8 @@
 import 'package:e_commerce_app/bindings/general_bindings.dart';
+import 'package:e_commerce_app/images/images.dart';
 import 'package:e_commerce_app/routes/app_routes.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
+import 'package:e_commerce_app/utils/constants/image_strings.dart';
 import 'package:e_commerce_app/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,11 +19,25 @@ class MyApp extends StatelessWidget {
       theme: EAppTheme.lightTheme,
       darkTheme: EAppTheme.darkTheme,
       initialBinding: GeneralBindings(),
-      home: const Scaffold(
-        backgroundColor: EColors.primaryColor,
-        body: Center(
-          child: CircularProgressIndicator(
-            color: Colors.white,
+      home: const RefreshScreen(),
+    );
+  }
+}
+
+class RefreshScreen extends StatelessWidget {
+  const RefreshScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(color: EColors.redColor),
+        child: const Center(
+          child: Image(
+            image: AssetImage(
+              EImagesLogos.applogo,
+            ),
+            fit: BoxFit.contain,
           ),
         ),
       ),

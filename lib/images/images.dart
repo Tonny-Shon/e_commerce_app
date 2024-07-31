@@ -38,4 +38,6 @@ class EImages {
   static const paytm = "assets/payment_methods/paytm.jpg";
   static const rave = "assets/payment_methods/rave_payment.png";
   static const rozar = "assets/payment_methods/rozarpay.png";
+  static const airtel = "assets/payment_methods/airtel_logo.png";
+  static const mtn = "assets/payment_methods/mtn_logo.png";
 }

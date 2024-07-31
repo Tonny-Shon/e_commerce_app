@@ -1,18 +1,20 @@
 import 'package:e_commerce_app/common/common_shapes/containers/circular_container.dart';
 import 'package:e_commerce_app/common/widgets/appbar/appbar.dart';
+import 'package:e_commerce_app/common/widgets/texts/section_heading.dart';
+import 'package:e_commerce_app/features/personalization/controllers/address_controller.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/cart_controller.dart';
 import 'package:e_commerce_app/features/shop/screens/cart/checkout/coupon_widget.dart';
-import 'package:e_commerce_app/features/shop/screens/cart/checkout/widgets/billing_address_section.dart';
 import 'package:e_commerce_app/features/shop/screens/cart/checkout/widgets/billlin_payment_section.dart';
 import 'package:e_commerce_app/features/shop/screens/cart/widgets/cart_items.dart';
-import 'package:e_commerce_app/images/images.dart';
-import 'package:e_commerce_app/navigation_menu.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
+import 'package:e_commerce_app/utils/helpers/pricing_calculator.dart';
+import 'package:e_commerce_app/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../common/widgets/success_screen/success_screen.dart';
+import 'controllers/order_controller.dart';
 import 'widgets/billing_amount_section.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -20,6 +22,12 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final addressController = Get.put(AddressController());
+    final cartController = Get.put(CartController());
+    final subTotal = cartController.totalCartPrice.value;
+    final orderController = Get.put(OrderController());
+    final totalAmount = PricingCalculator.calculateTotalPrice(
+        subTotal, '${addressController.selectedAddress.value}');
     final dark = EHelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: EAppBar(
@@ -42,9 +50,15 @@ class CheckoutScreen extends StatelessWidget {
                 height: ESizes.spaceBtnItems,
               ),
 
-              //coupon textfield
-
-              const ECouponCode(),
+              //location field
+              const ESectionHeading(
+                title: 'Choose location',
+                showActionButton: false,
+              ),
+              const SizedBox(
+                height: ESizes.sm,
+              ),
+              const ELocationSelection(),
               const SizedBox(
                 height: ESizes.spaceBtnSections,
               ),
@@ -74,7 +88,6 @@ class CheckoutScreen extends StatelessWidget {
                       height: ESizes.spaceBtnItems,
                     ),
                     //Addresses
-                    EBillingAddressSection()
                   ],
                 ),
               )
@@ -84,15 +97,16 @@ class CheckoutScreen extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(ESizes.defaultSpace),
-        child: ElevatedButton(
-            onPressed: () => Get.to(
-                  () => SuccessScreen(
-                      onPressed: () => Get.to(() => const NavigationMenu()),
-                      image: EImages.icFood,
-                      title: 'Payment Successful',
-                      subTitle: 'Your Item will be shipped soon'),
-                ),
-            child: const Text('Checkout Ugx - 14894000')),
+        child: Obx(
+          () => ElevatedButton(
+              onPressed: subTotal > 0
+                  ? () => orderController.processOrder(totalAmount)
+                  : () => ELoaders.warningSnackBar(
+                      title: 'Empty Cart',
+                      message: 'Add item in the cat in order to proceed'),
+              child: Text(
+                  'Checkout Ugx - ${PricingCalculator.calculateTotalPrice(subTotal, '${addressController.selectedAddress.value}')}')),
+        ),
       ),
     );
   }

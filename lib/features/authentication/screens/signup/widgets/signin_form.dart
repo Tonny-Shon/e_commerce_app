@@ -23,6 +23,7 @@ class ESignInForm extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  style: const TextStyle(color: Colors.black),
                   controller: controller.firstname,
                   validator: (value) =>
                       EValidator.validateEmptyText('First Name', value),
@@ -37,6 +38,7 @@ class ESignInForm extends StatelessWidget {
               ),
               Expanded(
                 child: TextFormField(
+                  style: const TextStyle(color: Colors.black),
                   validator: (value) =>
                       EValidator.validateEmptyText('Last Name', value),
                   controller: controller.lastname,
@@ -52,6 +54,7 @@ class ESignInForm extends StatelessWidget {
             height: ESizes.spaceBtnInputFields,
           ),
           TextFormField(
+            style: const TextStyle(color: Colors.black),
             validator: (value) =>
                 EValidator.validateEmptyText('User Name', value),
             controller: controller.username,
@@ -62,6 +65,7 @@ class ESignInForm extends StatelessWidget {
             height: ESizes.spaceBtnInputFields,
           ),
           TextFormField(
+            style: const TextStyle(color: Colors.black),
             validator: (value) => EValidator.validateEmail(value),
             controller: controller.email,
             decoration: const InputDecoration(
@@ -72,6 +76,7 @@ class ESignInForm extends StatelessWidget {
             height: ESizes.spaceBtnInputFields,
           ),
           TextFormField(
+            style: const TextStyle(color: Colors.black),
             validator: (value) => EValidator.validatePhoneNumber(value),
             controller: controller.phoneNumber,
             decoration: const InputDecoration(
@@ -82,6 +87,7 @@ class ESignInForm extends StatelessWidget {
           ),
           Obx(
             () => TextFormField(
+              style: const TextStyle(color: Colors.black),
               validator: (value) => EValidator.validatePassword(value),
               controller: controller.password,
               obscureText: controller.hidePassword.value,

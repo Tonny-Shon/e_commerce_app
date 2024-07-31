@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:e_commerce_app/data/repositories/product_repository/product_repository.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/utils/local_storage/storage_utility.dart';
-import 'package:e_commerce_app/utils/popups/loaders.dart';
 import 'package:get/get.dart';
 
 class FavoriteController extends GetxController {
@@ -37,13 +35,19 @@ class FavoriteController extends GetxController {
     if (!favorites.containsKey(productId)) {
       favorites[productId] = true;
       saveFavoritesToStorage();
-      ELoaders.customToast(message: 'Product added to wishlist.');
+      Get.snackbar(
+          snackPosition: SnackPosition.BOTTOM,
+          'Success',
+          'Product added to wishlist.');
     } else {
       ELocalStorage.instance().removeData(productId);
       favorites.remove(productId);
       saveFavoritesToStorage();
       favorites.refresh();
-      ELoaders.customToast(message: 'Product removed from wishlist.');
+      Get.snackbar(
+          snackPosition: SnackPosition.BOTTOM,
+          'Success',
+          'Product added to wishlist.');
     }
   }
 

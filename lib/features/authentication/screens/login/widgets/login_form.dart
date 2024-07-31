@@ -24,6 +24,7 @@ class ELoginForm extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
+              style: const TextStyle(color: Colors.black),
               controller: controller.email,
               validator: (value) => EValidator.validateEmail(value),
               decoration: const InputDecoration(
@@ -35,6 +36,7 @@ class ELoginForm extends StatelessWidget {
             ),
             Obx(
               () => TextFormField(
+                style: const TextStyle(color: Colors.black),
                 validator: (value) =>
                     EValidator.validateEmptyText('Password', value),
                 controller: controller.password,

@@ -42,7 +42,7 @@ class ECartItems extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 70,
                                 ),
                                 EProductWithAddAndRemoveButton(

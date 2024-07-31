@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return bgWidget(
         child: Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.transparent,
       body: Center(
         child: Column(
           children: [

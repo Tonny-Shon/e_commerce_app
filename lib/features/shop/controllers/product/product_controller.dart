@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/utils/popups/loaders.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/repositories/product_repository/product_repository.dart';
@@ -11,6 +12,7 @@ class ProductController extends GetxController {
   final productRepository = Get.put(ProductRepository());
   RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
   RxList<ProductModel> searchResults = <ProductModel>[].obs;
+  final searchController = TextEditingController();
 
   @override
   void onInit() {
@@ -47,17 +49,17 @@ class ProductController extends GetxController {
   }
 //searching for products in the search box
 
-  // Future<List<ProductModel>> fetchSearchResults() async {
-  //   try {
-  //     //fetch products
-  //     final products = await productRepository.searchResults();
-  //     searchResults.assignAll(products);
-  //     return featuredProducts;
-  //   } catch (e) {
-  //     ELoaders.erroSnackBar(title: 'Ooops', message: e.toString());
-  //     return [];
-  //   }
-  // }
+  Future<List<ProductModel>> fetchSearchResults(String searchText) async {
+    try {
+      //fetch products
+      final products = await productRepository.searchProducts(searchText);
+      searchResults.assignAll(products);
+      return featuredProducts;
+    } catch (e) {
+      ELoaders.erroSnackBar(title: 'Ooops', message: e.toString());
+      return [];
+    }
+  }
 
   // calculate Discount percentage
   String? calculateSalePercentage(double originalPrice, double? salePrice) {

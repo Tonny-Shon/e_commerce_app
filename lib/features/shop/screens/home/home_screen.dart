@@ -7,10 +7,8 @@ import 'package:e_commerce_app/utils/constants/texts.dart';
 import 'package:e_commerce_app/utils/effects/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/common_shapes/containers/primary_curved_widget.dart';
-import '../../../../common/common_shapes/containers/search_container.dart';
 import '../../../../common/common_shapes/home_categories/home_categories.dart';
 import '../../../../common/common_shapes/layouts/grid_layout.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
@@ -33,16 +31,6 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   //appbar
                   EHomeAppBar(),
-
-                  SizedBox(
-                    height: ESizes.spaceBtnSections,
-                  ),
-
-                  //search bar
-                  ESearchContainer(
-                    text: 'Search In Store',
-                    icon: Iconsax.search_normal,
-                  ),
 
                   SizedBox(
                     height: ESizes.spaceBtnSections,

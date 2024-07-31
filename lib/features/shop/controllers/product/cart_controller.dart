@@ -24,13 +24,6 @@ class CartController extends GetxController {
       ELoaders.customToast(message: 'Select Quantity');
       return;
     } else {
-      // if (product.stock < 1) {
-      //   ELoaders.warningSnackBar(
-      //       message: 'Selected Product is out of stock.',
-      //       title: 'Product out of stock');
-      //   return;
-      // }
-      //convert the productModel to a cartItemModel with the given quantity
       final selectedCartItem =
           convertToCartItem(product, productQuantityInCart.value);
       int index = cartItems.indexWhere(
@@ -91,7 +84,7 @@ class CartController extends GetxController {
     );
   }
 
-  //function to convert the product model to a cartitemmodel
+  //function to convert the product model to a cartItemmodel
   CartItemModel convertToCartItem(ProductModel product, int quantity) {
     return CartItemModel(
       productId: product.id,
