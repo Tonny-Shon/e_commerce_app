@@ -36,17 +36,7 @@ class AllProductsController extends GetxController {
       case 'Lower Price':
         featuredProducts.sort((a, b) => a.price.compareTo(b.price));
         break;
-      case 'Sale':
-        featuredProducts.sort((a, b) {
-          if (b.salePrice > 0) {
-            return b.salePrice.compareTo(a.salePrice);
-          } else if (a.salePrice > 0) {
-            return -1;
-          } else {
-            return 1;
-          }
-        });
-        break;
+
       case 'Newest':
         featuredProducts.sort((a, b) => a.date!.compareTo(b.date!));
         break;

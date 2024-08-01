@@ -4,13 +4,12 @@ class AddressModel {
   String id;
   final String name;
   final double shippingAmount;
-  bool selectedAddress;
 
-  AddressModel(
-      {required this.id,
-      required this.name,
-      required this.shippingAmount,
-      this.selectedAddress = true});
+  AddressModel({
+    required this.id,
+    required this.name,
+    required this.shippingAmount,
+  });
 
   static AddressModel empty() =>
       AddressModel(id: '', name: '', shippingAmount: 0.0);
@@ -20,7 +19,6 @@ class AddressModel {
       'Id': id,
       'Name': name,
       'ShippingAmount': shippingAmount,
-      'IsSelectedAddress': selectedAddress,
     };
   }
 
@@ -33,7 +31,6 @@ class AddressModel {
           : data['ShippingAmount'] is String
               ? double.parse(data['ShippingAmount'] as String)
               : data['ShippingAmount'] ?? 0.0,
-      selectedAddress: data['SelectedAddress'] as bool,
     );
   }
 
@@ -48,12 +45,11 @@ class AddressModel {
           : data['ShippingAmount'] is String
               ? double.parse(data['ShippingAmount'] as String)
               : data['ShippingAmount'] ?? 0.0,
-      selectedAddress: data['SelectedAddress'] ?? false,
     );
   }
   @override
   String toString() {
-    return '$id, $name, $shippingAmount, $selectedAddress';
+    return '$id, $name, $shippingAmount';
   }
 }
 

@@ -55,21 +55,35 @@ class OrderModel {
   }
 
   factory OrderModel.fromSnapshot(DocumentSnapshot document) {
-    final data = document.data() as Map<String, dynamic>;
+    final data = document.data() as Map<String, dynamic>?;
+
+    if (data == null) {
+      throw Exception('Order data is null');
+    }
 
     return OrderModel(
-        id: data['Id'] as String,
-        address: AddressModel.fromMap(data['Address'] as Map<String, dynamic>),
-        deliveryDate: data['DeliveryDate'] == null
-            ? null
-            : (data['DeliveryDate'] as Timestamp).toDate(),
-        status: OrderStatus.values
-            .firstWhere((e) => e.toString() == data['Status']),
-        items: (data['Items'] as List<dynamic>)
-            .map((itemData) =>
-                CartItemModel.fromJson(itemData as Map<String, dynamic>))
-            .toList(),
-        totalAmout: data['TotalAmount'] as double,
-        orderDate: (data['OrderDate'] as Timestamp).toDate());
+      id: data['Id'] as String? ?? '', // Provide default value
+      address: data['Address'] != null
+          ? AddressModel.fromMap(data['Adress'] as Map<String, dynamic>)
+          : AddressModel.empty(), // Handle null address
+      deliveryDate: data['DeliveryDate'] != null
+          ? (data['DeliveryDate'] as Timestamp).toDate()
+          : null,
+      status: data['Status'] != null
+          ? OrderStatus.values.firstWhere((e) => e.toString() == data['Status'],
+              orElse: () => OrderStatus.processing) // Handle unknown status
+          : OrderStatus.processing, // Provide default value
+      items: data['Items'] != null
+          ? (data['Items'] as List<dynamic>)
+              .map((itemData) =>
+                  CartItemModel.fromJson(itemData as Map<String, dynamic>))
+              .toList()
+          : [], // Provide default empty list
+      totalAmout:
+          data['TotalAmount'] as double? ?? 0.0, // Provide default value
+      orderDate: data['OrderDate'] != null
+          ? (data['OrderDate'] as Timestamp).toDate()
+          : DateTime.now(), // Provide default value
+    );
   }
 }

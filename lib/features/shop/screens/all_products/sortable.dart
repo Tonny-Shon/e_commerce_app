@@ -31,7 +31,6 @@ class ESortableProducts extends StatelessWidget {
               'Name',
               'Higher Price',
               'Lower Price',
-              'Sale',
               'Newest',
             ]
                 .map(

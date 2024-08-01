@@ -11,6 +11,7 @@ class ProductController extends GetxController {
   final isLoading = false.obs;
   final productRepository = Get.put(ProductRepository());
   RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
+  RxList<ProductModel> allProducts = <ProductModel>[].obs;
   RxList<ProductModel> searchResults = <ProductModel>[].obs;
   final searchController = TextEditingController();
 
@@ -18,6 +19,7 @@ class ProductController extends GetxController {
   void onInit() {
     super.onInit();
     fetchFeaturedProducts();
+    fetchAllProducts();
   }
 
   void fetchFeaturedProducts() async {
@@ -58,6 +60,31 @@ class ProductController extends GetxController {
     } catch (e) {
       ELoaders.erroSnackBar(title: 'Ooops', message: e.toString());
       return [];
+    }
+  }
+
+  Future<void> fetchAllProducts() async {
+    try {
+      isLoading.value = true;
+      final products = await productRepository.getAllProducts();
+      allProducts.assignAll(products);
+      searchResults.assignAll(products);
+    } catch (e) {
+      ELoaders.erroSnackBar(title: 'Ooops', message: e.toString());
+      allProducts.clear();
+      searchResults.clear();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  void filterProducts(String searchText) {
+    if (searchText.isEmpty) {
+      searchResults.assignAll(allProducts);
+    } else {
+      searchResults.assignAll(allProducts.where((product) {
+        return product.title.toLowerCase().contains(searchText.toLowerCase());
+      }).toList());
     }
   }
 

@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/bindings/general_bindings.dart';
-import 'package:e_commerce_app/images/images.dart';
 import 'package:e_commerce_app/routes/app_routes.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/image_strings.dart';

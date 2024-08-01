@@ -24,9 +24,7 @@ class AddressController extends GetxController {
   Future<List<AddressModel>> allUserAddresses() async {
     try {
       final addresses = await addressRepository.fetchUserAddresses();
-      selectedAddress.value = addresses.firstWhere(
-          (element) => element.selectedAddress,
-          orElse: AddressModel.empty);
+
       return addresses;
     } catch (e) {
       ELoaders.erroSnackBar(title: 'Address Not Found', message: e.toString());

@@ -12,8 +12,10 @@ class ECartItem extends StatelessWidget {
   const ECartItem({
     super.key,
     required this.cartItem,
+    this.quantity,
   });
   final CartItemModel cartItem;
+  final String? quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,16 @@ class ECartItem extends StatelessWidget {
                   maxlines: 1,
                 ),
               ),
+              Flexible(
+                  child: Row(
+                children: [
+                  const Text('Qty: '),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text('${cartItem.quantity}')
+                ],
+              ))
             ],
           ),
         ),

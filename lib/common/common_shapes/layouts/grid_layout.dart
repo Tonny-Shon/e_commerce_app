@@ -17,7 +17,7 @@ class EGridLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       padding: EdgeInsets.zero,
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const ScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: ESizes.gridViewSpacing,

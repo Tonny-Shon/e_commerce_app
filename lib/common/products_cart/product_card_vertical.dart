@@ -54,27 +54,6 @@ class EProductCardVertical extends StatelessWidget {
                     ),
                   ),
 
-                  //sale tag
-                  // if (salePercentage != null)
-                  //   Positioned(
-                  //     top: 10,
-                  //     child: ERoundedContainer(
-                  //       radius: ESizes.sm,
-                  //       backgroundColor:
-                  //           EColors.secondaryColor.withOpacity(0.8),
-                  //       padding: const EdgeInsets.symmetric(
-                  //           horizontal: ESizes.md, vertical: ESizes.md),
-                  //       child: Center(
-                  //         child: Text(
-                  //           salePercentage,
-                  //           style: Theme.of(context)
-                  //               .textTheme
-                  //               .labelLarge!
-                  //               .apply(color: EColors.black),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
                   //favorite icon button
                   Positioned(
                     top: 0,

@@ -5,7 +5,7 @@ import '../../utils/constants/colors.dart';
 import '../../utils/constants/styles.dart';
 
 Widget customTextField(
-    {String? title,
+    {String title = '',
     String? hint,
     controller,
     double? size,
@@ -13,11 +13,7 @@ Widget customTextField(
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      title!.text
-          .color(EColors.redColor)
-          .fontFamily(semibold)
-          .size(size)
-          .make(),
+      title.text.color(EColors.redColor).fontFamily(semibold).size(size).make(),
       5.heightBox,
       TextFormField(
         obscureText: isObsecure,

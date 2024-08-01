@@ -81,8 +81,8 @@ class SubCategoriesScreen extends StatelessWidget {
                                           title: subCategory.name,
                                           futureMethod:
                                               controller.getCategoryProducts(
-                                                  categoryId: subCategory.id,
-                                                  limit: 1),
+                                            categoryId: subCategory.id,
+                                          ),
                                         ),
                                       ),
                                     ),

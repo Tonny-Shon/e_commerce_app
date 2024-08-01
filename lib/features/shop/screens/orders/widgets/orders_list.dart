@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/common/common_shapes/containers/circular_container.dart';
 import 'package:e_commerce_app/features/shop/screens/cart/checkout/controllers/order_controller.dart';
+import 'package:e_commerce_app/features/shop/screens/orders/widgets/order_details.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/helpers/cloud_helper_functions.dart';
@@ -74,7 +75,9 @@ class EOrderListItems extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () => Get.to(() => OrderDetailsScreen(
+                                    order: order,
+                                  )),
                               icon: const Icon(Iconsax.arrow_right_34,
                                   size: ESizes.iconSm))
                         ],

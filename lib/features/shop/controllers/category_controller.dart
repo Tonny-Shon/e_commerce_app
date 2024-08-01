@@ -33,7 +33,8 @@ class CategoryController extends GetxController {
 
       //filter featured categories
       featuredCategories.assignAll(allCategories
-          .where((category) => category.isFeatured && category.parentId.isEmpty)
+          .where(
+              (category) => category.isFeatured && category.parentId.isNotEmpty)
           .take(8)
           .toList());
     } catch (e) {
@@ -58,12 +59,13 @@ class CategoryController extends GetxController {
   }
 
   //Get category or sub category products
-  Future<List<ProductModel>> getCategoryProducts(
-      {required categoryId, int limit = 4}) async {
+  Future<List<ProductModel>> getCategoryProducts({
+    required categoryId,
+  }) async {
     try {
       //fetch limited products against each subcategory;
       final products = await ProductRepository.instance
-          .getProductsForCategory(categoryId: categoryId, limit: limit);
+          .getProductsForCategory(categoryId: categoryId, limit: 4);
       return products;
     } catch (e) {
       ELoaders.erroSnackBar(title: 'Ooops', message: e.toString());

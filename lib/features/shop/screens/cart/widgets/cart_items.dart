@@ -8,7 +8,10 @@ import '../add_remove_button.dart';
 import '../cart_item.dart';
 
 class ECartItems extends StatelessWidget {
-  const ECartItems({super.key, this.showAddRemoveButtons = true});
+  const ECartItems({
+    super.key,
+    this.showAddRemoveButtons = true,
+  });
 
   final bool showAddRemoveButtons;
 

@@ -2,6 +2,7 @@ import 'package:e_commerce_app/common/products_cart/product_card_vertical.dart';
 import 'package:e_commerce_app/features/shop/screens/all_products/all_products.dart';
 import 'package:e_commerce_app/features/shop/screens/home/widgets/carousel_slider.dart';
 import 'package:e_commerce_app/features/shop/screens/home/widgets/home_appbar.dart';
+import 'package:e_commerce_app/features/shop/screens/search_screen/search_screen.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/constants/texts.dart';
 import 'package:e_commerce_app/utils/effects/shimmer.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/common_shapes/containers/primary_curved_widget.dart';
+import '../../../../common/common_shapes/containers/search_container.dart';
 import '../../../../common/common_shapes/home_categories/home_categories.dart';
 import '../../../../common/common_shapes/layouts/grid_layout.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
@@ -26,36 +28,43 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const EPrimaryCurvedWidget(
+            EPrimaryCurvedWidget(
               child: Column(
                 children: [
                   //appbar
-                  EHomeAppBar(),
+                  const EHomeAppBar(),
 
-                  SizedBox(
-                    height: ESizes.spaceBtnSections,
+                  const SizedBox(
+                    height: ESizes.spaceBtnItems,
                   ),
 
                   //categories
                   Padding(
-                    padding: EdgeInsets.only(left: ESizes.defaultSpace),
+                    padding: const EdgeInsets.only(left: ESizes.defaultSpace),
                     child: Column(
                       children: [
+                        ESearchContainer(
+                          text: 'Search Products',
+                          ontap: () => Get.to(() => const ESearchScreen()),
+                        ),
+                        const SizedBox(
+                          height: ESizes.spaceBtnItems,
+                        ),
                         //Heading
-                        ESectionHeading(
+                        const ESectionHeading(
                           title: ETexts.popularCategories,
                           showActionButton: false,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: ESizes.spaceBtnItems,
                         ),
 
                         //Categories
-                        EHomeCategories(),
+                        const EHomeCategories(),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: ESizes.spaceBtnSections,
                   )
                 ],
