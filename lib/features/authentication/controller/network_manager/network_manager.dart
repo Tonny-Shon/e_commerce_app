@@ -18,15 +18,13 @@ class NetworkManager extends GetxController {
   void onInit() {
     super.onInit();
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
-            _updateConnectionStatus as void Function(
-                List<ConnectivityResult> event)?)
-        as StreamSubscription<ConnectivityResult>;
+            _updateConnectionStatus as void Function(ConnectivityResult event)?);
     _initializeConnectionStatus();
   }
 
   Future<void> _initializeConnectionStatus() async {
     ConnectivityResult result =
-        (await _connectivity.checkConnectivity()) as ConnectivityResult;
+        (await _connectivity.checkConnectivity());
     _updateConnectionStatus(result);
   }
 

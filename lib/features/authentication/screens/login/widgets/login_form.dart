@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/features/authentication/controller/login/login_controller.dart';
 import 'package:e_commerce_app/features/authentication/screens/password_configuration/forgot_password.dart';
 import 'package:e_commerce_app/features/authentication/screens/signup/sign_up.dart';
+import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/validators/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,12 +25,13 @@ class ELoginForm extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
-              style: const TextStyle(color: Colors.black),
+              // style: const TextStyle(color: Colors.white),
               controller: controller.email,
               validator: (value) => EValidator.validateEmail(value),
               decoration: const InputDecoration(
-                  prefixIcon: Icon(Iconsax.direct_right),
-                  labelText: ETexts.email),
+                prefixIcon: Icon(Iconsax.direct_right),
+                labelText: ETexts.email,
+              ),
             ),
             const SizedBox(
               height: ESizes.spaceBtnInputFields,
@@ -63,6 +65,7 @@ class ELoginForm extends StatelessWidget {
                   children: [
                     Obx(
                       () => Checkbox(
+                          activeColor: EColors.primaryColor,
                           value: controller.rememberMe.value,
                           onChanged: (value) => controller.rememberMe.value =
                               !controller.rememberMe.value),
@@ -74,7 +77,9 @@ class ELoginForm extends StatelessWidget {
                 //forgot password button
                 TextButton(
                     onPressed: () => Get.to(() => const ForgotPassword()),
-                    child: const Text(ETexts.forgotPassword))
+                    child: const Text(
+                      ETexts.forgotPassword,
+                    ))
               ],
             ),
 
@@ -85,6 +90,9 @@ class ELoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: EColors.primaryColor,
+                    side: const BorderSide(color: Colors.transparent)),
                 onPressed: () => controller.loginuser(),
                 child: const Text(ETexts.signIn),
               ),
@@ -94,6 +102,8 @@ class ELoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: EColors.primaryColor)),
                 onPressed: () {
                   Get.offAll(() => const SignUpScreen());
                 },

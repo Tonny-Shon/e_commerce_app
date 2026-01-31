@@ -57,8 +57,8 @@ class AllBrandsScreen extends StatelessWidget {
                     return EBrandCard(
                       showBorder: true,
                       onTap: () => Get.to(() => BrandProducts(
-                            brand: brand,
-                          )),
+                        brand: brand,
+                      )),
                       brand: brand,
                     );
                   },

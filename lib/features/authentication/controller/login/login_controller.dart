@@ -31,8 +31,8 @@ class LoginController extends GetxController {
       //     "We are processing your informaation", EImages.flutterwave);
 
       //check internet connectivity
-      final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) return;
+      // final isConnected = await NetworkManager.instance.isConnected();
+      // if (!isConnected) return;
 
       //form validation
       if (!loginformkey.currentState!.validate()) return;

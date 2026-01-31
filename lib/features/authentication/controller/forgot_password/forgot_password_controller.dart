@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/data/repositories/authentication/authentication_repository.dart';
-import 'package:e_commerce_app/features/authentication/controller/network_manager/network_manager.dart';
 import 'package:e_commerce_app/features/authentication/screens/password_configuration/reset_password.dart';
 import 'package:e_commerce_app/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +14,8 @@ class ForgotPasswordController extends GetxController {
   //send the reset password email
   sendPasswordResetEmail() async {
     try {
-      final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) return;
+      // final isConnected = await NetworkManager.instance.isConnected();
+      // if (!isConnected) return;
 
       //form validation
       if (!forgotPasswordFormkey.currentState!.validate()) return;
@@ -40,8 +39,8 @@ class ForgotPasswordController extends GetxController {
 
   resendPasswordResetEmail(String email) async {
     try {
-      final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) return;
+      // final isConnected = await NetworkManager.instance.isConnected();
+      // if (!isConnected) return;
 
       await AuthenticationRepository.instance.sendPasswordResetEmail(email);
 

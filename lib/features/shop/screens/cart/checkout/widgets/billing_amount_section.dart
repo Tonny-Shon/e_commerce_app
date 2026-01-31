@@ -44,7 +44,7 @@ class EBillingAmountSection extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               Text(
-                'Ugx - ${PricingCalculator.calculateShippingCost(subTotal, '${addressController.selectedAddress.value}')}',
+                'Ugx - ${PricingCalculator.calculateShiipingCost(subTotal, '${addressController.selectedAddress.value}')}',
                 style: Theme.of(context).textTheme.labelLarge,
               ),
             ],

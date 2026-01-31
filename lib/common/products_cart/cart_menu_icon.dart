@@ -18,27 +18,30 @@ class ECartControlIcon extends StatelessWidget {
     final controller = Get.put(CartController());
     return Stack(
       children: [
-        IconButton(
-          onPressed: () => Get.to(() => const CartScreen()),
-          icon: Icon(Iconsax.shopping_bag, color: iconColor),
+        Padding(
+          padding: const EdgeInsets.only(right: 5.0),
+          child: IconButton(
+            onPressed: () => Get.to(() => const CartScreen()),
+            icon: Icon(Iconsax.shopping_bag, color: iconColor),
+          ),
         ),
         Positioned(
-          right: 0,
+          right: 5,
           child: Container(
             width: 18,
             height: 18,
             decoration: BoxDecoration(
-              color: EColors.black,
+              color: EColors.white,
               borderRadius: BorderRadius.circular(200),
             ),
             child: Center(
               child: Obx(
-                () => Text(
-                  controller.numberOfCartItems.value.toString(),
+                    () => Text(
+                  '${controller.cartItems.length}',
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
-                      .apply(color: EColors.white, fontSizeFactor: 1),
+                      .apply(color: EColors.primaryColor, fontSizeFactor: 1),
                 ),
               ),
             ),

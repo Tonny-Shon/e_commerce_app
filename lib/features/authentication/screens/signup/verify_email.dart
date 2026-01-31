@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:e_commerce_app/features/authentication/controller/signup/verify_email_controller.dart';
+import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/image_strings.dart';
 import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/cupertino.dart';
@@ -68,6 +69,7 @@ class VerifyEmailScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: EColors.primaryColor),
                   onPressed: () => controller.checkEmailVerificationStatus(),
                   child: const Text(ETexts.proceed)),
             ),

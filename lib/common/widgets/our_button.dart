@@ -5,6 +5,7 @@ Widget ourButton({onPress, color, textColor, String? title, double? size}) {
   return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
+        side: const BorderSide(color: Colors.transparent),
         padding: const EdgeInsets.all(12),
       ),
       onPressed: onPress,

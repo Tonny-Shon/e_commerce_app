@@ -39,17 +39,17 @@ class ProductDetails extends StatelessWidget {
                     product: product,
                   ),
 
-                  const SizedBox(
-                    height: ESizes.spaceBtnSections,
-                  ),
+                  // const SizedBox(
+                  //   height: ESizes.spaceBtnSections,
+                  // ),
                   //Checkout button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('CheckOut'),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton(
+                  //     onPressed: () {},
+                  //     child: const Text('CheckOut'),
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: ESizes.spaceBtnItems,
                   ),

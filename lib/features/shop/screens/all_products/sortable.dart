@@ -26,7 +26,7 @@ class ESortableProducts extends StatelessWidget {
             decoration: const InputDecoration(
               prefixIcon: Icon(Iconsax.sort),
             ),
-            value: controller.selectedSortOption.value,
+            initialValue: controller.selectedSortOption.value,
             items: [
               'Name',
               'Higher Price',
@@ -35,10 +35,10 @@ class ESortableProducts extends StatelessWidget {
             ]
                 .map(
                   (option) => DropdownMenuItem(
-                    value: option,
-                    child: Text(option),
-                  ),
-                )
+                value: option,
+                child: Text(option),
+              ),
+            )
                 .toList(),
             onChanged: (value) {
               controller.sortProducts(value!);
@@ -49,7 +49,7 @@ class ESortableProducts extends StatelessWidget {
 
         //Products
         Obx(
-          () => EGridLayout(
+              () => EGridLayout(
             itemCount: controller.featuredProducts.length,
             itemBuilder: (_, index) => EProductCardVertical(
               product: controller.featuredProducts[index],

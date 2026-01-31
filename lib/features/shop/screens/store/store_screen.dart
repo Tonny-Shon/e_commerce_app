@@ -30,9 +30,21 @@ class StoreScreen extends StatelessWidget {
       length: controller.length,
       child: Scaffold(
         appBar: EAppBar(
-          title: Text(
-            'Store',
-            style: Theme.of(context).textTheme.headlineMedium,
+          title: Row(
+            children: [
+              Text(
+                'ABRAH',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(
+                width: ESizes.spaceBtnItems / 4,
+              ),
+              Text(
+                'Store',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              
+            ],
           ),
           actions: const [ECartControlIcon()],
         ),
@@ -111,8 +123,8 @@ class StoreScreen extends StatelessWidget {
                 bottom: ETabBar(
                   tabs: controller
                       .map((category) => Tab(
-                            child: Text(category.name),
-                          ))
+                    child: Text(category.name),
+                  ))
                       .toList(),
                 ),
               ),

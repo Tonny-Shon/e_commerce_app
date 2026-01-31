@@ -20,8 +20,8 @@ class NavigationMenu extends StatelessWidget {
         () => NavigationBar(
           backgroundColor: darkMode ? EColors.black : Colors.white,
           indicatorColor: darkMode
-              ? EColors.white.withOpacity(0.1)
-              : EColors.black.withOpacity(0.2),
+              ? EColors.white.withValues(alpha:0.1)
+              : EColors.black.withValues(alpha:0.2),
           height: 60,
           elevation: 0,
           selectedIndex: controller.selectedIndex.value,

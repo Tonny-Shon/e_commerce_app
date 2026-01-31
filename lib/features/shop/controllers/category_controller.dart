@@ -14,6 +14,16 @@ class CategoryController extends GetxController {
   final RxList<CategoryModel> allCategories = <CategoryModel>[].obs;
   final RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
 
+  final productRepo = Get.find<ProductRepository>();
+
+  // final RxList<CategoryModel> categories = <CategoryModel>[].obs;
+
+  ///Cache category products
+  final Map<String, List<ProductModel>> categoryProducts = {};
+
+  final isLoadingCategories = false.obs;
+
+
   @override
   void onInit() {
     super.onInit();
@@ -57,6 +67,16 @@ class CategoryController extends GetxController {
       return [];
     }
   }
+
+  // Future<void> fetchCategories() async{
+  //   try{
+  //     isLoadingCategories.value = true;
+  //     categories.assignAll(await CategoryRepository.getHomeCategories());
+  //   }finally{
+  //     isLoadingCategories.value = false;
+  //   }
+  // }
+// }
 
   //Get category or sub category products
   Future<List<ProductModel>> getCategoryProducts({

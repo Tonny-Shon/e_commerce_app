@@ -1,7 +1,7 @@
-import 'package:e_commerce_app/common/widgets/applogo_widget.dart';
+import 'package:e_commerce_app/features/authentication/screens/login/login.dart';
 import 'package:e_commerce_app/images/images.dart';
-import 'package:e_commerce_app/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,52 +13,62 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  //creating a method to change the screen
   @override
   void initState() {
     super.initState();
-    // Timer(
-    //   const Duration(seconds: 3),
-    //   () => Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) {},
-    //     ),
-    //   ),
-    // );
+
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(Get.context!,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
-      body: Center(
-        child: Column(children: [
-          const Align(
-            alignment: Alignment.topLeft,
-            child: Image(
-                image: AssetImage(
+      body: Stack(
+        children: [
+          /// Background Image
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Image.asset(
               EImages.icSplashBg,
-            )),
+              fit: BoxFit.cover,
+            ),
           ),
-          20.heightBox,
-          applogoWidget(),
-          10.heightBox,
-          ETexts.appname.text
-              .fontFamily('${FontWeight.bold}')
-              .size(22)
-              .white
-              .make(),
-          5.heightBox,
-          ETexts.appname1.text
-              .fontFamily('${FontWeight.bold}')
-              .size(30)
-              .white
-              .make(),
-          const Spacer(),
-          ETexts.credits.text.white.fontFamily('${FontWeight.w500}').make(),
-          30.heightBox,
-        ]),
+
+          /// Bottom Loading Section
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                /// Loading Indicator
+                const CircularProgressIndicator(
+                  strokeWidth: 3,
+                  color: Colors.blue,
+                ),
+
+                12.heightBox,
+
+                /// Loading text
+                "Loading...".text.color(Colors.grey.shade700).size(14).make(),
+
+                20.heightBox,
+
+                /// Developer Name
+                "Shontian Developers"
+                    .text
+                    .color(Colors.grey.shade600)
+                    .size(12)
+                    .make(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

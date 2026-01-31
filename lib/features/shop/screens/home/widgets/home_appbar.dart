@@ -32,18 +32,24 @@ class EHomeAppBar extends StatelessWidget {
               return const EShimmerEffect(width: 80, height: 15);
             } else {
               return Text(
-                controller.user.value.fullname,
+                // controller.user.value.fullname,
+                ETexts.appname,
                 style: Theme.of(context)
                     .textTheme
-                    .headlineSmall!
+                    .headlineMedium!
                     .apply(color: EColors.white),
               );
             }
           }),
         ],
       ),
-      actions: const [
-        ECartControlIcon(
+      actions: [
+        Text(
+          controller.user.value.username,
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, color: EColors.white, fontSize: 20),
+        ),
+        const ECartControlIcon(
           iconColor: EColors.white,
         )
       ],

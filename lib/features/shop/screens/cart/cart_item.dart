@@ -50,16 +50,22 @@ class ECartItem extends StatelessWidget {
                   maxlines: 1,
                 ),
               ),
-              Flexible(
-                  child: Row(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Qty: '),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text('${cartItem.quantity}')
+                  Flexible(
+                      child: Row(
+                    children: [
+                      const Text('Qty: '),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text('${cartItem.quantity}')
+                    ],
+                  )),
+                  Text('${cartItem.price * cartItem.quantity}')
                 ],
-              ))
+              )
             ],
           ),
         ),

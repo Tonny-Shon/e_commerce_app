@@ -12,6 +12,7 @@ class ECategoryShimmer extends StatelessWidget {
     return SizedBox(
       height: 80,
       child: ListView.separated(
+        scrollDirection: Axis.horizontal,
           shrinkWrap: true,
           itemBuilder: (_, __) {
             return const Column(

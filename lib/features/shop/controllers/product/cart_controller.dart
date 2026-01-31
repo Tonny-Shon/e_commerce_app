@@ -3,6 +3,7 @@ import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/local_storage/storage_utility.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -18,16 +19,19 @@ class CartController extends GetxController {
     loadCartItems();
   }
 
+  bool isProductInCart(String productId){
+    return cartItems.any((item) => item.productId == productId);
+  }
+
   //add items to cart
-  void addToCart(ProductModel product) {
+  void addToCart(ProductModel product, {int? quantity}) {
+    final qty = quantity ?? productQuantityInCart.value;
     //quantity check
-    if (productQuantityInCart.value < 1) {
+    if (qty < 1) {
       Get.snackbar('Error', 'Select quantity');
-      //ELoaders.customToast(message: 'Select Quantity');
       return;
     } else {
-      final selectedCartItem =
-          convertToCartItem(product, productQuantityInCart.value);
+      final selectedCartItem = convertToCartItem(product, qty);
       int index = cartItems.indexWhere(
           (cartItem) => cartItem.productId == selectedCartItem.productId);
 
@@ -127,12 +131,12 @@ class CartController extends GetxController {
 
   void saveCartItems() {
     final cartItemStrings = cartItems.map((item) => item.toJson()).toList();
-    ELocalStorage.instance().saveData('CartItems', cartItemStrings);
+    ELocalStorage().saveData('CartItems', cartItemStrings);
   }
 
   void loadCartItems() {
     final cartItemStrings =
-        ELocalStorage.instance().readData<List<dynamic>>('CartItems');
+        ELocalStorage().readData<List<dynamic>>('CartItems');
     if (cartItemStrings != null) {
       cartItems.assignAll(cartItemStrings
           .map((item) => CartItemModel.fromJson(item as Map<String, dynamic>)));
@@ -155,5 +159,24 @@ class CartController extends GetxController {
 
   void updateAlreadyAddedProductCount(ProductModel product) {
     productQuantityInCart.value = getProductQuantityInCart(product.id);
+  }
+
+  //Haptic feedback
+  Future<void> hapticSuccess() async{
+    await HapticFeedback.mediumImpact();
+    await Future.delayed(const Duration(microseconds: 50));
+    await HapticFeedback.lightImpact();
+  }
+
+  Future<void> hapticError() async{
+    await HapticFeedback.heavyImpact();
+  }
+
+  Future<void> hapticAdd() async{
+    await HapticFeedback.selectionClick();
+  }
+
+  Future<void> hapticRemove() async{
+    await HapticFeedback.vibrate();
   }
 }

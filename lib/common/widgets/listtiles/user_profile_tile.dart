@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/features/authentication/controller/user_controller.dart';
+import 'package:e_commerce_app/images/images.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
@@ -16,7 +17,7 @@ class EUserProfileTile extends StatelessWidget {
     final controller = UserController.instance;
     return ListTile(
       leading: ECircularImage(
-        image: controller.user.value.profilePicture,
+        image: controller.user.value.profilePicture ,
         isNetworkImage: true,
         width: 50,
         height: 50,
@@ -32,7 +33,7 @@ class EUserProfileTile extends StatelessWidget {
       subtitle: Text(
         controller.user.value.email,
         style:
-            Theme.of(context).textTheme.bodyMedium!.apply(color: EColors.white),
+        Theme.of(context).textTheme.bodyMedium!.apply(color: EColors.white),
       ),
       trailing: IconButton(
         onPressed: onPressed,

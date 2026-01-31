@@ -1,12 +1,13 @@
 class EValidator {
-  //Empty text validations
+
+   //Empty text validations
   static String? validateEmptyText(String? firstname, String? value) {
     if (value == null || value.isEmpty) {
       return '$firstname is required.';
     }
     return null;
   }
-
+  
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required.';

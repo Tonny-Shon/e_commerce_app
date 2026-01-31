@@ -15,7 +15,7 @@ class EHomeCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryController = Get.put(CategoryController());
     return Obx(() {
-      if (categoryController.isLoading.value) return const ECategoryShimmer();
+      if (categoryController.isLoading.value) return const ECategoryShimmer(itemCount: 4,);
       if (categoryController.featuredCategories.isEmpty) {
         return Center(
           child: Text(

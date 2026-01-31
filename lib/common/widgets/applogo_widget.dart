@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 Widget applogoWidget() {
-  return Image.asset("assets/logos/logo.png")
+  return Image.asset("assets/logos/abrah_logo.jpeg")
       .box
       .white
       .size(77, 77)

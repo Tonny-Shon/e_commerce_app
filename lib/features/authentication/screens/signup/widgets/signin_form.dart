@@ -86,7 +86,7 @@ class ESignInForm extends StatelessWidget {
             height: ESizes.spaceBtnInputFields,
           ),
           Obx(
-            () => TextFormField(
+                () => TextFormField(
               style: const TextStyle(color: Colors.black),
               validator: (value) => EValidator.validatePassword(value),
               controller: controller.password,
@@ -95,7 +95,7 @@ class ESignInForm extends StatelessWidget {
                   prefixIcon: const Icon(Iconsax.password_check),
                   suffixIcon: IconButton(
                     onPressed: () => controller.hidePassword.value =
-                        !controller.hidePassword.value,
+                    !controller.hidePassword.value,
                     icon: Icon(controller.hidePassword.value
                         ? Iconsax.eye_slash
                         : Iconsax.eye),

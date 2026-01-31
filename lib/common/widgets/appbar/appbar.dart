@@ -1,8 +1,6 @@
-import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 class EAppBar extends StatelessWidget implements PreferredSizeWidget {
   const EAppBar(
@@ -23,14 +21,14 @@ class EAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: ESizes.md,
+        horizontal: 2,
       ),
       child: AppBar(
         automaticallyImplyLeading: false,
         leading: showBackArrow
             ? IconButton(
                 onPressed: () => Get.back(),
-                icon: const Icon(Iconsax.arrow_left),
+                icon: const Icon(Icons.arrow_back_ios),
               )
             : leadingIcon != null
                 ? IconButton(

@@ -19,57 +19,57 @@ class ECartItems extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
     return Obx(
-      () => ListView.separated(
+          () => ListView.separated(
           shrinkWrap: true,
           separatorBuilder: (_, __) => const SizedBox(
-                height: ESizes.spaceBtnSections,
-              ),
+            height: ESizes.spaceBtnSections,
+          ),
           itemBuilder: (_, index) => Obx(
                 () {
-                  final cartItem = cartController.cartItems[index];
-                  return Column(
-                    children: [
-                      //cart items
-                      ECartItem(
-                        cartItem: cartItem,
-                      ),
-                      if (showAddRemoveButtons)
-                        const SizedBox(
-                          height: ESizes.spaceBtnItems,
-                        ),
+              final cartItem = cartController.cartItems[index];
+              return Column(
+                children: [
+                  //cart items
+                  ECartItem(
+                    cartItem: cartItem,
+                  ),
+                  if (showAddRemoveButtons)
+                    const SizedBox(
+                      height: ESizes.spaceBtnItems,
+                    ),
 
-                      // Add Remove Button Row with total price
-                      if (showAddRemoveButtons)
+                  // Add Remove Button Row with total price
+                  if (showAddRemoveButtons)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 70,
-                                ),
-                                EProductWithAddAndRemoveButton(
-                                  quantity: cartItem.quantity,
-                                  addButton: () =>
-                                      cartController.addItemToCart(cartItem),
-                                  removeButton: () => cartController
-                                      .removeItemFromCart(cartItem),
-                                ),
-                              ],
+                            const SizedBox(
+                              width: 70,
                             ),
-                            //Add, Remove buttons
-
-                            //product total price
-                            EProductPriceText(
-                                price: (cartItem.price * cartItem.quantity)
-                                    .toStringAsFixed(2)),
+                            EProductWithAddAndRemoveButton(
+                              quantity: cartItem.quantity,
+                              addButton: () =>
+                                  cartController.addItemToCart(cartItem),
+                              removeButton: () => cartController
+                                  .removeItemFromCart(cartItem),
+                            ),
                           ],
                         ),
-                      const Divider(),
-                    ],
-                  );
-                },
-              ),
+                        //Add, Remove buttons
+
+                        //product total price
+                        EProductPriceText(
+                            price: (cartItem.price * cartItem.quantity)
+                                .toStringAsFixed(2)),
+                      ],
+                    ),
+                  const Divider(),
+                ],
+              );
+            },
+          ),
           itemCount: cartController.cartItems.length),
     );
   }

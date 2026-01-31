@@ -26,12 +26,14 @@ class SignupController extends GetxController {
   Future<void> signupuser() async {
     try {
       // EFullScreenLoader.openLoadingDialog(
-      //     "We are processing your informaation", EImages.flutterwave);
+      //     "We are processing your information", EImages.flutterwave);
+      // print('Signup button pressed');
 
       //check internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) return;
 
+       // print("Network status is fine");
       //form validation
       if (!signupFormkey.currentState!.validate()) return;
 
@@ -48,7 +50,7 @@ class SignupController extends GetxController {
       final userCredential = await AuthenticationRepository.instance
           .registerWithEmailAndPassword(
               email.text.trim(), password.text.trim());
-
+      // print("Signing up user");
       //Save Authenticationuser data in the Firebase Firestore
       final newUser = UserModel(
           id: userCredential.user!.uid,
@@ -61,14 +63,14 @@ class SignupController extends GetxController {
 
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
-
+      // print("User created already");
       //success message
       ELoaders.successSnackBar(
           title: 'Congratulations',
           message: 'Your account has been created! verify email to continue.');
 
       //move to verify email screen
-      Get.to(() => VerifyEmailScreen(
+      Get.to(() =>  VerifyEmailScreen(
             email: email.text.trim(),
           ));
     } catch (e) {

@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,8 +19,8 @@ class ELoaders {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: EHelperFunctions.isDarkMode(Get.context!)
-                  ? EColors.darkerGrey.withOpacity(0.1)
-                  : EColors.grey.withOpacity(0.9),
+                  ? EColors.darkerGrey.withValues(alpha:0.1)
+                  : EColors.grey.withValues(alpha:0.9),
             ),
             child: Center(
               child: Text(
@@ -74,5 +75,40 @@ class ELoaders {
           Iconsax.warning_21,
           color: EColors.white,
         ));
+  }
+
+  static void showSuccessSnackBar({
+    required String title,
+    required String message,
+  }){
+    Get.snackbar(title, message, snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: Colors.green,
+    colorText: EColors.white,
+    duration: const Duration(seconds: 2),
+    animationDuration: const Duration(milliseconds: 300),
+    icon: const Icon(Iconsax.tick_circle, color: EColors.white,),
+    shouldIconPulse: true,
+    margin: const EdgeInsets.all(ESizes.defaultSpace),
+    borderRadius: ESizes.cardRadiusLg,
+    mainButton: TextButton(onPressed: () => Get.closeCurrentSnackbar(),
+     child: const Icon(Icons.close, color: EColors.white,))
+    );
+  }
+
+  static void showUndoSnackbar({
+    required String message,
+    required VoidCallback onUndo,
+  }){
+    Get.snackbar('Removed', message, snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: EColors.error,
+    colorText: EColors.white,
+    duration: const Duration(seconds: 3),
+    animationDuration: const Duration(milliseconds: 300),
+    icon: const Icon(Iconsax.trash, color: EColors.white,),
+    borderRadius: ESizes.cardRadiusLg,
+    margin: const EdgeInsets.all(ESizes.defaultSpace),
+    mainButton: TextButton(onPressed: () { Get.closeCurrentSnackbar(); onUndo();},
+     child: const Text('UNDO', style: TextStyle(color:  EColors.white, fontWeight: FontWeight.bold),),
+    ));
   }
 }

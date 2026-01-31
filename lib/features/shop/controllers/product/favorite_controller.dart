@@ -20,7 +20,7 @@ class FavoriteController extends GetxController {
 
   //Method to intialize favorites by reading from storage
   Future<void> initFavorites() async {
-    final json = ELocalStorage.instance().readData('favorites');
+    final json = ELocalStorage().readData('favorites');
 
     if (json != null) {
       final storedFavorites = jsonDecode(json) as Map<String, dynamic>;
@@ -44,7 +44,7 @@ class FavoriteController extends GetxController {
           'Success',
           'Product added to wishlist.');
     } else {
-      ELocalStorage.instance().removeData(productId);
+      ELocalStorage().removeData(productId);
       favorites.remove(productId);
       saveFavoritesToStorage();
       favorites.refresh();
@@ -59,7 +59,7 @@ class FavoriteController extends GetxController {
 
   void saveFavoritesToStorage() {
     final encodedFavorites = json.encode(favorites);
-    ELocalStorage.instance().saveData('favorites', encodedFavorites);
+    ELocalStorage().saveData('favorites', encodedFavorites);
   }
 
   Future<List<ProductModel>> favoriteProducts() async {

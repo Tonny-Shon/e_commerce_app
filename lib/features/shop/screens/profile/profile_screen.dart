@@ -40,8 +40,8 @@ class ProfileScreen extends StatelessWidget {
                   //user profile card
                   EUserProfileTile(
                       onPressed: () => Get.to(
-                            const UserProfileScreen(),
-                          )),
+                        const UserProfileScreen(),
+                      )),
                   const SizedBox(
                     height: ESizes.spaceBtnSections,
                   ),
@@ -88,6 +88,7 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(side: const BorderSide(color: EColors.primaryColor)),
                       onPressed: () =>
                           AuthenticationRepository.instance.logout(),
                       child: const Text('Logout'),

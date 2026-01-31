@@ -1,6 +1,4 @@
-import 'package:e_commerce_app/features/authentication/screens/login/widgets/form_divider.dart';
 import 'package:e_commerce_app/features/authentication/screens/login/widgets/login_form.dart';
-import 'package:e_commerce_app/features/authentication/screens/login/widgets/social_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -21,38 +19,47 @@ class _LoginScreenState extends State<LoginScreen> {
     //final dark = EHelperFunctions.isDarkMode(context);
     return bgWidget(
         child: Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
-      body: Center(
-        child: Column(
-          children: [
-            (context.screenHeight * 0.1).heightBox,
-            applogoWidget(),
-            10.heightBox,
-            "Log in to ${ETexts.appname2}"
-                .text
-                .fontFamily('${FontWeight.bold}')
-                .black
-                .size(17)
-                .make(),
-            10.heightBox,
-            Column(
-              children: [
-                const ELoginForm(),
-                const EFormDivider(dividerText: ETexts.signInWith),
-                5.heightBox,
-                const ESocialButtons(),
-                5.heightBox,
-              ],
-            )
-                .box
-                .white
-                .rounded
-                .padding(const EdgeInsets.all(16))
-                .width(context.screenWidth - 70)
-                .shadowSm
-                .make(),
-          ],
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(
+          30,
+          30,
+          30,
+          30 + MediaQuery.of(context).viewInsets.bottom,
+        ),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: Center(
+          child: Column(
+            children: [
+              (context.screenHeight * 0.1).heightBox,
+              applogoWidget(),
+              10.heightBox,
+              "Log in to ${ETexts.appname2}"
+                  .text
+                  .fontFamily('${FontWeight.bold}')
+                  .white
+                  .size(17)
+                  .make(),
+              10.heightBox,
+              Column(
+                children: [
+                  const ELoginForm(),
+                  // const EFormDivider(dividerText: ETexts.signInWith),
+                  // 5.heightBox,
+                  // const ESocialButtons(),
+                  5.heightBox,
+                ],
+              )
+                  .box
+                  .white
+                  .rounded
+                  .padding(const EdgeInsets.all(16))
+                  .width(context.screenWidth - 70)
+                  .shadowSm
+                  .make(),
+            ],
+          ),
         ),
       ),
     ));

@@ -35,17 +35,17 @@ class ECarouselSlider extends StatelessWidget {
                       controller.updatepageIndicator(index)),
               items: controller.banners
                   .map((banner) => ERoundedImage(
-                        imageUrl: banner.imageUrl,
-                        isNetworkImage: true,
-                        onPressed: () => Get.toNamed(banner.targetScreen),
-                      ))
+                imageUrl: banner.imageUrl,
+                isNetworkImage: true,
+                onPressed: () => Get.toNamed(banner.targetScreen),
+              ))
                   .toList(),
             ),
             const SizedBox(
-              height: ESizes.spaceBtnItems,
+              height: ESizes.spaceBtnItems / 4,
             ),
             Obx(
-              () => Row(
+                  () => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   for (int i = 0; i < controller.banners.length; i++)
@@ -54,9 +54,9 @@ class ECarouselSlider extends StatelessWidget {
                       height: 4,
                       margin: const EdgeInsets.only(right: 10),
                       backgroundColor:
-                          controller.carouselCurrentIndex.value == i
-                              ? EColors.primaryColor
-                              : EColors.grey,
+                      controller.carouselCurrentIndex.value == i
+                          ? EColors.primaryColor
+                          : EColors.grey,
                     ),
                 ],
               ),

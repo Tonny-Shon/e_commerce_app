@@ -15,6 +15,8 @@ class ProductController extends GetxController {
   RxList<ProductModel> searchResults = <ProductModel>[].obs;
   final searchController = TextEditingController();
 
+  final Map<String, List<ProductModel>> _categoryCache = {};
+
   @override
   void onInit() {
     super.onInit();
@@ -87,6 +89,18 @@ class ProductController extends GetxController {
       }).toList());
     }
   }
+
+Future<List<ProductModel>> getCategoryProducts(String categoryId) async {
+  if (_categoryCache.containsKey(categoryId)) {
+    return _categoryCache[categoryId]!;
+  }
+
+  final products =
+      await productRepository.getProductsForCategory(categoryId: categoryId);
+
+  _categoryCache[categoryId] = products;
+  return products;
+}
 
   // calculate Discount percentage
   String? calculateSalePercentage(double originalPrice, double? salePrice) {

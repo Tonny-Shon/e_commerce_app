@@ -1,5 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:e_commerce_app/utils/effects/shimmer.dart';
+import 'package:e_commerce_app/images/images.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
@@ -40,23 +39,25 @@ class ECircularImage extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100),
-        child: Center(
-          child: isNetworkImage
-              ? CachedNetworkImage(
+        child: isNetworkImage
+            ? Image.network(
+                image,
+                fit: fit,
+                width: width - padding * 2,
+                height: height - padding * 2,
+                errorBuilder: (context, error, stackTrace) => Image.asset(
+                  EImages.user,
                   fit: fit,
-                  color: overlayColor,
-                  imageUrl: image,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      const EShimmerEffect(width: 55, height: 55),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                )
-              : Image(
-                  image: AssetImage(image),
-                  //color: EColors.white,
-                  fit: fit,
-                  color: overlayColor,
+                  width: width - padding ,
+                  height: height - padding ,
                 ),
-        ),
+              )
+            : Image.asset(
+                image,
+                fit: fit,
+                width: width - padding * 2,
+                height: height - padding * 2,
+              ),
       ),
     );
   }

@@ -1,9 +1,8 @@
 import 'package:e_commerce_app/data/repositories/user/user_repository.dart';
 import 'package:e_commerce_app/features/authentication/screens/login/login.dart';
-import 'package:e_commerce_app/features/authentication/screens/onBoarding/widgets/onboarding.dart';
 import 'package:e_commerce_app/features/authentication/screens/signup/verify_email.dart';
+import 'package:e_commerce_app/features/shop/screens/splash_screen.dart';
 import 'package:e_commerce_app/navigation_menu.dart';
-import 'package:e_commerce_app/utils/local_storage/storage_utility.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -16,7 +15,7 @@ import '../../../features/authentication/controller/signup/exceptions.dart';
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
-  //vaiables
+  //variables
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
 
@@ -36,11 +35,11 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       if (user.emailVerified) {
         //Initialize User specific storage
-        await ELocalStorage.init(user.uid);
+        await GetStorage.init(user.uid);
         Get.offAll(() => const NavigationMenu());
       } else {
-        Get.offAll(() => VerifyEmailScreen(
-              email: _auth.currentUser!.email,
+        Get.offAll(() => const VerifyEmailScreen(
+              // email: _auth.currentUser!.email,
             ));
       }
     } else {
@@ -48,7 +47,7 @@ class AuthenticationRepository extends GetxController {
       deviceStorage.writeIfNull("IsFirstTime", true);
       deviceStorage.read('IsFirstTime') != true
           ? Get.offAll(() => const LoginScreen())
-          : Get.offAll(const OnBoardingScreen());
+          : Get.offAll(const SplashScreen());
     }
   }
 

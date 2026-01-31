@@ -29,12 +29,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return bgWidget(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        resizeToAvoidBottomInset: false,
-        body: Center(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(
+            30,
+            30,
+            30,
+            30 + MediaQuery.of(context).viewInsets.bottom,
+          ),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               (context.screenHeight * 0.1).heightBox,
               applogoWidget(),
+              10.heightBox,
               "Sign Up to ${ETexts.appname2}"
                   .text
                   .fontFamily('${FontWeight.bold}')
@@ -48,16 +57,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const ETermsAndConditionsCheckBox(),
                   8.heightBox,
                   Obx(
-                    () => ourButton(
-                            onPress: () => controller.signupuser()
-                            //Get.to(() => const VerifyEmailScreen())
-                            ,
-                            color: !controller.privacyPolicy.value
-                                ? EColors.lightGrey
-                                : EColors.redColor,
-                            textColor: EColors.whiteColor,
-                            title: ETexts.signup,
-                            size: 17)
+                        () => ourButton(
+
+                        onPress: () => controller.signupuser()
+                        //Get.to(() => const VerifyEmailScreen())
+                        ,
+                        color: !controller.privacyPolicy.value
+                            ? EColors.lightGrey
+                            : EColors.buttonPrimary,
+                        textColor: EColors.whiteColor,
+                        title: ETexts.signup,
+                        size: 17)
                         .box
                         .width(context.screenWidth - 50)
                         .make(),
@@ -74,10 +84,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 fontFamily: bold, color: Colors.black),
                           ),
                           TextSpan(
-                            text: ETexts.login,
+                            text:'  ${ETexts.login}',
                             style: TextStyle(
                                 fontFamily: bold,
-                                color: EColors.redColor,
+                                color: EColors.buttonPrimary,
                                 fontSize: 17),
                           ),
                         ],

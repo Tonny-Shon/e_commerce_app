@@ -28,75 +28,75 @@ class EProductImageSlider extends StatelessWidget {
 
     return EPrimaryCurvedWidget(
         child: Container(
-      color: dark ? EColors.darkerGrey : EColors.light,
-      child: Stack(
-        children: [
-          //Main Image
-          SizedBox(
-            height: 400,
-            child: Padding(
-              padding: const EdgeInsets.all(ESizes.productImageRadius * 2),
-              child: Center(
-                child: Obx(
-                  () {
-                    final image = controller.selectedProductImage.value;
-                    return GestureDetector(
-                      onTap: () => controller.showLargeImage(image),
-                      child: CachedNetworkImage(
-                        imageUrl: image,
-                        progressIndicatorBuilder: (_, __, downloadProgress) =>
-                            CircularProgressIndicator(
-                          value: downloadProgress.progress,
-                          color: EColors.primaryColor,
-                        ),
-                      ),
-                    );
-                  },
+          color: dark ? EColors.darkerGrey : EColors.light,
+          child: Stack(
+            children: [
+              //Main Image
+              SizedBox(
+                height: 400,
+                child: Padding(
+                  padding: const EdgeInsets.all(ESizes.productImageRadius * 2),
+                  child: Center(
+                    child: Obx(
+                          () {
+                        final image = controller.selectedProductImage.value;
+                        return GestureDetector(
+                          onTap: () => controller.showLargeImage(image),
+                          child: CachedNetworkImage(
+                            imageUrl: image,
+                            progressIndicatorBuilder: (_, __, downloadProgress) =>
+                                CircularProgressIndicator(
+                                  value: downloadProgress.progress,
+                                  color: EColors.primaryColor,
+                                ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          //Slider Images
-          Positioned(
-            right: 0,
-            bottom: 30,
-            left: ESizes.defaultSpace,
-            child: SizedBox(
-              height: 80,
-              child: ListView.separated(
-                physics: const AlwaysScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: images.length,
-                separatorBuilder: (_, imdex) => const SizedBox(
-                  width: ESizes.spaceBtnItems,
-                ),
-                itemBuilder: (_, index) => Obx(() {
-                  final imageSelected =
-                      controller.selectedProductImage.value == images[index];
-                  return ERoundedImage(
-                      isNetworkImage: true,
-                      width: 80,
-                      backgroundColor: dark ? EColors.dark : EColors.white,
-                      onPressed: () =>
+              //Slider Images
+              Positioned(
+                right: 0,
+                bottom: 30,
+                left: ESizes.defaultSpace,
+                child: SizedBox(
+                  height: 80,
+                  child: ListView.separated(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: images.length,
+                    separatorBuilder: (_, imdex) => const SizedBox(
+                      width: ESizes.spaceBtnItems,
+                    ),
+                    itemBuilder: (_, index) => Obx(() {
+                      final imageSelected =
+                          controller.selectedProductImage.value == images[index];
+                      return ERoundedImage(
+                          isNetworkImage: true,
+                          width: 80,
+                          backgroundColor: dark ? EColors.dark : EColors.white,
+                          onPressed: () =>
                           controller.selectedProductImage.value = images[index],
-                      border: Border.all(
-                          color: imageSelected
-                              ? EColors.primaryColor
-                              : Colors.transparent),
-                      padding: const EdgeInsets.all(ESizes.sm),
-                      imageUrl: images[index]);
-                }),
+                          border: Border.all(
+                              color: imageSelected
+                                  ? EColors.primaryColor
+                                  : Colors.transparent),
+                          padding: const EdgeInsets.all(ESizes.sm),
+                          imageUrl: images[index]);
+                    }),
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          //App bar
-          EAppBar(
-            showBackArrow: true,
-            actions: [EFavoriteIcon(productId: product.id)],
-          )
-        ],
-      ),
-    ));
+              //App bar
+              EAppBar(
+                showBackArrow: true,
+                actions: [EFavoriteIcon(productId: product.id)],
+              )
+            ],
+          ),
+        ));
   }
 }

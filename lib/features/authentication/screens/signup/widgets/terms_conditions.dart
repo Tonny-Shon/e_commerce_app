@@ -18,7 +18,8 @@ class ETermsAndConditionsCheckBox extends StatelessWidget {
       children: [
         Obx(
           () => Checkbox(
-            checkColor: EColors.redColor,
+            checkColor: EColors.white,
+            activeColor: EColors.buttonPrimary,
             value: controller.privacyPolicy.value,
             onChanged: (value) => controller.privacyPolicy.value =
                 !controller.privacyPolicy.value,
@@ -36,7 +37,7 @@ class ETermsAndConditionsCheckBox extends StatelessWidget {
                 TextSpan(
                   text: termsAndConditions,
                   style:
-                      TextStyle(fontFamily: regular, color: EColors.redColor),
+                      TextStyle(fontFamily: regular, color: EColors.primaryColor),
                 ),
                 TextSpan(
                   text: " & ",
@@ -46,7 +47,7 @@ class ETermsAndConditionsCheckBox extends StatelessWidget {
                 TextSpan(
                   text: privacyPolicy,
                   style:
-                      TextStyle(fontFamily: regular, color: EColors.redColor),
+                      TextStyle(fontFamily: regular, color: EColors.primaryColor),
                 ),
               ],
             ),

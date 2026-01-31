@@ -1,22 +1,17 @@
 import 'package:e_commerce_app/common/widgets/appbar/appbar.dart';
 import 'package:e_commerce_app/common/widgets/cicular_image/circular_image.dart';
 import 'package:e_commerce_app/common/widgets/texts/section_heading.dart';
-import 'package:e_commerce_app/features/authentication/controller/user_controller.dart';
 import 'package:e_commerce_app/features/shop/screens/profile/widgets/profile_menu.dart';
 import 'package:e_commerce_app/images/images.dart';
-import 'package:e_commerce_app/utils/effects/shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../../../utils/constants/sizes.dart';
-import 'change_name.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = UserController.instance;
     return Scaffold(
       appBar: const EAppBar(
         showBackArrow: true,
@@ -31,21 +26,13 @@ class UserProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: [
-                    Obx(() {
-                      final networkImage = controller.user.value.profilePicture;
-                      final image =
-                          networkImage.isNotEmpty ? networkImage : EImages.user;
-                      return controller.imageLoading.value
-                          ? const EShimmerEffect(width: 80, height: 80)
-                          : ECircularImage(
-                              image: image,
-                              width: 80,
-                              height: 80,
-                              isNetworkImage: networkImage.isNotEmpty,
-                            );
-                    }),
+                    const ECircularImage(
+                      image: EImages.user,
+                      width: 80,
+                      height: 80,
+                    ),
                     TextButton(
-                        onPressed: () => controller.uploadUserProfilePicture(),
+                        onPressed: () {},
                         child: const Text('Change Profile Picture'))
                   ],
                 ),
@@ -66,14 +53,14 @@ class UserProfileScreen extends StatelessWidget {
               const SizedBox(height: ESizes.spaceBtnItems),
 
               EProfileMenu(
-                onPressed: () => Get.to(() => const ChangeName()),
+                onPressed: () {},
                 title: 'Name',
-                value: controller.user.value.fullname,
+                value: 'Shontian',
               ),
               EProfileMenu(
                 onPressed: () {},
                 title: 'Username',
-                value: controller.user.value.username,
+                value: '@shon',
               ),
 
               const SizedBox(height: ESizes.spaceBtnItems),
@@ -89,17 +76,17 @@ class UserProfileScreen extends StatelessWidget {
               EProfileMenu(
                 onPressed: () {},
                 title: 'User Id',
-                value: controller.user.value.id,
+                value: '2344325',
               ),
               EProfileMenu(
                 onPressed: () {},
                 title: 'E-mail',
-                value: controller.user.value.email,
+                value: 'shontian143@gmail.com',
               ),
               EProfileMenu(
                 onPressed: () {},
                 title: 'Phone Number',
-                value: controller.user.value.phoneNumber,
+                value: '+256-756505146',
               ),
               EProfileMenu(
                 onPressed: () {},
@@ -116,7 +103,7 @@ class UserProfileScreen extends StatelessWidget {
               const Divider(),
               Center(
                 child: TextButton(
-                  onPressed: () => controller.deleteAccountWarningPopup(),
+                  onPressed: () {},
                   child: const Text(
                     'Close Account',
                     style: TextStyle(color: Colors.red),

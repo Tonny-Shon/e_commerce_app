@@ -1,6 +1,4 @@
-import 'package:e_commerce_app/common/common_shapes/slider_images/slider_images.dart';
 import 'package:e_commerce_app/common/products_cart/product_card_horizontal.dart';
-import 'package:e_commerce_app/common/widgets/appbar/appbar.dart';
 import 'package:e_commerce_app/common/widgets/texts/section_heading.dart';
 import 'package:e_commerce_app/features/shop/controllers/category_controller.dart';
 import 'package:e_commerce_app/features/shop/models/category_model.dart';
@@ -10,6 +8,7 @@ import 'package:e_commerce_app/utils/helpers/cloud_helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../common/common_shapes/vertical_image/vertical_image.dart';
 import '../../../../utils/effects/vertical_shimmer_effect.dart';
 import '../../models/product_model.dart';
 
@@ -21,28 +20,48 @@ class SubCategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = CategoryController.instance;
     return Scaffold(
-      appBar: EAppBar(
-        title: Text(
-          category.name,
-        ),
-        showBackArrow: true,
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back_ios_new)),
+        title:
+            Text(category.name),
+            actions: [
+          EVerticalImage(
+                image: category.image,
+                title: category.name,
+                onTap: () {},
+              )
+        ],
       ),
+      // EAppBar(
+      //   actions: [
+      //     EVerticalImage(
+      //           image: category.image,
+      //           title: category.name,
+      //           onTap: () {},
+      //         )
+      //   ],
+      //   title: Text(
+      //     category.name,
+      //   ),
+      //   showBackArrow: true,
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(ESizes.defaultSpace),
           child: Column(
             children: [
               //Banner
-              ERoundedImage(
-                imageUrl: category.image,
-                width: double.infinity,
-                isNetworkImage: true,
-                height: null,
-                applyImageRadius: true,
-              ),
-              const SizedBox(
-                height: ESizes.spaceBtnItems,
-              ),
+              // ERoundedImage(
+              //   imageUrl: category.image,
+              //   width: double.infinity,
+              //   isNetworkImage: true,
+              //   height: null,
+              //   applyImageRadius: true,
+              // ),
+              // const SizedBox(
+              //   height: ESizes.spaceBtnItems,
+              // ),
 
               //subCategories
               FutureBuilder<List<CategoryModel>>(

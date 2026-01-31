@@ -118,38 +118,74 @@ class ProductRepository extends GetxController {
     }
   }
 
+
+  Future<List<ProductModel>> getProductsForCategory({
+  required String categoryId,
+  int limit = 6,
+}) async {
+  // 1️⃣ Get Product IDs for Category
+  final productCategoryQuery = await _db
+      .collection('ProductCategory')
+      .where('CategoryId', isEqualTo: categoryId)
+      .limit(limit)
+      .get();
+
+  // 2️⃣ Extract Product IDs
+  final productIds = productCategoryQuery.docs
+      .map((doc) => doc['ProductId'] as String)
+      .toList();
+
+  // 🔴 IMPORTANT: Avoid whereIn with empty list
+  if (productIds.isEmpty) return [];
+
+  // 🔴 Firestore whereIn supports max 10 items
+  final limitedProductIds = productIds.take(10).toList();
+
+  // 3️⃣ Fetch Products
+  final productsQuery = await _db
+      .collection('Products')
+      .where(FieldPath.documentId, whereIn: limitedProductIds)
+      .get();
+
+  // 4️⃣ Map to Model
+  return productsQuery.docs
+      .map((doc) => ProductModel.fromQuerySnapshot(doc))
+      .toList();
+}
+
+
   //Get category or sub category data
-  Future<List<ProductModel>> getProductsForCategory(
-      {required String categoryId, int limit = -1}) async {
-    QuerySnapshot productCategoryQuery = limit == -1
-        ? await _db
-            .collection('ProductCategory')
-            .where('CategoryId', isEqualTo: categoryId)
-            .get()
-        : await _db
-            .collection('ProductCategory')
-            .where('CategoryId', isEqualTo: categoryId)
-            .limit(limit)
-            .get();
+  // Future<List<ProductModel>> getProductsForCategory(
+  //     {required String categoryId, int limit = -1}) async {
+  //   QuerySnapshot productCategoryQuery = limit == -1
+  //       ? await _db
+  //           .collection('ProductCategory')
+  //           .where('CategoryId', isEqualTo: categoryId)
+  //           .get()
+  //       : await _db
+  //           .collection('ProductCategory')
+  //           .where('CategoryId', isEqualTo: categoryId)
+  //           .limit(limit)
+  //           .get();
 
-    //Extract productIds from the document
-    List<String> productIds = productCategoryQuery.docs
-        .map((doc) => doc['ProductId'] as String)
-        .toList();
+  //   //Extract productIds from the document
+  //   List<String> productIds = productCategoryQuery.docs
+  //       .map((doc) => doc['ProductId'] as String)
+  //       .toList();
 
-    //Query to get all documents where the brandIs is in the list of brandIds, FieldPath.documentId to query documents in collection
-    final productsQuery = await _db
-        .collection('Products')
-        .where(FieldPath.documentId, whereIn: productIds)
-        .get();
+  //   //Query to get all documents where the brandIs is in the list of brandIds, FieldPath.documentId to query documents in collection
+  //   final productsQuery = await _db
+  //       .collection('Products')
+  //       .where(FieldPath.documentId, whereIn: productIds)
+  //       .get();
 
-    //Extract brand names or other relevant data from the documents
-    List<ProductModel> products = productsQuery.docs
-        .map((doc) => ProductModel.fromQuerySnapshot(doc))
-        .toList();
+  //   //Extract brand names or other relevant data from the documents
+  //   List<ProductModel> products = productsQuery.docs
+  //       .map((doc) => ProductModel.fromQuerySnapshot(doc))
+  //       .toList();
 
-    return products;
-  }
+  //   return products;
+  // }
 
   //searching for products in the system
   Future<List<ProductModel>> searchProducts(String searchTerm) async {

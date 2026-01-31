@@ -1,6 +1,4 @@
-import 'package:e_commerce_app/features/authentication/controller/login/login_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/image_strings.dart';
@@ -13,7 +11,6 @@ class ESocialButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LoginController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -26,9 +23,9 @@ class ESocialButtons extends StatelessWidget {
             icon: const Image(
               width: ESizes.iconMd,
               height: ESizes.iconMd,
-              image: AssetImage(EImagesLogos.google),
+              image: AssetImage(EImagesLogos.facebook),
             ),
-            onPressed: () => controller.googleSignin(),
+            onPressed: () {},
           ),
         ),
         const SizedBox(
@@ -43,7 +40,7 @@ class ESocialButtons extends StatelessWidget {
             icon: const Image(
               width: ESizes.iconMd,
               height: ESizes.iconMd,
-              image: AssetImage(EImagesLogos.facebook),
+              image: AssetImage(EImagesLogos.google),
             ),
             onPressed: () {},
           ),

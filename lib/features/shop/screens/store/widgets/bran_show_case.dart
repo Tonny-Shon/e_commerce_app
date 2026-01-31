@@ -24,7 +24,7 @@ class EShowBrandCase extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Get.to(
-        () => BrandProducts(brand: brand),
+            () => BrandProducts(brand: brand),
       ),
       child: ERoundedContainer(
         padding: const EdgeInsets.all(ESizes.sm),
@@ -61,7 +61,7 @@ class EShowBrandCase extends StatelessWidget {
             imageUrl: image,
             fit: BoxFit.contain,
             progressIndicatorBuilder: (context, url, downloadProgress) =>
-                const EShimmerEffect(width: 100, height: 80),
+            const EShimmerEffect(width: 100, height: 80),
             errorWidget: (context, url, error) => const Icon(Icons.error)),
       ),
     );

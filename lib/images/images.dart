@@ -2,7 +2,7 @@ class EImages {
   EImages._();
 
   static const icSplashBg =
-      "assets/icons/splash_login_registration_background_image.png";
+      "assets/images/abrah_splash_screen_1.png";
 
 //categories images
 
@@ -29,6 +29,8 @@ class EImages {
   static const bgImage = "assets/icons/bg.png";
 
   //payment methods
+  static const airtel = "assets/payment_methods/airtel_logo.png";
+  static const mtn = "assets/payment_methods/mtn_logo.png";
   static const flutterwave = "assets/payment_methods/flutterwave.png";
   static const mpesa = "assets/payment_methods/mpesa.png";
   static const payfast = "assets/payment_methods/payfast.png";
@@ -38,6 +40,4 @@ class EImages {
   static const paytm = "assets/payment_methods/paytm.jpg";
   static const rave = "assets/payment_methods/rave_payment.png";
   static const rozar = "assets/payment_methods/rozarpay.png";
-  static const airtel = "assets/payment_methods/airtel_logo.png";
-  static const mtn = "assets/payment_methods/mtn_logo.png";
 }

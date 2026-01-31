@@ -3,8 +3,8 @@ import 'package:e_commerce_app/common/widgets/appbar/appbar.dart';
 import 'package:e_commerce_app/common/widgets/texts/section_heading.dart';
 import 'package:e_commerce_app/features/personalization/controllers/address_controller.dart';
 import 'package:e_commerce_app/features/shop/controllers/product/cart_controller.dart';
-import 'package:e_commerce_app/features/shop/screens/cart/checkout/coupon_widget.dart';
 import 'package:e_commerce_app/features/shop/screens/cart/checkout/widgets/billlin_payment_section.dart';
+import 'package:e_commerce_app/features/shop/screens/cart/checkout/widgets/location_selection.dart';
 import 'package:e_commerce_app/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
@@ -98,12 +98,13 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(ESizes.defaultSpace),
         child: Obx(
-          () => ElevatedButton(
+              () => ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: EColors.primaryColor, side: BorderSide.none),
               onPressed: subTotal > 0
                   ? () => orderController.processOrder(totalAmount)
                   : () => ELoaders.warningSnackBar(
-                      title: 'Empty Cart',
-                      message: 'Add item in the cat in order to proceed'),
+                  title: 'Empty Cart',
+                  message: 'Add item in the cart in order to proceed'),
               child: Text(
                   'Checkout Ugx - ${PricingCalculator.calculateTotalPrice(subTotal, '${addressController.selectedAddress.value}')}')),
         ),

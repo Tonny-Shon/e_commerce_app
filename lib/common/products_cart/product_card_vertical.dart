@@ -115,7 +115,7 @@ class EProductCardVertical extends StatelessWidget {
                   child: Column(
                     children: [
                       if (product.productType ==
-                              ProductType.single.toString() &&
+                          ProductType.single.toString() &&
                           product.salePrice > 0)
                         Padding(
                           //Price, show sale price as main price if sale exists.
@@ -132,8 +132,8 @@ class EProductCardVertical extends StatelessWidget {
                         //Price, show sale price as main price if sale exists.
                         padding: const EdgeInsets.only(left: ESizes.sm),
                         child: EProductPriceText(price: product.price.toString()
-                            //controller.getProductPrice(product),
-                            ),
+                          //controller.getProductPrice(product),
+                        ),
                       ),
                     ],
                   ),

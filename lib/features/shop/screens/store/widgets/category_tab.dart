@@ -37,13 +37,13 @@ class ECategoryTab extends StatelessWidget {
               ////Products
               FutureBuilder(
                   future:
-                      controller.getCategoryProducts(categoryId: category.id),
+                  controller.getCategoryProducts(categoryId: category.id),
                   builder: (context, snapshot) {
                     //checking the connections
                     final response =
-                        ECloudHelperFunctions.checkMultiRecordState(
-                            snapshot: snapshot,
-                            loader: const EVerticalShimmerEffect());
+                    ECloudHelperFunctions.checkMultiRecordState(
+                        snapshot: snapshot,
+                        loader: const EVerticalShimmerEffect());
                     if (response != null) return response;
 
                     //records found
@@ -54,7 +54,7 @@ class ECategoryTab extends StatelessWidget {
                           title: 'You might like',
                           showActionButton: true,
                           onPressed: () => Get.to(
-                            () => AllProducts(
+                                () => AllProducts(
                               title: category.name,
                               futureMethod: controller.getCategoryProducts(
                                 categoryId: category.id,
@@ -68,8 +68,8 @@ class ECategoryTab extends StatelessWidget {
                         EGridLayout(
                             itemCount: products.length,
                             itemBuilder: (_, index) => EProductCardVertical(
-                                  product: products[index],
-                                )),
+                              product: products[index],
+                            )),
                       ],
                     );
                   }),

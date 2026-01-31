@@ -21,7 +21,7 @@ class EProductMetaData extends StatelessWidget {
     //final darkMode = EHelperFunctions.isDarkMode(context);
     final controller = ProductController.instance;
     final salePricePercentage =
-        controller.calculateSalePercentage(product.price, product.salePrice);
+    controller.calculateSalePercentage(product.price, product.salePrice);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +31,7 @@ class EProductMetaData extends StatelessWidget {
             //size tag
             ERoundedContainer(
               radius: ESizes.sm,
-              backgroundColor: EColors.secondaryColor.withOpacity(0.8),
+              backgroundColor: EColors.secondaryColor.withValues(alpha: 0.8),
               padding: const EdgeInsets.symmetric(
                   horizontal: ESizes.sm, vertical: ESizes.xs),
               child: Text(

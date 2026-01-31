@@ -31,8 +31,8 @@ class EOrderListItems extends StatelessWidget {
               shrinkWrap: true,
               itemCount: orders.length,
               separatorBuilder: (_, __) => const SizedBox(
-                    height: ESizes.spaceBtnItems,
-                  ),
+                height: ESizes.spaceBtnItems,
+              ),
               itemBuilder: (_, index) {
                 final order = orders[index];
                 return ERoundedContainer(
@@ -62,8 +62,8 @@ class EOrderListItems extends StatelessWidget {
                                       .textTheme
                                       .bodyLarge!
                                       .apply(
-                                          color: EColors.primaryColor,
-                                          fontWeightDelta: 3),
+                                      color: EColors.primaryColor,
+                                      fontWeightDelta: 3),
                                 ),
                                 Text(
                                   order.formattedOrderDate,
@@ -76,8 +76,8 @@ class EOrderListItems extends StatelessWidget {
                           ),
                           IconButton(
                               onPressed: () => Get.to(() => OrderDetailsScreen(
-                                    order: order,
-                                  )),
+                                order: order,
+                              )),
                               icon: const Icon(Iconsax.arrow_right_34,
                                   size: ESizes.iconSm))
                         ],
@@ -102,7 +102,7 @@ class EOrderListItems extends StatelessWidget {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Order',
@@ -135,7 +135,7 @@ class EOrderListItems extends StatelessWidget {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Shipping Date',

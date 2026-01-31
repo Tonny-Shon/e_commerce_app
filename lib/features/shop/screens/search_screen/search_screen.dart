@@ -60,7 +60,7 @@ class ESearchScreen extends StatelessWidget {
           }
           return EGridLayout(
             itemCount: productController.searchResults.length,
-            itemBuilder: (_, index) => EProductCardVertical(
+            itemBuilder: (_, index) =>  EProductCardVertical(
               product: productController.searchResults[index],
             ),
           );

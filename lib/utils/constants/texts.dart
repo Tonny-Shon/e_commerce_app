@@ -1,8 +1,8 @@
 class ETexts {
   ETexts._();
-  static const appname = "Tata Owen";
+  static const appname = "Abrah Online";
   static const appname1 = "Supermarket";
-  static const appname2 = "Tata Owen Supermarket";
+  static const appname2 = "Abrah Supermarket";
   static const credits = "@Shontian Devs";
 
   static const onBoardingTitle1 = "Choose your product";
@@ -28,12 +28,6 @@ class ETexts {
   static const createAccount = 'Create Account';
   static const signInWith = 'or Sign In with';
 
-  //login optional texts
-  // static const appname = "Tata Owen";
-  // static const appname1 = "Supermarket";
-  // static const appname2 = "Tata Owen Supermarket";
-  // static const appversion = "Version 1.0.0";
-  // static const credits = "@Shontian Devs";
 
   static const name = "Name";
   static const nameHint = "shontian";

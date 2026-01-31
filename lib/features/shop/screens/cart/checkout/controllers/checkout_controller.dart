@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/common/widgets/texts/section_heading.dart';
-import 'package:e_commerce_app/images/images.dart';
+import 'package:e_commerce_app/images/images.dart' show EImages;
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -21,9 +21,10 @@ class ESectionHeading extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineMedium!.apply(color: textColor),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
+          
         ),
         if (showActionButton)
           TextButton(

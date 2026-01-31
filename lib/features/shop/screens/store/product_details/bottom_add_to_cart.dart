@@ -28,7 +28,7 @@ class BottomAddToCart extends StatelessWidget {
             topRight: Radius.circular(ESizes.cardRadiusLg),
           )),
       child: Obx(
-        () => Row(
+            () => Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
@@ -55,7 +55,7 @@ class BottomAddToCart extends StatelessWidget {
                 ),
                 ECircularIcon(
                   icon: Iconsax.add,
-                  backgroundColor: EColors.black,
+                  backgroundColor: EColors.primaryColor,
                   width: 40,
                   height: 40,
                   color: EColors.white,
@@ -64,11 +64,12 @@ class BottomAddToCart extends StatelessWidget {
               ],
             ),
             ElevatedButton(
-                onPressed: () => controller.addToCart(product),
+              onPressed: () => controller.addToCart(product,
+                quantity: controller.productQuantityInCart.value),
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(ESizes.md),
-                    backgroundColor: EColors.black,
-                    side: const BorderSide(color: EColors.black)),
+                    backgroundColor: EColors.primaryColor,
+                    side: const BorderSide(color: EColors.primaryColor)),
                 child: const Text('Add to Cart'))
           ],
         ),

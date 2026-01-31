@@ -92,14 +92,14 @@ class EProductCardHorizontal extends StatelessWidget {
                         //price
                         Flexible(
                             child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: ESizes.sm),
-                              child:
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: ESizes.sm),
+                                  child:
                                   EProductPriceText(price: '${product.price}'),
-                            ),
-                          ],
-                        )),
+                                ),
+                              ],
+                            )),
                         //add to cart
                         ProductCardAddToCartButton(
                           product: product,
