@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:e_commerce_app/data/repositories/product_repository/product_repository.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
+import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/local_storage/storage_utility.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FavoriteController extends GetxController {
@@ -36,7 +38,9 @@ class FavoriteController extends GetxController {
       favorites[productId] = true;
       saveFavoritesToStorage();
       Get.snackbar(
+          colorText: Colors.white,
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: EColors.primaryColor,
           'Success',
           'Product added to wishlist.');
     } else {
@@ -45,9 +49,11 @@ class FavoriteController extends GetxController {
       saveFavoritesToStorage();
       favorites.refresh();
       Get.snackbar(
+          colorText: Colors.white,
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: EColors.primaryColor,
           'Success',
-          'Product added to wishlist.');
+          'Product Removed to wishlist.');
     }
   }
 

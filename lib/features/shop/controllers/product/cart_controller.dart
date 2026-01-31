@@ -1,7 +1,8 @@
 import 'package:e_commerce_app/features/shop/models/cart_item_model.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
+import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/local_storage/storage_utility.dart';
-import 'package:e_commerce_app/utils/popups/loaders.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -21,7 +22,8 @@ class CartController extends GetxController {
   void addToCart(ProductModel product) {
     //quantity check
     if (productQuantityInCart.value < 1) {
-      ELoaders.customToast(message: 'Select Quantity');
+      Get.snackbar('Error', 'Select quantity');
+      //ELoaders.customToast(message: 'Select Quantity');
       return;
     } else {
       final selectedCartItem =
@@ -36,9 +38,12 @@ class CartController extends GetxController {
         cartItems.add(selectedCartItem);
       }
       updateCart();
-      ELoaders.customToast(
-        message: 'Product added to cart.',
-      );
+      Get.snackbar(
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.white,
+          backgroundColor: EColors.primaryColor,
+          'Success',
+          'Product Added to Cart');
     }
   }
 
@@ -77,8 +82,13 @@ class CartController extends GetxController {
       onConfirm: () {
         cartItems.removeAt(index);
         updateCart();
-        ELoaders.customToast(message: 'Product removed from cart');
         Get.back();
+        Get.snackbar(
+            snackPosition: SnackPosition.TOP,
+            colorText: Colors.white,
+            backgroundColor: EColors.primaryColor,
+            'Success',
+            'Product Removed from Cart');
       },
       onCancel: () => Get.back(),
     );

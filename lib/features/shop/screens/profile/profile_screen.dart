@@ -6,7 +6,6 @@ import 'package:e_commerce_app/features/shop/screens/profile/widgets/user_profil
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../common/common_shapes/containers/primary_curved_widget.dart';
 import '../../../../common/widgets/listtiles/settings_menu_tile.dart';
 import '../../../../common/widgets/listtiles/user_profile_tile.dart';
