@@ -22,6 +22,7 @@ class ECategoryTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CategoryController.instance;
+    final dark = Theme.of(context).brightness == Brightness.dark;
     return ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -52,6 +53,7 @@ class ECategoryTab extends StatelessWidget {
                       children: [
                         ESectionHeading(
                           title: 'You might like',
+                          textColor: dark ? Colors.white : Colors.black,
                           showActionButton: true,
                           onPressed: () => Get.to(
                                 () => AllProducts(

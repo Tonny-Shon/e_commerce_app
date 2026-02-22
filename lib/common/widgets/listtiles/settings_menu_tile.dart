@@ -18,6 +18,7 @@ class ESettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
     return ListTile(
       leading: Icon(
         icon,
@@ -26,11 +27,11 @@ class ESettingsTile extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: Theme.of(context).textTheme.labelMedium,
+        style: Theme.of(context).textTheme.labelMedium!.apply(color: dark ? EColors.white : EColors.black ),
       ),
       subtitle: Text(
         subTitle,
-        style: Theme.of(context).textTheme.labelMedium,
+        style: Theme.of(context).textTheme.labelMedium!.apply(color: dark ? EColors.white : EColors.black ),
       ),
       trailing: trailing,
       onTap: onTap,

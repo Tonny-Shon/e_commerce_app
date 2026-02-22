@@ -4,6 +4,10 @@ import 'package:e_commerce_app/features/shop/screens/cart/widgets/cart_items.dar
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:e_commerce_app/data/repositories/authentication/authentication_repository.dart';
+import 'package:e_commerce_app/features/authentication/screens/login/login.dart';
+import 'package:e_commerce_app/common/widgets/checkout/checkout_label.dart';
+import 'package:e_commerce_app/common/widgets/checkout/checkout_action_button.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../utils/constants/colors.dart';
@@ -66,13 +70,26 @@ class CartScreen extends StatelessWidget {
           ? const SizedBox()
           : Padding(
               padding: const EdgeInsets.all(ESizes.sm),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: EColors.primaryColor,
-                      side: const BorderSide(color: Colors.transparent)),
-                  onPressed: () => Get.to(() => const CheckoutScreen()),
-                  child: Obx(() => Text(
-                      'Checkout Ugx - ${controller.totalCartPrice.value} /='))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CheckoutLabel(
+                    price: 'Ugx - ${controller.totalCartPrice.value} /=',
+                  ),
+                  CheckoutActionButton(
+                    label: 'Checkout',
+                    onPressed: () {
+                      final auth = AuthenticationRepository.instance.authUser;
+                      if (auth != null) {
+                        Get.to(() => const CheckoutScreen());
+                      } else {
+                        Get.to(() => const LoginScreen());
+                        Get.snackbar('Login required', 'Please login to continue');
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
     );
   }

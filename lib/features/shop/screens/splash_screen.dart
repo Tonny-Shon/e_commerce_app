@@ -1,8 +1,9 @@
-import 'package:e_commerce_app/features/authentication/screens/login/login.dart';
 import 'package:e_commerce_app/images/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import '../../../navigation_menu.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String id = 'Splash Screen';
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(Get.context!,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+          MaterialPageRoute(builder: (context) => const NavigationMenu()));
     });
   }
 

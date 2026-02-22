@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../features/shop/controllers/product/cart_controller.dart';
 import '../../utils/constants/colors.dart';
+import '../../utils/helpers/helper_functions.dart';
 
 class ECartControlIcon extends StatelessWidget {
   const ECartControlIcon({
@@ -15,6 +16,7 @@ class ECartControlIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final iconColor = this.iconColor ?? (EHelperFunctions.isDarkMode(context) ? EColors.white : EColors.black);
     final controller = Get.put(CartController());
     return Stack(
       children: [

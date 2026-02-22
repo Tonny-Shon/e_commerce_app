@@ -1,4 +1,7 @@
+import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../utils/helpers/helper_functions.dart';
 
 class EProductPriceText extends StatelessWidget {
   const EProductPriceText({
@@ -16,15 +19,16 @@ class EProductPriceText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = EHelperFunctions.isDarkMode(context);
     return Text(
       currencySign + price,
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
       style: isLarge
           ? Theme.of(context).textTheme.headlineMedium!.apply(
-              decoration: lineThrough ? TextDecoration.lineThrough : null)
+              decoration: lineThrough ? TextDecoration.lineThrough : null, color: dark ? EColors.white : EColors.black)
           : Theme.of(context).textTheme.titleLarge!.apply(
-              decoration: lineThrough ? TextDecoration.lineThrough : null),
+              decoration: lineThrough ? TextDecoration.lineThrough : null, color: dark ? EColors.white : EColors.black),
     );
   }
 }

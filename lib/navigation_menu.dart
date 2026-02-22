@@ -4,6 +4,7 @@ import 'package:e_commerce_app/features/shop/screens/store/store_screen.dart';
 import 'package:e_commerce_app/features/shop/screens/wishlist/wishlist_screen.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
+import 'package:e_commerce_app/utils/popups/network_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -43,7 +44,7 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   final screens = const [
-    HomeScreen(),
+    NetworkOverlay(child: HomeScreen()),
     StoreScreen(),
     WishlistScreen(),
     ProfileScreen()

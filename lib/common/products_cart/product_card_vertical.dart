@@ -41,7 +41,7 @@ class EProductCardVertical extends StatelessWidget {
               width: 180,
               height: 100,
               padding: const EdgeInsets.all(ESizes.sm),
-              backgroundColor: dark ? EColors.dark : EColors.light,
+              backgroundColor: dark ? EColors.white : EColors.light,
               child: Stack(
                 children: [
                   //image thumbnail
@@ -90,7 +90,10 @@ class EProductCardVertical extends StatelessWidget {
                             : 'No Brand',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: Theme.of(context).textTheme.labelMedium,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .apply(color: dark ? EColors.white : EColors.black),
                       ),
                       const SizedBox(
                         width: ESizes.sm,
@@ -115,7 +118,7 @@ class EProductCardVertical extends StatelessWidget {
                   child: Column(
                     children: [
                       if (product.productType ==
-                          ProductType.single.toString() &&
+                              ProductType.single.toString() &&
                           product.salePrice > 0)
                         Padding(
                           //Price, show sale price as main price if sale exists.
@@ -125,15 +128,18 @@ class EProductCardVertical extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
-                                .apply(decoration: TextDecoration.lineThrough),
+                                .apply(
+                                    decoration: TextDecoration.lineThrough,
+                                    color:
+                                        dark ? EColors.white : EColors.black),
                           ),
                         ),
                       Padding(
                         //Price, show sale price as main price if sale exists.
                         padding: const EdgeInsets.only(left: ESizes.sm),
                         child: EProductPriceText(price: product.price.toString()
-                          //controller.getProductPrice(product),
-                        ),
+                            //controller.getProductPrice(product),
+                            ),
                       ),
                     ],
                   ),

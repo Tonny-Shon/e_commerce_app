@@ -10,6 +10,7 @@ import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/constants/texts.dart';
 import 'package:e_commerce_app/utils/effects/cateogy_shimmer.dart';
 import 'package:e_commerce_app/utils/effects/shimmer.dart';
+import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +28,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = EHelperFunctions.isDarkMode(context);
     final controller = Get.put(ProductController());
     final categoryController = Get.put(CategoryController());
 
@@ -87,6 +89,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   ESectionHeading(
                     title: 'Featured products',
+                    textColor: dark ?Colors.white : EColors.black,
                     onPressed: () => Get.to(
                           () => AllProducts(
                         title: 'Featured Products',

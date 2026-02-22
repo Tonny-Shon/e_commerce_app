@@ -3,6 +3,7 @@ import 'package:e_commerce_app/common/widgets/texts/section_heading.dart';
 import 'package:e_commerce_app/features/shop/controllers/category_controller.dart';
 import 'package:e_commerce_app/features/shop/models/category_model.dart';
 import 'package:e_commerce_app/features/shop/screens/all_products/all_products.dart';
+import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/effects/vertical_shimmer_effect.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class HomeProductSection extends StatelessWidget {
         //Section Header
         ESectionHeading(
           title: category.name,
+          textColor: EColors.black,
           showActionButton: true,
           onPressed: () => Get.to(() => AllProducts(title: category.name)),
         ),

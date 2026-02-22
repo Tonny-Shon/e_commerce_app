@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/features/shop/screens/splash_screen.dart';
 import 'package:e_commerce_app/routes/app_routes.dart';
+import 'package:e_commerce_app/utils/popups/network_overlay.dart';
 import 'package:e_commerce_app/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: EAppTheme.lightTheme,
       darkTheme: EAppTheme.darkTheme,
-      home: const SplashScreen(),
+      home: const NetworkOverlay(child: SplashScreen(),),
     );
   }
 }

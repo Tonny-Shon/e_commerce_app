@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/data/repositories/user/user_repository.dart';
 import 'package:e_commerce_app/features/authentication/screens/login/login.dart';
 import 'package:e_commerce_app/features/authentication/screens/signup/verify_email.dart';
-import 'package:e_commerce_app/features/shop/screens/splash_screen.dart';
 import 'package:e_commerce_app/navigation_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -45,9 +44,8 @@ class AuthenticationRepository extends GetxController {
     } else {
       //local storage
       deviceStorage.writeIfNull("IsFirstTime", true);
-      deviceStorage.read('IsFirstTime') != true
-          ? Get.offAll(() => const LoginScreen())
-          : Get.offAll(const SplashScreen());
+      // Show app navigation for unauthenticated users; require login only when placing orders
+      Get.offAll(() => const NavigationMenu());
     }
   }
 

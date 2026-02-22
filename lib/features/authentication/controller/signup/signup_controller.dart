@@ -30,7 +30,7 @@ class SignupController extends GetxController {
       // print('Signup button pressed');
 
       //check internet connectivity
-      final isConnected = await NetworkManager.instance.isConnected();
+      final isConnected = NetworkManager.instance.isConnected();
       if (!isConnected) return;
 
        // print("Network status is fine");

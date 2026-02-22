@@ -2,6 +2,9 @@ import 'package:e_commerce_app/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/constants/colors.dart';
+import '../../../utils/helpers/helper_functions.dart';
+
 class EAppBar extends StatelessWidget implements PreferredSizeWidget {
   const EAppBar(
       {super.key,
@@ -19,6 +22,7 @@ class EAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = EHelperFunctions.isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 2,
@@ -28,7 +32,7 @@ class EAppBar extends StatelessWidget implements PreferredSizeWidget {
         leading: showBackArrow
             ? IconButton(
                 onPressed: () => Get.back(),
-                icon: const Icon(Icons.arrow_back_ios),
+                icon:  Icon(Icons.arrow_back_ios, color: dark ? EColors.white : EColors.black,),
               )
             : leadingIcon != null
                 ? IconButton(

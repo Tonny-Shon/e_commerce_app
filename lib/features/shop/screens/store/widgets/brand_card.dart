@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../../common/common_shapes/containers/circular_container.dart';
 import '../../../../../common/widgets/cicular_image/circular_image.dart';
+import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/enums.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/helpers/helper_functions.dart';
 
 class EBrandCard extends StatelessWidget {
   const EBrandCard({
@@ -21,6 +23,7 @@ class EBrandCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = EHelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: onTap,
       child: ERoundedContainer(
@@ -50,10 +53,11 @@ class EBrandCard extends StatelessWidget {
                 EBrandTitleVerifiedIcon(
                   title: brand.name,
                   brandTextSize: TextSizes.large,
+                  textColor: dark ? EColors.white : EColors.black,
                 ),
                 Text(
                   '${brand.productCount ?? 0} products',
-                  style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium!.apply(color: dark ? EColors.white : EColors.black),
                   overflow: TextOverflow.ellipsis,
                 )
               ],

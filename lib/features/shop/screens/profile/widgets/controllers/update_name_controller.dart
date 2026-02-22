@@ -29,7 +29,7 @@ class UpdateNameController extends GetxController {
 
   Future<void> updateUsername() async {
     try {
-      final isConnected = await NetworkManager.instance.isConnected();
+      final isConnected = NetworkManager.instance.isConnected();
 
       if (!isConnected) return;
 

@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/helpers/helper_functions.dart';
 
 class EBrandTitleVerifiedIcon extends StatelessWidget {
   const EBrandTitleVerifiedIcon({
@@ -25,6 +26,7 @@ class EBrandTitleVerifiedIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = EHelperFunctions.isDarkMode(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -33,6 +35,7 @@ class EBrandTitleVerifiedIcon extends StatelessWidget {
           maxLines: maxLines,
           textAlign: textAlign,
           brandTextSize: brandTextSize,
+          color: dark ? EColors.white : EColors.black,
         ),
         const SizedBox(
           width: ESizes.xs,

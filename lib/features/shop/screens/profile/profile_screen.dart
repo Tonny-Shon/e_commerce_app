@@ -18,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
     //final controller = Get.put(AuthenticationRepository());
     return Scaffold(
       body: SingleChildScrollView(
@@ -53,13 +54,14 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.all(ESizes.defaultSpace),
               child: Column(
                 children: [
-                  const ESectionHeading(
+                   ESectionHeading(
                     title: 'Account Setting',
                     showActionButton: false,
+                    textColor: dark ? EColors.white : EColors.black,
                   ),
-                  const SizedBox(
-                    height: ESizes.spaceBtnItems,
-                  ),
+                  // const SizedBox(
+                  //   height: ESizes.spaceBtnItems,
+                  // ),
                   // ESettingsTile(
                   //   icon: Iconsax.safe_home,
                   //   title: 'My Address',
@@ -71,6 +73,7 @@ class ProfileScreen extends StatelessWidget {
                     icon: Iconsax.shopping_cart,
                     title: 'My Cart',
                     subTitle: 'Add, remove products and move to checkout',
+                    
                     onTap: () => Get.to(() => const CartScreen()),
                   ),
                   ESettingsTile(
@@ -91,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
                       style: OutlinedButton.styleFrom(side: const BorderSide(color: EColors.primaryColor)),
                       onPressed: () =>
                           AuthenticationRepository.instance.logout(),
-                      child: const Text('Logout'),
+                      child: const Text('Logout', style: TextStyle(color: EColors.primaryColor),),
                     ),
                   ),
                   const SizedBox(

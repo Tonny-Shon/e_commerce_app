@@ -126,7 +126,7 @@ class UserController extends GetxController {
 
   Future<void> reAuthenticateEmailAndPasswordUser() async {
     try {
-      final isConnected = await NetworkManager.instance.isConnected();
+      final isConnected = NetworkManager.instance.isConnected();
       if (!isConnected) return;
       if (!reAuthFormkey.currentState!.validate()) return;
 

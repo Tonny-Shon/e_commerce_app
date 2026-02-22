@@ -58,7 +58,7 @@ class LoginController extends GetxController {
       //helper function to display the progress of the signin
 
       //check the internet connection
-      final isConnected = await NetworkManager.instance.isConnected();
+      final isConnected = NetworkManager.instance.isConnected();
       if (!isConnected) return;
 
       //Google authentication

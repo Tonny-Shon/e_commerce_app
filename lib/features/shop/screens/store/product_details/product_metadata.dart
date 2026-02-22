@@ -9,6 +9,7 @@ import '../../../../../common/common_shapes/containers/product_text/product_text
 import '../../../../../common/product_size_text.dart';
 import '../../../../../common/widgets/cicular_image/circular_image.dart';
 import '../../../../../utils/constants/enums.dart';
+import '../../../../../utils/helpers/helper_functions.dart';
 import '../widgets/brand_text.dart';
 
 class EProductMetaData extends StatelessWidget {
@@ -18,7 +19,7 @@ class EProductMetaData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final darkMode = EHelperFunctions.isDarkMode(context);
+    final darkMode = EHelperFunctions.isDarkMode(context);
     final controller = ProductController.instance;
     final salePricePercentage =
     controller.calculateSalePercentage(product.price, product.salePrice);
@@ -39,7 +40,7 @@ class EProductMetaData extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
-                    .apply(color: EColors.black),
+                    .apply(color: darkMode ? EColors.white : EColors.black),
               ),
             ),
             const SizedBox(
@@ -91,7 +92,7 @@ class EProductMetaData extends StatelessWidget {
             ),
             Text(
               controller.getProductStockStatus(product.stock),
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleMedium!.apply(color: darkMode ? EColors.white : EColors.black),
             ),
           ],
         ),
@@ -112,6 +113,7 @@ class EProductMetaData extends StatelessWidget {
             EBrandTitleText(
               title: product.brand != null ? product.brand!.name : '',
               brandTextSize: TextSizes.medium,
+              color: darkMode ? EColors.white : EColors.black,
             ),
           ],
         ),

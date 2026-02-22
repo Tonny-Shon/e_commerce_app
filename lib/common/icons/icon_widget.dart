@@ -24,6 +24,7 @@ class ECircularIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = EHelperFunctions.isDarkMode(context);
     return Container(
       width: width,
       height: height,
@@ -39,7 +40,7 @@ class ECircularIcon extends StatelessWidget {
           icon: Icon(
             icon,
             size: size,
-            color: color,
+            color: dark ? EColors.white : color ?? EColors.black,
           )),
     );
   }
