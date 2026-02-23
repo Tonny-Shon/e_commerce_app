@@ -4,10 +4,12 @@ import 'package:e_commerce_app/features/shop/screens/store/store_screen.dart';
 import 'package:e_commerce_app/features/shop/screens/wishlist/wishlist_screen.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
-import 'package:e_commerce_app/utils/popups/network_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+
+import 'features/authentication/controller/network_manager/network_manager.dart';
+import 'utils/popups/network_overlay.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -16,7 +18,12 @@ class NavigationMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
     final darkMode = EHelperFunctions.isDarkMode(context);
-    return Scaffold(
+    final manager = Get.find<NetworkManager>();
+    
+    return Obx((){
+      return Stack(
+        children: [
+          Scaffold(
       bottomNavigationBar: Obx(
         () => NavigationBar(
           backgroundColor: darkMode ? EColors.black : Colors.white,
@@ -37,14 +44,19 @@ class NavigationMenu extends StatelessWidget {
         ),
       ),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
-    );
+    ),
+    if(!manager.isConnected.value)
+      const NetworkOverlay(),
+        ],
+      );
+    });
   }
 }
 
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   final screens = const [
-    NetworkOverlay(child: HomeScreen()),
+    HomeScreen(),
     StoreScreen(),
     WishlistScreen(),
     ProfileScreen()

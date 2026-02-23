@@ -2,6 +2,7 @@ import 'package:e_commerce_app/features/authentication/controller/login/login_co
 import 'package:e_commerce_app/features/authentication/screens/password_configuration/forgot_password.dart';
 import 'package:e_commerce_app/features/authentication/screens/signup/sign_up.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
+import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:e_commerce_app/utils/validators/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class ELoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
+    final dark = EHelperFunctions.isDarkMode(context);
     return Form(
       key: controller.loginformkey,
       child: Padding(
@@ -25,12 +27,19 @@ class ELoginForm extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
-              // style: const TextStyle(color: Colors.white),
+              style:  TextStyle(color: dark ? EColors.white : EColors.black),
               controller: controller.email,
               validator: (value) => EValidator.validateEmail(value),
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.direct_right),
+              decoration:  InputDecoration(
+                
+                prefixIcon: const Icon(Iconsax.direct_right),
                 labelText: ETexts.email,
+                labelStyle: TextStyle(color: dark ? EColors.white : EColors.black),
+                focusColor: dark ? EColors.white : EColors.black,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: dark ? EColors.white : EColors.black),
+                  borderRadius: BorderRadius.circular(ESizes.inputFieldRadius),
+                ),
               ),
             ),
             const SizedBox(
@@ -38,7 +47,7 @@ class ELoginForm extends StatelessWidget {
             ),
             Obx(
               () => TextFormField(
-                style: const TextStyle(color: Colors.black),
+                style:  TextStyle(color: dark ? EColors.black : EColors.black),
                 validator: (value) =>
                     EValidator.validateEmptyText('Password', value),
                 controller: controller.password,
@@ -52,7 +61,12 @@ class ELoginForm extends StatelessWidget {
                           ? Iconsax.eye_slash
                           : Iconsax.eye),
                     ),
-                    labelText: ETexts.password),
+                    focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: EColors.primaryColor),
+                  borderRadius: BorderRadius.circular(ESizes.inputFieldRadius),
+                ),
+                    
+                    labelText: ETexts.password, labelStyle: TextStyle(color: dark ? EColors.white : EColors.black)),
               ),
             ),
             const SizedBox(
@@ -70,7 +84,7 @@ class ELoginForm extends StatelessWidget {
                           onChanged: (value) => controller.rememberMe.value =
                               !controller.rememberMe.value),
                     ),
-                    const Text(ETexts.rememberMe),
+                     Text(ETexts.rememberMe, style: TextStyle(color: dark ? EColors.white : EColors.black),),
                   ],
                 ),
 

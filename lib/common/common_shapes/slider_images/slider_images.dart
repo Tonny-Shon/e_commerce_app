@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../utils/constants/sizes.dart';
 
@@ -16,7 +17,10 @@ class ERoundedImage extends StatelessWidget {
     this.isNetworkImage = false,
     this.onPressed,
     this.borderRadius = ESizes.md,
+    this.placeholder,          // ← optional custom placeholder widget
+    this.errorWidget,          // ← optional custom error widget
   });
+
   final double? width, height;
   final String imageUrl;
   final bool applyImageRadius;
@@ -28,8 +32,39 @@ class ERoundedImage extends StatelessWidget {
   final VoidCallback? onPressed;
   final double borderRadius;
 
+  // New optional params for better UX
+  final Widget? placeholder;
+  final Widget? errorWidget;
+
   @override
   Widget build(BuildContext context) {
+    if (!isNetworkImage) {
+      // Keep asset image handling unchanged
+      return GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          width: width,
+          height: height,
+          padding: padding,
+          decoration: BoxDecoration(
+            border: border,
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          child: ClipRRect(
+            borderRadius: applyImageRadius
+                ? BorderRadius.circular(borderRadius)
+                : BorderRadius.zero,
+            child: Image(
+              image: AssetImage(imageUrl),
+              fit: fit,
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Network image → use CachedNetworkImage
     return GestureDetector(
       onTap: onPressed,
       child: Container(
@@ -42,15 +77,30 @@ class ERoundedImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: ClipRRect(
-            borderRadius: applyImageRadius
-                ? BorderRadius.circular(borderRadius)
-                : BorderRadius.zero,
-            child: Image(
-              image: isNetworkImage
-                  ? NetworkImage(imageUrl)
-                  : AssetImage(imageUrl) as ImageProvider,
-              fit: fit,
-            )),
+          borderRadius: applyImageRadius
+              ? BorderRadius.circular(borderRadius)
+              : BorderRadius.zero,
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            fit: fit,
+            placeholder: (context, url) =>
+                placeholder ??
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+            errorWidget: (context, url, error) =>
+                errorWidget ??
+                const Icon(
+                  Icons.broken_image_rounded,
+                  color: Colors.grey,
+                  size: 50,
+                ),
+            // Helpful options
+            fadeInDuration: const Duration(milliseconds: 200),
+            memCacheHeight: height?.toInt(), // reduce memory usage
+            maxHeightDiskCache: 800,         // don't store huge originals
+          ),
+        ),
       ),
     );
   }
