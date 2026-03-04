@@ -15,6 +15,7 @@ class PaymentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final checkoutController = CheckoutController.instance;
+    final dark = EHelperFunctions.isDarkMode(context);
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       onTap: () {
@@ -33,7 +34,7 @@ class PaymentTile extends StatelessWidget {
           fit: BoxFit.contain,
         ),
       ),
-      title: Text(paymentMethod.name),
+      title: Text(paymentMethod.name, style: TextStyle(color: dark ? EColors.white : EColors.black),),
       trailing: const Icon(Iconsax.arrow_right_34),
     );
   }

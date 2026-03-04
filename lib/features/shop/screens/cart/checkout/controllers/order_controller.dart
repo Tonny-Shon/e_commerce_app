@@ -59,7 +59,7 @@ class OrderController extends GetxController {
       Get.off(
         () => SuccessScreen(
             onPressed: () => Get.offAll(() => const NavigationMenu()),
-            image: EImages.icJewelry,
+            image: EImages.successfulPayment,
             title: 'Payment successful',
             subTitle: 'Your products will be delivered soon'),
       );

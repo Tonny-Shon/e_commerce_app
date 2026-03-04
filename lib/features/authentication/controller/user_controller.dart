@@ -52,8 +52,8 @@ class UserController extends GetxController {
       if (user.value.id.isEmpty) {
         if (userCredentials != null) {
           //Convert name to first and last name
-          final nameParts =
-              UserModel.nameParts(userCredentials.user!.displayName ?? '');
+          // final nameParts =
+          //     UserModel.nameParts(userCredentials.user!.displayName ?? '');
 
           final username = UserModel.generateUsername(
               userCredentials.user!.displayName ?? '');
@@ -61,9 +61,9 @@ class UserController extends GetxController {
           //Map Data
           final user = UserModel(
               id: userCredentials.user!.uid,
-              firstname: nameParts[0],
-              lastname:
-                  nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
+              // firstname: nameParts[0],
+              // lastname:
+              //     nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
               username: username,
               email: userCredentials.user!.email ?? '',
               phoneNumber: userCredentials.user!.phoneNumber ?? '',

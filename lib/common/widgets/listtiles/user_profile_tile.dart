@@ -25,7 +25,7 @@ class EUserProfileTile extends StatelessWidget {
         padding: 0,
       ),
       title: Text(
-        controller.user.value.fullname,
+        controller.user.value.username,
         style: Theme.of(context)
             .textTheme
             .headlineSmall!

@@ -34,7 +34,7 @@ class CheckoutScreen extends StatelessWidget {
         showBackArrow: true,
         title: Text(
           'Order Review',
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.headlineSmall!.apply(color: dark ? EColors.white : EColors.black),
         ),
       ),
       body: SingleChildScrollView(
@@ -51,9 +51,10 @@ class CheckoutScreen extends StatelessWidget {
               ),
 
               //location field
-              const ESectionHeading(
+               ESectionHeading(
                 title: 'Choose location',
                 showActionButton: false,
+                textColor: dark ? EColors.white : EColors.black,
               ),
               const SizedBox(
                 height: ESizes.sm,

@@ -40,4 +40,6 @@ class EImages {
   static const paytm = "assets/payment_methods/paytm.jpg";
   static const rave = "assets/payment_methods/rave_payment.png";
   static const rozar = "assets/payment_methods/rozarpay.png";
+
+  static const successfulPayment = "assets/icons/success_icon.png";
 }

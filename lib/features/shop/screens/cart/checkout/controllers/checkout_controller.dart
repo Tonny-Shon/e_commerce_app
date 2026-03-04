@@ -4,6 +4,8 @@ import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../utils/constants/colors.dart';
+import '../../../../../../utils/helpers/helper_functions.dart';
 import '../../../../models/payment_method_model.dart';
 import '../widgets/payment_tile.dart';
 
@@ -19,17 +21,21 @@ class CheckoutController extends GetxController {
   }
 
   Future<dynamic> selectPaymentMethods(BuildContext context) {
+    final dark = EHelperFunctions.isDarkMode(context);
     return showModalBottomSheet(
+      backgroundColor: dark ? EColors.white : EColors.white,
       context: context,
       builder: (_) => SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(ESizes.lg),
+          color: dark ? EColors.black : EColors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ESectionHeading(
+               ESectionHeading(
                 title: 'Select Payment Method',
                 showActionButton: false,
+                textColor: dark ? EColors.white : EColors.black,
               ),
               const SizedBox(
                 height: ESizes.spaceBtnItems,

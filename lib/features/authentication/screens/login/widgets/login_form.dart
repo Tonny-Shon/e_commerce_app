@@ -40,6 +40,7 @@ class ELoginForm extends StatelessWidget {
                   borderSide: BorderSide(color: dark ? EColors.white : EColors.black),
                   borderRadius: BorderRadius.circular(ESizes.inputFieldRadius),
                 ),
+                floatingLabelStyle: TextStyle(color: dark ? EColors.white : EColors.black),
               ),
             ),
             const SizedBox(
@@ -61,6 +62,7 @@ class ELoginForm extends StatelessWidget {
                           ? Iconsax.eye_slash
                           : Iconsax.eye),
                     ),
+                    floatingLabelStyle: TextStyle(color: dark ? EColors.white : EColors.black),
                     focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: EColors.primaryColor),
                   borderRadius: BorderRadius.circular(ESizes.inputFieldRadius),
@@ -121,7 +123,7 @@ class ELoginForm extends StatelessWidget {
                 onPressed: () {
                   Get.offAll(() => const SignUpScreen());
                 },
-                child: const Text(ETexts.createAccount),
+                child: Text(ETexts.createAccount, style: TextStyle(color: dark ? EColors.white : EColors.black)),
               ),
             ),
           ],

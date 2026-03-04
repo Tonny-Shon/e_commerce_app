@@ -20,6 +20,7 @@ class EBillingPaymentSection extends StatelessWidget {
           title: 'Payment Method',
           buttonTitle: 'Change',
           onPressed: () => controller.selectPaymentMethods(context),
+          textColor: dark ? EColors.white : EColors.black,
         ),
         const SizedBox(
           height: ESizes.spaceBtnItems / 2,
@@ -43,7 +44,7 @@ class EBillingPaymentSection extends StatelessWidget {
               ),
               Text(
                 controller.selectedPayemtMethod.value.name,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge!.apply(color: dark ? EColors.white : EColors.black),
               )
             ],
           ),

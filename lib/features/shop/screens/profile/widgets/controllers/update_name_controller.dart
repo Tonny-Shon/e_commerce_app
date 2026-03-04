@@ -18,14 +18,14 @@ class UpdateNameController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    initializeNames();
+    // initializeNames();
   }
 
   //fetch user record
-  Future<void> initializeNames() async {
-    firstname.text = userController.user.value.firstname;
-    lastname.text = userController.user.value.lastname;
-  }
+  // Future<void> initializeNames() async {
+  //   firstname.text = userController.user.value.firstname;
+  //   lastname.text = userController.user.value.lastname;
+  // }
 
   Future<void> updateUsername() async {
     try {
@@ -44,8 +44,8 @@ class UpdateNameController extends GetxController {
       await userRepository.updateSingleField(name);
 
       //update the Rx user value
-      userController.user.value.firstname = firstname.text.trim();
-      userController.user.value.lastname = lastname.text.trim();
+      // userController.user.value.firstname = firstname.text.trim();
+      // userController.user.value.lastname = lastname.text.trim();
 
       ELoaders.successSnackBar(
           title: 'Congratulations', message: 'Update succesful');

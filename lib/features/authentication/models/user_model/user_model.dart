@@ -3,8 +3,8 @@ import 'package:e_commerce_app/utils/formatters/formatter.dart';
 
 class UserModel {
   final String id;
-  String firstname;
-  String lastname;
+  // String firstname;
+  // String lastname;
   final String username;
   final String email;
   String phoneNumber;
@@ -13,15 +13,15 @@ class UserModel {
 //Constructor for user model
   UserModel(
       {required this.id,
-      required this.firstname,
-      required this.lastname,
+      // required this.firstname,
+      // required this.lastname,
       required this.username,
       required this.email,
       required this.phoneNumber,
       required this.profilePicture});
 
   //Helper function to get the full name
-  String get fullname => '$firstname $lastname';
+  // String get fullname => '$firstname $lastname';
 
   //formatting the phoneNo
   String get formattedPhoneNo => EFormatter.formatPhoneNumber(phoneNumber);
@@ -45,8 +45,8 @@ class UserModel {
   //static functiont to create an empty user model.
   static UserModel empty() => UserModel(
       id: '',
-      firstname: '',
-      lastname: '',
+      // firstname: '',
+      // lastname: '',
       username: '',
       email: '',
       phoneNumber: '',
@@ -55,8 +55,8 @@ class UserModel {
   //convert model to JSON structure for storing data in firebase
   Map<String, dynamic> toJson() {
     return {
-      'FirstName': firstname,
-      'LastName': lastname,
+      // 'FirstName': firstname,
+      // 'LastName': lastname,
       'UserName': username,
       'Email': email,
       'PhoneNumber': phoneNumber,
@@ -71,8 +71,8 @@ class UserModel {
       final data = document.data()!;
       return UserModel(
           id: document.id,
-          firstname: data['FirstName'] ?? '',
-          lastname: data['LastName'] ?? '',
+          // firstname: data['FirstName'] ?? '',
+          // lastname: data['LastName'] ?? '',
           username: data['UserName'] ?? '',
           email: data['Email'] ?? '',
           phoneNumber: data['PhoneNumber'] ?? '',
