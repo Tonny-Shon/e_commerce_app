@@ -1,10 +1,15 @@
+import 'package:e_commerce_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:e_commerce_app/features/shop/models/cart_item_model.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/local_storage/storage_utility.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+import '../../../../services/cart_service.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 
 class CartController extends GetxController {
   static CartController get instance => Get.find();
@@ -14,6 +19,107 @@ class CartController extends GetxController {
   RxInt productQuantityInCart = 0.obs;
   RxList<CartItemModel> cartItems = <CartItemModel>[].obs;
   //final variationController = VariationController.instance;
+
+  final _firebaseService = CartFirebaseService();
+
+  @override
+  onInit() {
+    super.onInit();
+    // loadCartItems();
+
+    final authRepo = AuthenticationRepository.instance;
+    final isAlreadyLoggedIn = authRepo.isLoggedIn;
+
+    if(isAlreadyLoggedIn){
+      _loadFromFirebaseFirst();
+    }else{
+      loadCartItems();
+    }
+
+    ever(AuthenticationRepository.instance.cu, (User? user) async{
+      if(user != null && !user.isAnonymous){
+        await _syncCartOnLogin();
+      }else{
+        // clearCart();
+      }
+    });
+  }
+
+  Future<void> _loadFromFirebaseFirst() async {
+  try {
+    final remoteItems = await _firebaseService.fetchCartFromFirebase();
+
+    if (remoteItems.isNotEmpty) {
+      // Cloud has priority when already logged in
+      cartItems.assignAll(remoteItems);
+      updateCart();
+      // Optional: also overwrite local storage so next guest session starts empty/clean
+      saveCartItems();
+    } else {
+      // Cloud empty → fall back to local
+      loadCartItems();
+    }
+  } catch (e) {
+    debugPrint("Firebase cart load failed → using local");
+    loadCartItems();
+  }
+}
+
+  Future<void> _syncCartOnLogin() async{
+    try{
+      final userCartItems = List<CartItemModel>.from(cartItems);
+
+       //Merge with remote (or just upload if you prefer guest -> login)
+      await _firebaseService.mergeAndSync(userCartItems);
+
+     //Load the final(merged) cart from Firebase to ensure we have the latest data
+      if(userCartItems.isNotEmpty){
+        cartItems.assignAll(userCartItems);
+        updateCartTotal();
+      }
+      updateCart();
+      Get.snackbar('Cart synced', 'Your cart is now updated with your account.');
+    }catch(e){
+      Get.snackbar('Error', 'Failed to sync cart: $e');
+    }
+  }
+
+  Future<void> syncCartAfterLogin() async {
+  try {
+    // 1. Grab whatever is currently in the local cart (guest cart)
+    final localItems = List<CartItemModel>.from(cartItems);
+
+    // 2. Merge local + remote (or just upload — your choice)
+    await _firebaseService.mergeAndSync(localItems);   // ← from earlier code
+
+    // 3. Load the final (merged) version from Firebase
+    final mergedItems = await _firebaseService.fetchCartFromFirebase();
+
+    // 4. Update UI / memory
+    cartItems.assignAll(mergedItems);
+    
+    updateCart();  // recalculates totals, saves locally, and syncs again if needed
+
+    // Optional haptic feedback
+    await hapticSuccess();
+  } catch (e) {
+    debugPrint("Cart sync failed after login: $e");
+    // Don't block login — just log it
+    // Optionally show a soft warning:
+    // ELoaders.warningSnackBar(message: "Couldn't sync cart right now");
+  }
+}
+
+  // Update saveCartItems to also sync to Firebase if logged in
+  void saveCartItems() {
+    final cartItemJsons = cartItems.map((item) => item.toJson()).toList();
+    ELocalStorage().saveData('CartItems', cartItemJsons);
+
+    // Sync to Firebase if user is logged in
+    if (_firebaseService.isAuthenticated) {
+      _firebaseService.syncLocalCartToFirebase(cartItems);
+    }
+  }
 
   CartController() {
     loadCartItems();
@@ -80,9 +186,12 @@ class CartController extends GetxController {
   }
 
   void removeItemFromCartDialog(int index) {
+    final dark = EHelperFunctions.isDarkMode(Get.context!);
     Get.defaultDialog(
       title: 'Remove Product',
       middleText: 'Are you sure you want to remove this product?.',
+      titleStyle:  TextStyle(fontSize: 18, fontWeight: FontWeight.w600,color: dark ? EColors.black : EColors.white),
+      middleTextStyle: TextStyle(fontSize: 16, color: dark ? EColors.white : EColors.black),
       onConfirm: () {
         cartItems.removeAt(index);
         updateCart();
@@ -129,10 +238,10 @@ class CartController extends GetxController {
     numberOfCartItems.value = calculataNumberOfItems;
   }
 
-  void saveCartItems() {
-    final cartItemStrings = cartItems.map((item) => item.toJson()).toList();
-    ELocalStorage().saveData('CartItems', cartItemStrings);
-  }
+  // void saveCartItems() {
+  //   final cartItemStrings = cartItems.map((item) => item.toJson()).toList();
+  //   ELocalStorage().saveData('CartItems', cartItemStrings);
+  // }
 
   void loadCartItems() {
     final cartItemStrings =

@@ -13,9 +13,11 @@ class ECartItem extends StatelessWidget {
     super.key,
     required this.cartItem,
     this.quantity,
+    this.showQuantity = false,
   });
   final CartItemModel cartItem;
   final String? quantity;
+  final bool? showQuantity;
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +58,23 @@ class ECartItem extends StatelessWidget {
                   Flexible(
                       child: Row(
                     children: [
-                      const Text('Qty: '),
+                      if (showQuantity!)
+                        Text('Qty: ', style: Theme.of(context).textTheme.labelLarge!.apply(color: EHelperFunctions.isDarkMode(context) ? EColors.white : EColors.black)),
+                    //  Text('Qty: ', style: Theme.of(context).textTheme.labelLarge!.apply(color: EHelperFunctions.isDarkMode(context) ? EColors.white : EColors.black)),
                       const SizedBox(
                         width: 5,
                       ),
-                      Text('${cartItem.quantity}')
+                      if(showQuantity!)
+                        Text('${cartItem.quantity}', style: Theme.of(context).textTheme.labelLarge!.apply(color: EHelperFunctions.isDarkMode(context) ? EColors.white : EColors.black)),
+                      // Text('${cartItem.quantity}', style: Theme.of(context).textTheme.labelLarge!.apply(color: EHelperFunctions.isDarkMode(context) ? EColors.white : EColors.black))
                     ],
                   )),
                   Text('${cartItem.price * cartItem.quantity}')
                 ],
-              )
+              ),
+              // const SizedBox(
+              //   height: ESizes.spaceBtnItems / 2,
+              // ),
             ],
           ),
         ),

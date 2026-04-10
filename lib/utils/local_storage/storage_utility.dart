@@ -11,6 +11,10 @@ class ELocalStorage {
 
   final _storage = GetStorage();
 
+  static Future<void> init(String userId) async {
+    await GetStorage.init(userId);
+  }
+
 //method to save data
   Future<void> saveData<E>(String key, E value) async {
     await _storage.write(key, value);

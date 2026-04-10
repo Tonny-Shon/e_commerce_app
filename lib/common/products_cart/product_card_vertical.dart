@@ -40,17 +40,19 @@ class EProductCardVertical extends StatelessWidget {
             ERoundedContainer(
               width: 180,
               height: 100,
-              padding: const EdgeInsets.all(ESizes.sm),
+              padding: EdgeInsets.zero,
               backgroundColor: dark ? EColors.white : EColors.light,
               child: Stack(
                 children: [
                   //image thumbnail
                   Center(
                     child: ERoundedImage(
-                      width: MediaQuery.of(context).size.width,
+                      width: double.infinity,
+                      height: double.infinity,
                       imageUrl: product.thumbnail,
                       applyImageRadius: true,
                       isNetworkImage: true,
+                      fit: BoxFit.cover,
                     ),
                   ),
 

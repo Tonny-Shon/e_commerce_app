@@ -1,0 +1,1 @@
+/home/shontian/Desktop/E_commerce_app/e_commerce_app/build/app/intermediates/cxx/Debug/271t1x4d/obj/arm64-v8a

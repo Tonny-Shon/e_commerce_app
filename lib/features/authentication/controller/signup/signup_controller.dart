@@ -1,12 +1,12 @@
 import 'package:e_commerce_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:e_commerce_app/data/repositories/user/user_repository.dart';
 import 'package:e_commerce_app/features/authentication/controller/network_manager/network_manager.dart';
-import 'package:e_commerce_app/features/authentication/screens/signup/verify_email.dart';
 import 'package:e_commerce_app/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../models/user_model/user_model.dart';
+import '../../screens/login/login.dart';
 
 class SignupController extends GetxController {
   static SignupController get instance => Get.find();
@@ -25,9 +25,7 @@ class SignupController extends GetxController {
   //Signup function
   Future<void> signupuser() async {
     try {
-      // EFullScreenLoader.openLoadingDialog(
-      //     "We are processing your information", EImages.flutterwave);
-      // print('Signup button pressed');
+     
 
       //check internet connectivity
       final isConnected = NetworkManager.instance.isConnected();
@@ -70,9 +68,10 @@ class SignupController extends GetxController {
           message: 'Your account has been created! verify email to continue.');
 
       //move to verify email screen
-      Get.to(() =>  VerifyEmailScreen(
-            email: email.text.trim(),
-          ));
+      // Get.to(() =>  VerifyEmailScreen(
+      //       email: email.text.trim(),
+      //     ));
+      Get.to(() => const LoginScreen());
     } catch (e) {
       ELoaders.erroSnackBar(title: "Oh Snap", message: e.toString());
     }

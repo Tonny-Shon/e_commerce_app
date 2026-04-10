@@ -5,6 +5,8 @@ import 'package:e_commerce_app/features/shop/controllers/product/cart_controller
 import 'package:e_commerce_app/features/shop/screens/cart/checkout/controllers/checkout_controller.dart';
 import 'package:get/get.dart';
 
+import '../features/shop/screens/cart/checkout/controllers/payment_controller.dart';
+
 class GeneralBindings extends Bindings {
   @override
   void dependencies() {
@@ -13,5 +15,6 @@ class GeneralBindings extends Bindings {
     Get.put(CheckoutController());
     Get.put(CartAnimationController());
     Get.put(CartController());
+    Get.put(PaymentController());
   }
 }

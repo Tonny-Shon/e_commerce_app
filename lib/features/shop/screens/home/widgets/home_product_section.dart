@@ -28,7 +28,11 @@ class HomeProductSection extends StatelessWidget {
           title: category.name,
           textColor: EColors.black,
           showActionButton: true,
-          onPressed: () => Get.to(() => AllProducts(title: category.name)),
+          onPressed: () => Get.to(() => AllProducts(
+                title: category.name,
+                futureMethod:
+                    controller.getCategoryProducts(categoryId: category.id),
+              )),
         ),
 
         const SizedBox(
@@ -58,11 +62,10 @@ class HomeProductSection extends StatelessWidget {
                   itemCount: products.length,
                   separatorBuilder: (_, __) =>
                       const SizedBox(width: ESizes.spaceBtnItems),
-                  itemBuilder: (_, index) =>  Padding(
+                  itemBuilder: (_, index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: EProductCardVertical(product: products[index]),
                   ),
-                  
                 ),
               );
             })

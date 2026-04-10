@@ -20,7 +20,7 @@ class OrderDetailsScreen extends StatelessWidget {
         showBackArrow: true,
         title: Text(
           'Order Details',
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.headlineSmall!.apply(color: dark ? EColors.white : EColors.black),
         ),
       ),
       body: SingleChildScrollView(
@@ -29,7 +29,7 @@ class OrderDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Order Id: ${order.id}'),
+              Text('Order Id: ${order.id}', style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
               const SizedBox(
                 height: ESizes.spaceBtnItems,
               ),
@@ -38,7 +38,7 @@ class OrderDetailsScreen extends StatelessWidget {
                 children: order.items
                     .map((item) => Padding(
                         padding: const EdgeInsets.only(bottom: 5.0),
-                        child: ECartItem(cartItem: item)))
+                        child: ECartItem(cartItem: item, showQuantity: true,)))
                     .toList(),
               ),
 
@@ -55,15 +55,16 @@ class OrderDetailsScreen extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        const ESectionHeading(
+                         ESectionHeading(
                           title: 'More Details',
                           showActionButton: false,
+                          textColor: dark ? EColors.white : EColors.black,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Total'),
-                            Text(order.totalAmout.toString())
+                            Text('Total', style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
+                            Text(order.totalAmout.toString(), style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black))
                           ],
                         ),
                         const SizedBox(
@@ -72,8 +73,8 @@ class OrderDetailsScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Payment Method'),
-                            Text(order.paymentMethod),
+                            Text('Payment Method', style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
+                            Text(order.paymentMethod, style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
                           ],
                         ),
                       ],
@@ -93,8 +94,8 @@ class OrderDetailsScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Order Date'),
-                        Text(order.formattedOrderDate),
+                        Text('Order Date', style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
+                        Text(order.formattedOrderDate, style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
                       ],
                     ),
                     const SizedBox(
@@ -103,8 +104,8 @@ class OrderDetailsScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Order Status'),
-                        Text(order.status.toString()),
+                        Text('Order Status', style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
+                        Text(order.status.toString(), style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
                       ],
                     ),
                   ],
@@ -121,15 +122,16 @@ class OrderDetailsScreen extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        const ESectionHeading(
+                        ESectionHeading(
                           title: 'Address',
                           showActionButton: false,
+                          textColor: dark ? EColors.white : EColors.black,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Location'),
-                            Text(order.address!.name)
+                            Text('Location', style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
+                            Text(order.address!.name , style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black),),
                           ],
                         ),
                         const SizedBox(
@@ -138,8 +140,8 @@ class OrderDetailsScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Shipping Amount'),
-                            Text(order.address!.shippingAmount.toString()),
+                            Text('Shipping Amount', style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
+                            Text(order.address!.shippingAmount.toString() , style: Theme.of(context).textTheme.labelLarge!.apply(color: dark ? EColors.white : EColors.black)),
                           ],
                         ),
                       ],

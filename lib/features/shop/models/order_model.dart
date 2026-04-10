@@ -7,21 +7,29 @@ import '../../personalization/models/address_model.dart';
 
 class OrderModel {
   final String id;
+  // final String docId;
   final String userId;
   final OrderStatus status;
   final double totalAmout;
+  // final double shippingCost;
+  // final double taxCost;
   final DateTime orderDate;
   final String paymentMethod;
+  // final AddressModel? shippingAddress;
+  // final AddressModel? billingAddress;
   final AddressModel? address;
   final DateTime? deliveryDate;
   final List<CartItemModel> items;
 
   OrderModel({
     required this.id,
+    // required this.docId,
     this.userId = '',
     required this.status,
     required this.items,
-    this.address,
+    required this.address,
+    // required this.shippingCost,
+    // required this.taxCost,
     required this.totalAmout,
     required this.orderDate,
     this.paymentMethod = 'Airtel',
@@ -46,9 +54,10 @@ class OrderModel {
       'UserId': userId,
       'Status': status.toString(),
       'TotalAmount': totalAmout,
+      // 'ShippingCost': shippingCost, // Assuming no shipping cost for simplicity
       'OrderDate': orderDate,
       'PaymentMethod': paymentMethod,
-      'Adress': address!.toJson(),
+      'Adress': address?.toJson(),
       'DeliveryDate': deliveryDate,
       'Items': items.map((item) => item.toJson()).toList(),
     };
@@ -63,7 +72,7 @@ class OrderModel {
 
     return OrderModel(
       id: data['Id'] as String? ?? '', // Provide default value
-      address: data['Address'] != null
+      address: data['Adress'] != null
           ? AddressModel.fromMap(data['Adress'] as Map<String, dynamic>)
           : AddressModel.empty(), // Handle null address
       deliveryDate: data['DeliveryDate'] != null
@@ -83,7 +92,11 @@ class OrderModel {
           data['TotalAmount'] as double? ?? 0.0, // Provide default value
       orderDate: data['OrderDate'] != null
           ? (data['OrderDate'] as Timestamp).toDate()
-          : DateTime.now(), // Provide default value
+          : DateTime.now(),
+          //  docId: document.id, // Provide default value
+          // shippingCost: (data['ShippingCost'] as num? ?? 0.0).toDouble(), // Removed space
+    // taxCost: (data['TaxCost'] as num? ?? 0.0).toDouble(),           // Removed space
+    
     );
   }
 }

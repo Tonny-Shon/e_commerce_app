@@ -14,7 +14,9 @@ class CheckoutActionButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: ESizes.lg, vertical: ESizes.md),
         backgroundColor: EColors.primaryColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        side: BorderSide.none,
+        shape: RoundedRectangleBorder(borderRadius:
+         BorderRadius.circular(12)),
       ),
       child: Text(
         label,

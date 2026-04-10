@@ -7,6 +7,9 @@ import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/helpers/cloud_helper_functions.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../utils/constants/colors.dart';
+import '../../../../utils/helpers/helper_functions.dart';
+
 class BrandProducts extends StatelessWidget {
   const BrandProducts({super.key, required this.brand});
   final BrandModel brand;
@@ -14,9 +17,10 @@ class BrandProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = BrandController.instance;
+    final dark = EHelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: EAppBar(
-        title: Text(brand.name),
+        title: Text(brand.name, style: Theme.of(context).textTheme.headlineMedium!.apply(color: dark ? EColors.white : EColors.black),),
         showBackArrow: true,
       ),
       body: SingleChildScrollView(

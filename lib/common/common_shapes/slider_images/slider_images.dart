@@ -97,7 +97,7 @@ class ERoundedImage extends StatelessWidget {
                 ),
             // Helpful options
             fadeInDuration: const Duration(milliseconds: 200),
-            memCacheHeight: height?.toInt(), // reduce memory usage
+            // memCacheHeight: height?.toInt(), // reduce memory usage
             maxHeightDiskCache: 800,         // don't store huge originals
           ),
         ),

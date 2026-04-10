@@ -11,6 +11,7 @@ import '../../../../common/products_cart/cart_menu_icon.dart';
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});
@@ -18,13 +19,14 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(FavoriteController());
+    final dark = EHelperFunctions.isDarkMode(context);
 
     return Scaffold(
       
         appBar: EAppBar(
           title: Text(
             'WishList',
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineMedium!.apply(color: dark ? Colors.white : Colors.black),
           ),
           showBackArrow: false,
           actions: const [

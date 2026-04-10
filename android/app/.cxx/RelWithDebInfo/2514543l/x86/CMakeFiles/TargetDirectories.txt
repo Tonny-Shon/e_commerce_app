@@ -1,0 +1,2 @@
+/home/shontian/Desktop/E_commerce_app/e_commerce_app/android/app/.cxx/RelWithDebInfo/2514543l/x86/CMakeFiles/edit_cache.dir
+/home/shontian/Desktop/E_commerce_app/e_commerce_app/android/app/.cxx/RelWithDebInfo/2514543l/x86/CMakeFiles/rebuild_cache.dir

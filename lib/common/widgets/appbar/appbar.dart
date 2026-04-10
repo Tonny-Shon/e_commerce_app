@@ -30,9 +30,22 @@ class EAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         automaticallyImplyLeading: false,
         leading: showBackArrow
-            ? IconButton(
-                onPressed: () => Get.back(),
-                icon:  Icon(Icons.arrow_back_ios, color: dark ? EColors.white : EColors.black,),
+            ? Container(
+              width: 30,
+              height: 30,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: dark
+                      ? EColors.darkGrey
+                      : EColors.lightGrey, // background color
+                ),
+                child: IconButton(
+                  onPressed: () => Get.back(),
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: dark ? EColors.white : EColors.black,
+                  ),
+                ),
               )
             : leadingIcon != null
                 ? IconButton(

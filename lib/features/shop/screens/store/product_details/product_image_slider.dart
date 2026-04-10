@@ -34,26 +34,24 @@ class EProductImageSlider extends StatelessWidget {
               //Main Image
               SizedBox(
                 height: 400,
-                child: Padding(
-                  padding: const EdgeInsets.all(ESizes.productImageRadius * 2),
-                  child: Center(
-                    child: Obx(
-                          () {
-                        final image = controller.selectedProductImage.value;
-                        return GestureDetector(
-                          onTap: () => controller.showLargeImage(image),
-                          child: CachedNetworkImage(
-                            imageUrl: image,
-                            progressIndicatorBuilder: (_, __, downloadProgress) =>
-                                CircularProgressIndicator(
-                                  value: downloadProgress.progress,
-                                  color: EColors.primaryColor,
-                                ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                child: Obx(
+                      () {
+                    final image = controller.selectedProductImage.value;
+                    return GestureDetector(
+                      onTap: () => controller.showLargeImage(image),
+                      child: CachedNetworkImage(
+                        height: double.infinity,
+                        width: double.infinity,
+                        fit: BoxFit.fill,
+                        imageUrl: image,
+                        progressIndicatorBuilder: (_, __, downloadProgress) =>
+                            CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                              color: EColors.primaryColor,
+                            ),
+                      ),
+                    );
+                  },
                 ),
               ),
               //Slider Images
@@ -83,7 +81,7 @@ class EProductImageSlider extends StatelessWidget {
                               color: imageSelected
                                   ? EColors.primaryColor
                                   : Colors.transparent),
-                          padding: const EdgeInsets.all(ESizes.sm),
+                          padding: const EdgeInsets.all(2.0),
                           imageUrl: images[index]);
                     }),
                   ),

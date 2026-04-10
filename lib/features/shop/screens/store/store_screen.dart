@@ -82,19 +82,7 @@ class StoreScreen extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      // const SizedBox(
-                      //   height: ESizes.spaceBtnItems,
-                      // ),
-                      // const ESearchContainer(
-                      //   text: 'Search In Store',
-                      //   showBorder: true,
-                      //   showBackground: false,
-                      //   padding: EdgeInsets.zero,
-                      // ),
-                      // const SizedBox(
-                      //   height: ESizes.spaceBtnItems,
-                      // ),
-
+                      
                       //-- featured brands
                       ESectionHeading(
                         title: 'Featured Brands',

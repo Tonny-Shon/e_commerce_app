@@ -3,8 +3,10 @@ import 'package:e_commerce_app/common/widgets/texts/section_heading.dart';
 import 'package:e_commerce_app/features/shop/controllers/category_controller.dart';
 import 'package:e_commerce_app/features/shop/models/category_model.dart';
 import 'package:e_commerce_app/features/shop/screens/all_products/all_products.dart';
+import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/helpers/cloud_helper_functions.dart';
+import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,16 +21,18 @@ class SubCategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CategoryController.instance;
+    final dark = EHelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back_ios_new)),
+            onPressed: () => Get.back(), icon:  Icon(Icons.arrow_back_ios_new, color: dark ? EColors.secondaryColor : EColors.black,)),
         title:
-            Text(category.name),
+            Text(category.name, style: TextStyle(color: dark ? EColors.whiteColor : EColors.black),),
             actions: [
           EVerticalImage(
                 image: category.image,
                 title: category.name,
+                textColor: dark ? EColors.whiteColor : EColors.black,
                 onTap: () {},
               )
         ],
@@ -95,6 +99,7 @@ class SubCategoriesScreen extends StatelessWidget {
                                   children: [
                                     ESectionHeading(
                                       title: subCategory.name,
+                                      textColor: dark ? EColors.whiteColor : EColors.black,
                                       onPressed: () => Get.to(
                                         () => AllProducts(
                                           title: subCategory.name,

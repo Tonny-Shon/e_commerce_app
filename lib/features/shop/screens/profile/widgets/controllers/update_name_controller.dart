@@ -15,11 +15,6 @@ class UpdateNameController extends GetxController {
   final userRepository = Get.put(UserRepository());
   GlobalKey<FormState> updateUsernameFormkey = GlobalKey<FormState>();
 
-  @override
-  void onInit() {
-    super.onInit();
-    // initializeNames();
-  }
 
   //fetch user record
   // Future<void> initializeNames() async {

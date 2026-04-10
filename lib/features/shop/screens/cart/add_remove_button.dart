@@ -39,7 +39,7 @@ class EProductWithAddAndRemoveButton extends StatelessWidget {
         ),
         Text(
           quantity.toString(),
-          style: Theme.of(context).textTheme.titleSmall,
+          style: Theme.of(context).textTheme.titleSmall!.apply(color: EHelperFunctions.isDarkMode(context) ? EColors.white : EColors.black),
         ),
         const SizedBox(
           width: ESizes.spaceBtnItems,

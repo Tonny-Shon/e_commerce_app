@@ -1,0 +1,1 @@
+/home/shontian/Desktop/E_commerce_app/e_commerce_app/build/app/intermediates/cxx/RelWithDebInfo/2514543l/obj/x86_64

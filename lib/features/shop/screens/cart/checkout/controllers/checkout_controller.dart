@@ -17,7 +17,7 @@ class CheckoutController extends GetxController {
   void onInit() {
     super.onInit();
     selectedPayemtMethod.value =
-        PaymentMethodModel(name: 'Airtel', image: EImages.airtel);
+        PaymentMethodModel(name: 'Airtel', image: EImages.airtel, id: 'airtel');
   }
 
   Future<dynamic> selectPaymentMethods(BuildContext context) {
@@ -42,14 +42,14 @@ class CheckoutController extends GetxController {
               ),
               PaymentTile(
                 paymentMethod:
-                    PaymentMethodModel(image: EImages.airtel, name: 'Airtel'),
+                    PaymentMethodModel(image: EImages.airtel, name: 'Airtel Money', id: 'airtel'),
               ),
               const SizedBox(
                 height: ESizes.spaceBtnItems,
               ),
               PaymentTile(
                 paymentMethod:
-                    PaymentMethodModel(image: EImages.mtn, name: 'MTN'),
+                    PaymentMethodModel(image: EImages.mtn, name: 'MTN MoMo', id: 'mtn'),
               ),
             ],
           ),

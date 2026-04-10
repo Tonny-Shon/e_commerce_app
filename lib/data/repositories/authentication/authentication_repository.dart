@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/data/repositories/user/user_repository.dart';
 import 'package:e_commerce_app/features/authentication/screens/login/login.dart';
-import 'package:e_commerce_app/features/authentication/screens/signup/verify_email.dart';
 import 'package:e_commerce_app/navigation_menu.dart';
+import 'package:e_commerce_app/utils/local_storage/storage_utility.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../features/authentication/controller/signup/exceptions.dart';
+import '../../../features/shop/screens/splash_screen.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -18,8 +19,21 @@ class AuthenticationRepository extends GetxController {
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
 
+  //Make current user reactive
+  final Rx<User?> _currentUser = Rx<User?>(null);
+
   //get authenticated user data
-  User? get authUser => _auth.currentUser;
+  User? get authUser => _currentUser.value;
+  Rx<User?> get cu => _currentUser;
+
+  @override
+  onInit() {
+    super.onInit();
+    _currentUser.bindStream(_auth.authStateChanges());
+  }
+
+  bool get isAnonymous => authUser?.isAnonymous ?? true;
+  bool get isLoggedIn => authUser != null && !isAnonymous;
 
   //called from main.dart on app launch
   @override
@@ -28,24 +42,44 @@ class AuthenticationRepository extends GetxController {
     screenRedirect();
   }
 
+  Future<void> signInAnonymously() async{
+    try{
+      final userCredential = await _auth.signInAnonymously();
+      await ELocalStorage.init(userCredential.user!.uid);
+      await screenRedirect();
+    }on FirebaseAuthException catch (e) {
+      throw EFirebaseAuthException(code: e.code, message: 'Authentication error');
+    } on FirebaseException catch (e) {
+      throw EFirebaseException(code: e.code, message: 'Database error').message;
+    } on FormatException catch (_) {
+      throw EFormatException();
+    } on PlatformException catch (_) {
+      throw EPlatformException('An error occured!.');
+    } catch (e) {
+      throw 'Something went wrong. please try again';
+    }
+  }
+
 //function to the relevant screen
   screenRedirect() async {
     final user = _auth.currentUser;
     if (user != null) {
-      if (user.emailVerified) {
-        //Initialize User specific storage
-        await GetStorage.init(user.uid);
+
+      await GetStorage.init(user.uid);
         Get.offAll(() => const NavigationMenu());
-      } else {
-        Get.offAll(() => const VerifyEmailScreen(
-              // email: _auth.currentUser!.email,
-            ));
-      }
+      // if (user.emailVerified) {
+      //   //Initialize User specific storage
+        
+      // } else {
+      //   Get.offAll(() => const VerifyEmailScreen(
+      //         // email: _auth.currentUser!.email,
+      //       ));
+      // }
     } else {
       //local storage
       deviceStorage.writeIfNull("IsFirstTime", true);
       // Show app navigation for unauthenticated users; require login only when placing orders
-      Get.offAll(() => const NavigationMenu());
+      Get.offAll(() => const SplashScreen());
     }
   }
 
@@ -165,7 +199,7 @@ class AuthenticationRepository extends GetxController {
   Future<void> logout() async {
     try {
       await FirebaseAuth.instance.signOut();
-      Get.offAll(() => const LoginScreen());
+      Get.offAll(() => const NavigationMenu());
     } on FirebaseAuthException catch (e) {
       throw EFirebaseAuthException(
           code: e.code, message: 'Authentication error');
@@ -220,4 +254,6 @@ class AuthenticationRepository extends GetxController {
       throw 'Something went wrong. please try again';
     }
   }
+
+
 }

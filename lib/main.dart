@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:e_commerce_app/app.dart';
 import 'package:e_commerce_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:e_commerce_app/features/authentication/controller/network_manager/network_manager.dart';
@@ -12,12 +14,15 @@ Future<void> main() async {
 
   //Initialize network 
   Get.put(NetworkManager(), permanent: true);
-  //Todo: Add Widgets Binding
+
+  HttpOverrides.global = MyHttpOverrides();
+
+  
   // final WidgetsBinding widgetsBinding = 
   WidgetsFlutterBinding.ensureInitialized();
 
   //Todo: Init Local Storage
-  await GetStorage.init();
+  await GetStorage.init();  
 
   //Todo: Init Payment Methods
 
@@ -32,4 +37,13 @@ Future<void> main() async {
   runApp(
     const MyApp(),
   );
+}
+
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
 }

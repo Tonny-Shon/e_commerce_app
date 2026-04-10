@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../../common/common_shapes/containers/product_text/product_text_price.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/helpers/helper_functions.dart';
 import '../../../controllers/product/cart_controller.dart';
 import '../add_remove_button.dart';
 import '../cart_item.dart';
@@ -18,6 +19,8 @@ class ECartItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
+    EHelperFunctions.isDarkMode(context);
+    
     return Obx(
           () => ListView.separated(
           shrinkWrap: true,
@@ -32,11 +35,12 @@ class ECartItems extends StatelessWidget {
                   //cart items
                   ECartItem(
                     cartItem: cartItem,
+                    showQuantity: false,
                   ),
-                  if (showAddRemoveButtons)
-                    const SizedBox(
-                      height: ESizes.spaceBtnItems,
-                    ),
+                  // if (showAddRemoveButtons)
+                  //   const SizedBox(
+                  //     height: ESizes.spaceBtnItems,
+                  //   ),
 
                   // Add Remove Button Row with total price
                   if (showAddRemoveButtons)

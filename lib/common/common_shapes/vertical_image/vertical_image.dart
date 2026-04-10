@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_app/common/consts/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +14,13 @@ class EVerticalImage extends StatelessWidget {
     this.textColor = EColors.white,
     this.backgroundColor = EColors.white,
     this.onTap,
+    this.fit = BoxFit.cover
   });
   final String image, title;
   final Color textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +42,31 @@ class EVerticalImage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Center(
-                child: Image(
-                  image: NetworkImage(image),
-                  fit: BoxFit.cover,
+                child: ClipRRect(
+          borderRadius:
+            BorderRadius.circular(15),
+              
+          child: CachedNetworkImage(
+            imageUrl: image,
+            fit: fit,
+            placeholder: (context, url) =>
+               
+                const Center(
+                  child: CircularProgressIndicator(),
                 ),
+            errorWidget: (context, url, error) =>
+                
+                const Icon(
+                  Icons.broken_image_rounded,
+                  color: Colors.grey,
+                  size: 50,
+                ),
+            // Helpful options
+            fadeInDuration: const Duration(milliseconds: 200),
+            // memCacheHeight: height?.toInt(), // reduce memory usage
+            maxHeightDiskCache: 800,         // don't store huge originals
+          ),
+        ),
               ),
             ),
             //text for the categories

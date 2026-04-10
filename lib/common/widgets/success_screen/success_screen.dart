@@ -210,8 +210,8 @@ class SuccessScreen extends StatelessWidget {
     if (image.endsWith('.json')) {
       return Lottie.asset(
         image,
-        width: EHelperFunctions.screenWidth() * 0.4,
-        height: EHelperFunctions.screenWidth() * 0.4,
+        width: EHelperFunctions.screenWidth() * 0.3,
+        height: EHelperFunctions.screenWidth() * 0.3,
         fit: BoxFit.contain,
       );
     }
@@ -226,16 +226,16 @@ class SuccessScreen extends StatelessWidget {
       // );
       return Image.asset(
         image,
-        width: EHelperFunctions.screenWidth() * 0.4,
-        height: EHelperFunctions.screenWidth() * 0.4,
+        width: EHelperFunctions.screenWidth() * 0.3,
+        height: EHelperFunctions.screenWidth() * 0.3,
       );
     }
     
     // Regular image
     return Image.asset(
       image,
-      width: EHelperFunctions.screenWidth() * 0.4,
-      height: EHelperFunctions.screenWidth() * 0.4,
+      width: EHelperFunctions.screenWidth() * 0.3,
+      height: EHelperFunctions.screenWidth() * 0.3,
     );
   }
 

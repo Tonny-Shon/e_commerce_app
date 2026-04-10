@@ -96,7 +96,7 @@ class ESignInForm extends StatelessWidget {
             validator: (value) => EValidator.validateEmail(value),
             controller: controller.email,
             decoration:  InputDecoration(
-                prefixIcon: Icon(Iconsax.direct_right),
+                prefixIcon: const Icon(Iconsax.direct_right),
                 labelText: ETexts.email,
                 labelStyle: TextStyle(color: dark ? EColors.white : EColors.black),
                       floatingLabelStyle: TextStyle(color: dark ? EColors.white : EColors.black), 
@@ -114,7 +114,7 @@ class ESignInForm extends StatelessWidget {
             validator: (value) => EValidator.validatePhoneNumber(value),
             controller: controller.phoneNumber,
             decoration: InputDecoration(
-                prefixIcon: Icon(Iconsax.call), labelText: ETexts.phoneNumber,
+                prefixIcon: const Icon(Iconsax.call), labelText: ETexts.phoneNumber,
                 labelStyle: TextStyle(color: dark ? EColors.white : EColors.black),
                       floatingLabelStyle: TextStyle(color: dark ? EColors.white : EColors.black), 
                       focusedBorder: OutlineInputBorder(

@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/features/authentication/controller/user_controller.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -27,12 +28,6 @@ class LoginController extends GetxController {
   //email and password signin
   Future<void> loginuser() async {
     try {
-      // EFullScreenLoader.openLoadingDialog(
-      //     "We are processing your informaation", EImages.flutterwave);
-
-      //check internet connectivity
-      // final isConnected = await NetworkManager.instance.isConnected();
-      // if (!isConnected) return;
 
       //form validation
       if (!loginformkey.currentState!.validate()) return;
@@ -47,6 +42,9 @@ class LoginController extends GetxController {
       await AuthenticationRepository.instance
           .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
+          final cartController = CartController.instance;
+          await cartController.syncCartAfterLogin();
+
       AuthenticationRepository.instance.screenRedirect();
     } catch (e) {
       ELoaders.erroSnackBar(title: "Oh Snap", message: e.toString());
@@ -56,7 +54,7 @@ class LoginController extends GetxController {
   Future<void> googleSignin() async {
     try {
       //helper function to display the progress of the signin
-
+      
       //check the internet connection
       final isConnected = NetworkManager.instance.isConnected();
       if (!isConnected) return;

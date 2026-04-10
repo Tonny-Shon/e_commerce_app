@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/features/personalization/models/branch_model.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,38 @@ class AddressRepository extends GetxController {
       throw Exception(e.toString());
     }
   }
+
+  //This is for getting the branches
+  Future<List<BranchModel>> getBranches() async {
+     try {
+      final snapshot = await _db.collection('Branches').get();
+
+      return snapshot.docs
+          .map((doc) => BranchModel.fromDocumentSnapshot(doc))
+          .toList();
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  // This is for getting the stations for a specific branch
+   Future<List<AddressModel>> getStations(String branchId) async {
+    try {
+      final result = await _db
+          .collection('Branches')
+          .doc(branchId)
+          .collection('Addresses')
+          .get();
+
+      return result.docs
+          .map((documentSnapshot) =>
+              AddressModel.fromDocumentSnapshot(documentSnapshot))
+          .toList();
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
 
   Future<void> updateSelectedField(String addressId, bool selected) async {
     try {

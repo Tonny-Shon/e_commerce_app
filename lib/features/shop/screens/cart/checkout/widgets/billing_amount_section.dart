@@ -25,11 +25,11 @@ class EBillingAmountSection extends StatelessWidget {
           children: [
             Text(
               'Subtotal',
-              style: Theme.of(context).textTheme.bodyMedium!.apply(color: dark ? EColors.white : EColors.black),
+              style: Theme.of(context).textTheme.bodyLarge!.apply(color: dark ? EColors.white : EColors.black),
             ),
             Text(
               'Ugx - $subTotal',
-              style: Theme.of(context).textTheme.bodyMedium!.apply(color: dark ? EColors.white : EColors.black) ,
+              style: Theme.of(context).textTheme.bodyLarge!.apply(color: dark ? EColors.white : EColors.black) ,
             ),
           ],
         ),
@@ -44,7 +44,7 @@ class EBillingAmountSection extends StatelessWidget {
             children: [
               Text(
                 'Shipping fee',
-                style: Theme.of(context).textTheme.bodyMedium!.apply(color: dark ? EColors.white : EColors.black),
+                style: Theme.of(context).textTheme.bodyLarge!.apply(color: dark ? EColors.white : EColors.black),
               ),
               Text(
                 'Ugx - ${PricingCalculator.calculateShiipingCost(subTotal, '${addressController.selectedAddress.value}')}',

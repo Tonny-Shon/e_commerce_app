@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:e_commerce_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:e_commerce_app/features/authentication/screens/login/login.dart';
-import 'package:e_commerce_app/common/widgets/checkout/checkout_label.dart';
-import 'package:e_commerce_app/common/widgets/checkout/checkout_action_button.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../utils/constants/colors.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 import '../../controllers/product/cart_controller.dart';
+import 'empty_cart_widget.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -19,78 +19,168 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CartController.instance;
-    final itemCount = controller.cartItems.length;
+    // final itemCount = controller.cartItems.length;
+    final dark = EHelperFunctions.isDarkMode(context);
+
     return Scaffold(
-      appBar: EAppBar(
-        showBackArrow: true,
-        title: Text(
-          'Cart',
-          style: Theme.of(context).textTheme.headlineSmall,
+        appBar: EAppBar(
+          showBackArrow: true,
+          title: Text(
+            'Cart',
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .apply(color: dark ? EColors.white : EColors.black),
+          ),
+          actions: [
+            // if (itemCount > 0)
+            Obx(() {
+              final count = controller.cartItems.length;
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    // IconButton(
+                    //   onPressed: () {
+                    //     // Optional: Scroll to top or refresh
+                    //   },
+                    //   icon: const Icon(Iconsax.shopping_cart),
+                    // ),
+                    const Icon(Iconsax.shopping_cart, size: 20),
+                    const SizedBox(width: 8),
+
+                    Text(
+                      '$count Items',
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                color: EColors.primaryColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ],
         ),
-        actions: [
-          if (itemCount > 0)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      // Optional: Scroll to top or refresh
-                    },
-                    icon: const Icon(Iconsax.shopping_cart),
+        body: Obx(() {
+          if (controller.cartItems.isEmpty) {
+            return const EEmptyCartWidget();
+          } else {
+            return const SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(ESizes.defaultSpace),
+                //item in cart
+                child: ECartItems(),
+              ),
+            );
+          }
+        }),
+        //checkout button
+        bottomNavigationBar: controller.cartItems.isEmpty
+            ? const SizedBox()
+            : Container(
+                padding: const EdgeInsets.all(ESizes.md),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(20),
                   ),
-                  Text(
-                    '$itemCount Items',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: EColors.primaryColor,
-                          fontWeight: FontWeight.w600,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, -2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    /// Divider
+                    Container(
+                      height: 3,
+                      width: 40,
+                      margin: const EdgeInsets.only(bottom: ESizes.md),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+
+                    /// Price + Checkout
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        /// TOTAL PRICE
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Total",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Obx(
+                              () => Text(
+                                "UGX ${controller.totalCartPrice.value}/=",
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: dark ? EColors.white : EColors.black,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                  ),
-                ],
-              ),
-            ),
-        ],
-      ),
-      body: Obx(() {
-        const emptyWidget = Center(child: Text('Cart is empty'));
-        if (controller.cartItems.isEmpty) {
-          return emptyWidget;
-        } else {
-          return const SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(ESizes.defaultSpace),
-              //item in cart
-              child: ECartItems(),
-            ),
-          );
-        }
-      }),
-      //checkout button
-      bottomNavigationBar: controller.cartItems.isEmpty
-          ? const SizedBox()
-          : Padding(
-              padding: const EdgeInsets.all(ESizes.sm),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CheckoutLabel(
-                    price: 'Ugx - ${controller.totalCartPrice.value} /=',
-                  ),
-                  CheckoutActionButton(
-                    label: 'Checkout',
-                    onPressed: () {
-                      final auth = AuthenticationRepository.instance.authUser;
-                      if (auth != null) {
-                        Get.to(() => const CheckoutScreen());
-                      } else {
-                        Get.to(() => const LoginScreen());
-                        Get.snackbar('Login required', 'Please login to continue');
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-    );
+
+                        /// CHECKOUT BUTTON
+                        SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 28,
+                                
+                              ),
+                              backgroundColor: EColors.primaryColor,
+                              side: const BorderSide(color: Colors.transparent),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: () {
+                              final auth =
+                                  AuthenticationRepository.instance.authUser;
+
+                              if (auth != null) {
+                                Get.to(() => const CheckoutScreen());
+                              } else {
+                                Get.to(() => const LoginScreen());
+
+                                Get.snackbar(
+                                  "Login Required",
+                                  "Please login to continue",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                              }
+                            },
+                            child: const Row(
+                              children: [
+                                Icon(Icons.shopping_cart_checkout, size: 20),
+                                SizedBox(width: 8),
+                                Text("Checkout"),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ));
   }
 }

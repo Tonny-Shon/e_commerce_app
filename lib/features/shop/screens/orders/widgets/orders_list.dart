@@ -19,8 +19,8 @@ class EOrderListItems extends StatelessWidget {
     return FutureBuilder(
         future: controller.fetchUserOrders(),
         builder: (context, snapshot) {
-          const emptyWidget = Center(
-            child: Text('No Orders yet'),
+          final  emptyWidget = Center(
+            child: Text('No Orders yet', style: TextStyle(fontSize: 18, color: dark ? EColors.black : EColors.white),),
           );
           final response = ECloudHelperFunctions.checkMultiRecordState(
               snapshot: snapshot, nothingFound: emptyWidget);
@@ -69,7 +69,7 @@ class EOrderListItems extends StatelessWidget {
                                   order.formattedOrderDate,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headlineMedium,
+                                      .headlineMedium!.apply(color: dark ? EColors.white : EColors.black),
                                 ),
                               ],
                             ),
@@ -108,13 +108,13 @@ class EOrderListItems extends StatelessWidget {
                                         'Order',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .labelMedium,
+                                            .labelMedium!.apply(color: dark ? EColors.white : EColors.black),
                                       ),
                                       Text(
                                         order.id,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .titleMedium,
+                                            .titleMedium!.apply(color: dark ? EColors.white : EColors.black),
                                       ),
                                     ],
                                   ),
@@ -141,13 +141,13 @@ class EOrderListItems extends StatelessWidget {
                                         'Shipping Date',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .labelMedium,
+                                            .labelMedium!.apply(color: dark ? EColors.white : EColors.black),
                                       ),
                                       Text(
                                         order.formattedDeliveryDate,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .titleMedium,
+                                            .titleMedium!.apply(color: dark ? EColors.white : EColors.black),
                                       ),
                                     ],
                                   ),

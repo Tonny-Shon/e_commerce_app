@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../utils/helpers/helper_functions.dart';
+
 class DialogService {
+  
   static Future<void> showAlreadyInCartDialog({
     required String productName,
     required VoidCallback onViewCart,
   }) async {
+    final dark = EHelperFunctions.isDarkMode(Get.context!);
     await Get.dialog(AlertDialog(
       backgroundColor: EColors.white,
       shape: RoundedRectangleBorder(
@@ -24,7 +28,7 @@ class DialogService {
           ),
           Text(
             'Already in Cart',
-            style: Theme.of(Get.context!).textTheme.headlineSmall,
+            style: Theme.of(Get.context!).textTheme.headlineSmall!.apply(color: dark ? EColors.white : EColors.black),
           )
         ],
       ),
@@ -67,6 +71,7 @@ class DialogService {
           onViewCart();
         },style: ElevatedButton.styleFrom(
           backgroundColor: EColors.primaryColor,
+          side: BorderSide.none,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(ESizes.borderRadiusMd))
         ), child: const Text('Cart ->'),),
       ],
@@ -79,7 +84,7 @@ class DialogService {
     bool? result = await Get.dialog<bool>(
       AlertDialog(backgroundColor: EColors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(ESizes.cardRadiusLg),
+        borderRadius: BorderRadius.circular(ESizes.cardRadiusLg),
       ),title: Row(
         children: [
           const Icon(Iconsax.trash, color: EColors.error,),

@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/common/widgets/appbar/appbar.dart';
 import 'package:e_commerce_app/features/shop/controllers/product/all_products_controller.dart';
 import 'package:e_commerce_app/features/shop/screens/all_products/sortable.dart';
+import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
 import 'package:e_commerce_app/utils/effects/vertical_shimmer_effect.dart';
 import 'package:e_commerce_app/utils/helpers/cloud_helper_functions.dart';
+import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,10 +23,12 @@ class AllProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AllProductsController());
+    final dark = EHelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: EAppBar(
         title: Text(
           title,
+          style: TextStyle(color: dark ? EColors.whiteColor : EColors.black),
         ),
         showBackArrow: true,
       ),

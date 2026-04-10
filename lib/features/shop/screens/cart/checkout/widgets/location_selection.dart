@@ -17,7 +17,7 @@ class ELocationSelection extends StatelessWidget {
     final controller = Get.put(AddressController());
     final dark = EHelperFunctions.isDarkMode(context);
     return Obx(() {
-      if (controller.address.isEmpty) {
+      if (controller.branches.isEmpty) {
         return const Center(
           child: CircularProgressIndicator(),
         );
@@ -29,7 +29,7 @@ class ELocationSelection extends StatelessWidget {
                 borderSide: BorderSide(color: EColors.primaryColor),
               ),
             ),
-            initialValue: controller.selectedAddress.value,
+            value: controller.selectedAddress.value,
             
             items: controller.address
                 .map(
@@ -41,7 +41,7 @@ class ELocationSelection extends StatelessWidget {
                 .toList(),
             onChanged: (value) {
               controller.selectedAddress(value!);
-            });
+            }); 
       }
     });
   }

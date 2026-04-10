@@ -5,6 +5,7 @@ import 'package:e_commerce_app/features/shop/controllers/product/cart_controller
 import 'package:e_commerce_app/features/shop/screens/cart/checkout/controllers/checkout_controller.dart';
 import 'package:e_commerce_app/images/images.dart';
 import 'package:e_commerce_app/navigation_menu.dart';
+import 'package:e_commerce_app/services/cart_service.dart';
 import 'package:e_commerce_app/utils/constants/enums.dart';
 import 'package:e_commerce_app/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class OrderController extends GetxController {
       }
       final order = OrderModel(
           id: UniqueKey().toString(),
+        
           userId: userId,
           status: OrderStatus.processing,
           paymentMethod: checkoutController.selectedPayemtMethod.value.name,
@@ -55,6 +57,11 @@ class OrderController extends GetxController {
 
       //update the cart
       cartController.clearCart();
+
+      //Also clear remote cart in firebase if user is logged in
+      if(AuthenticationRepository.instance.isLoggedIn){
+        await CartFirebaseService().clearRemoteCart();
+      }
 
       Get.off(
         () => SuccessScreen(

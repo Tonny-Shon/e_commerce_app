@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/helpers/helper_functions.dart';
 
 class EProfileMenu extends StatelessWidget {
   const EProfileMenu({
@@ -17,6 +19,7 @@ class EProfileMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = EHelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: onPressed,
       child: Padding(
@@ -28,14 +31,14 @@ class EProfileMenu extends StatelessWidget {
                 flex: 3,
                 child: Text(
                   title,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall!.apply(color: dark ? EColors.white : EColors.black),
                   overflow: TextOverflow.ellipsis,
                 )),
             Expanded(
                 flex: 5,
                 child: Text(
                   value,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodyMedium!.apply(color: dark ? EColors.white : EColors.black),
                   overflow: TextOverflow.ellipsis,
                 )),
             Expanded(

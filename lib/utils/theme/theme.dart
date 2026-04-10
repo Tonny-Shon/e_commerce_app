@@ -8,6 +8,8 @@ import 'package:e_commerce_app/utils/theme/custom_themes/text_theme.dart';
 import 'package:e_commerce_app/utils/theme/custom_themes/elevated_button_theme.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/colors.dart';
+
 class EAppTheme {
   EAppTheme._();
 
@@ -15,7 +17,7 @@ class EAppTheme {
     useMaterial3: true,
     fontFamily: 'Poppins',
     brightness: Brightness.light,
-    primaryColor: Colors.red,
+    primaryColor: EColors.primaryColor,
     scaffoldBackgroundColor: Colors.white,
     textTheme: ETextTheme.lightText,
     elevatedButtonTheme: EButtonTheme.lightButton,
@@ -29,7 +31,7 @@ class EAppTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     fontFamily: 'Poppins',
-    primaryColor: Colors.red,
+    primaryColor: EColors.primaryColor,
     scaffoldBackgroundColor: Colors.white,
     textTheme: ETextTheme.darkTheme,
     elevatedButtonTheme: EButtonTheme.darkButton,

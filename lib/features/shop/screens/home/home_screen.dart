@@ -7,7 +7,6 @@ import 'package:e_commerce_app/features/shop/screens/home/widgets/home_appbar.da
 import 'package:e_commerce_app/features/shop/screens/home/widgets/home_product_section.dart';
 import 'package:e_commerce_app/utils/constants/colors.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
-import 'package:e_commerce_app/utils/constants/texts.dart';
 import 'package:e_commerce_app/utils/effects/cateogy_shimmer.dart';
 import 'package:e_commerce_app/utils/effects/shimmer.dart';
 import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
@@ -55,18 +54,18 @@ class HomeScreen extends StatelessWidget {
                         //   text: 'Search Products',
                         //   ontap: () => Get.to(() => const ESearchScreen()),
                         // ),
-                        SizedBox(
-                          height: ESizes.spaceBtnItems / 4,
-                        ),
+                        // SizedBox(
+                        //   height: ESizes.spaceBtnItems / 4,
+                        // ),
                         //Heading
-                        ESectionHeading(
-                          textColor: EColors.whiteColor,
-                          title: ETexts.popularCategories,
-                          showActionButton: false,
-                        ),
-                        SizedBox(
-                          height: ESizes.spaceBtnItems / 2,
-                        ),
+                        // ESectionHeading(
+                        //   textColor: EColors.whiteColor,
+                        //   title: ETexts.popularCategories,
+                        //   showActionButton: false,
+                        // ),
+                        // SizedBox(
+                        //   height: ESizes.spaceBtnItems / 2,
+                        // ),
 
                         //Categories
                         EHomeCategories(),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_app/images/images.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,8 @@ class ECircularImage extends StatelessWidget {
     this.isNetworkImage = false,
     this.backgroundColor,
     this.overlayColor,
-    this.width = 56,
-    this.height = 56,
+    this.width = 70,
+    this.height = 70,
     this.padding = ESizes.sm,
   });
   final BoxFit? fit;
@@ -40,12 +41,12 @@ class ECircularImage extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100),
         child: isNetworkImage
-            ? Image.network(
-                image,
+            ? CachedNetworkImage(
+                imageUrl: image,
                 fit: fit,
                 width: width - padding * 2,
                 height: height - padding * 2,
-                errorBuilder: (context, error, stackTrace) => Image.asset(
+                errorWidget: (context, error, stackTrace) => Image.asset(
                   EImages.user,
                   fit: fit,
                   width: width - padding ,

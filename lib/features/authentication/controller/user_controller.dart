@@ -164,9 +164,20 @@ class UserController extends GetxController {
             title: "Congs", message: 'Profile Picture has been updated!.');
       }
     } catch (e) {
-      ELoaders.erroSnackBar(title: "Oops", message: 'Something went wrong.');
+      // print("Upload error: $e");
+      ELoaders.erroSnackBar(title: "Oops", message: e.toString());
     } finally {
       imageLoading.value = false;
     }
   }
+
+  Future<void> updateUsername(String newUsername) async{
+    await userRepository.updateSingleField({'UserName': newUsername});
+    user.update((val) => val?.username = newUsername);
+  }
+
+  Future<void> updatePhone(String newPhone) async {
+  await userRepository.updateSingleField({'PhoneNumber': newPhone});
+  user.update((val) => val?..phoneNumber = newPhone);
+}
 }

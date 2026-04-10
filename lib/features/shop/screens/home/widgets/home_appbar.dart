@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:e_commerce_app/utils/effects/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,7 +45,9 @@ class EHomeAppBar extends StatelessWidget {
         ],
       ),
       actions: [
-        Text(
+        if(AuthenticationRepository.instance.authUser != null && AuthenticationRepository.instance.authUser!.isAnonymous == false)
+         
+          Text(
           controller.user.value.username,
           style: const TextStyle(
               fontWeight: FontWeight.bold, color: EColors.white, fontSize: 20),
