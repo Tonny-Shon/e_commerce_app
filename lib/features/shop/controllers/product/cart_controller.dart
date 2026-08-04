@@ -78,7 +78,7 @@ class CartController extends GetxController {
         updateCartTotal();
       }
       updateCart();
-      Get.snackbar('Cart synced', 'Your cart is now updated with your account.');
+      // Get.snackbar('Cart synced', 'Your cart is now updated with your account.');
     }catch(e){
       Get.snackbar('Error', 'Failed to sync cart: $e');
     }

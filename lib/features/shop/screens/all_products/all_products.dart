@@ -32,22 +32,20 @@ class AllProducts extends StatelessWidget {
         ),
         showBackArrow: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(ESizes.defaultSpace),
-          child: FutureBuilder(
-              future: futureMethod ?? controller.fetchProductsByQuery(query),
-              builder: (context, snapshot) {
-                const loader = EVerticalShimmerEffect();
-                final widget = ECloudHelperFunctions.checkMultiRecordState(
-                    snapshot: snapshot, loader: loader);
-                if (widget != null) return widget;
-                final products = snapshot.data!;
-                return ESortableProducts(
-                  products: products,
-                );
-              }),
-        ),
+      body: Padding(
+        padding: const EdgeInsets.all(ESizes.defaultSpace),
+        child: FutureBuilder(
+            future: futureMethod ?? controller.fetchProductsByQuery(query),
+            builder: (context, snapshot) {
+              const loader = EVerticalShimmerEffect(itemCount: 8,);
+              final widget = ECloudHelperFunctions.checkMultiRecordState(
+                  snapshot: snapshot, loader: loader);
+              if (widget != null) return widget;
+              final products = snapshot.data!;
+              return ESortableProducts(
+                products: products,
+              );
+            }),
       ),
     );
   }

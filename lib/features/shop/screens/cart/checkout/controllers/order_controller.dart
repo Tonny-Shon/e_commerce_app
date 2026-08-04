@@ -34,18 +34,20 @@ class OrderController extends GetxController {
   }
 
   //Methods for order processing
-  void processOrder(double totalAmout) async {
+  void processOrder(double totalAmout, {String? paymentMethod}) async {
     try {
       final userId = AuthenticationRepository.instance.authUser!.uid;
       if (userId.isEmpty) {
         return;
       }
+
+      final finalPaymentMethod = paymentMethod ?? checkoutController.selectedPayemtMethod.value.name;
       final order = OrderModel(
           id: UniqueKey().toString(),
         
           userId: userId,
           status: OrderStatus.processing,
-          paymentMethod: checkoutController.selectedPayemtMethod.value.name,
+          paymentMethod: finalPaymentMethod,
           address: addressController.selectedAddress.value,
           deliveryDate: DateTime.now(),
           items: cartController.cartItems.toList(),

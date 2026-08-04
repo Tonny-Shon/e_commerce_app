@@ -39,6 +39,8 @@ class BrandRepository extends GetxController {
       List<String> brandIds = brandCategoryQuery.docs
           .map((doc) => doc['BrandId'] as String)
           .toList();
+
+           if (brandIds.isEmpty) return [];
       //Query to get all documents where the brandId is in the list of brandIds, Fieldpath documentId to query documents in collection
       final brandQuery = await _db
           .collection('Brands')

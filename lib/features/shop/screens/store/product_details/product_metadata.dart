@@ -21,7 +21,6 @@ class EProductMetaData extends StatelessWidget {
   Widget build(BuildContext context) {
     final darkMode = EHelperFunctions.isDarkMode(context);
     final controller = ProductController.instance;
-    final salePricePercentage =
     controller.calculateSalePercentage(product.price, product.salePrice);
 
     return Column(
@@ -30,36 +29,39 @@ class EProductMetaData extends StatelessWidget {
         Row(
           children: [
             //size tag
-            ERoundedContainer(
-              radius: ESizes.sm,
-              backgroundColor: EColors.secondaryColor.withValues(alpha: 0.8),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: ESizes.sm, vertical: ESizes.xs),
-              child: Text(
-                '$salePricePercentage',
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .apply(color: darkMode ? EColors.white : EColors.black),
-              ),
-            ),
-            const SizedBox(
-              width: ESizes.spaceBtnItems,
-            ),
+            // ERoundedContainer(
+            //   radius: ESizes.sm,
+            //   backgroundColor: EColors.secondaryColor.withValues(alpha: 0.8),
+            //   padding: const EdgeInsets.symmetric(
+            //       horizontal: ESizes.sm, vertical: ESizes.xs),
+            //   child: Text(
+            //     '$salePricePercentage',
+            //     style: Theme.of(context)
+            //         .textTheme
+            //         .labelLarge!
+            //         .apply(color: darkMode ? EColors.white : EColors.black),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   width: ESizes.spaceBtnItems,
+            // ),
 
             //price
-            if (product.productType == ProductType.single.toString() &&
-                product.salePrice > 0)
-              Text(
-                'Ugx ${product.price}',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall!
-                    .apply(decoration: TextDecoration.lineThrough),
-              ),
-            const SizedBox(
-              width: ESizes.spaceBtnItems,
-            ),
+            // if (product.productType == ProductType.single.toString() &&
+            //     product.salePrice > 0)
+            //   Text(
+            //     'Ugx ${product.price}',
+            //     style: Theme.of(context)
+            //         .textTheme
+            //         .titleSmall!
+            //         .apply(decoration: TextDecoration.lineThrough),
+            //   ),
+            // const SizedBox(
+            //   width: ESizes.spaceBtnItems,
+            // ),
+
+            Text('Amount: ', style: Theme.of(context).textTheme.titleMedium!.apply(color: darkMode ? EColors.white : EColors.black)),
+
             if (product.productType == ProductType.single.toString() &&
                 product.salePrice > 0)
               const SizedBox(

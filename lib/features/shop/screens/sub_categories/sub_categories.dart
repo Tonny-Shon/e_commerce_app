@@ -25,16 +25,22 @@ class SubCategoriesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => Get.back(), icon:  Icon(Icons.arrow_back_ios_new, color: dark ? EColors.secondaryColor : EColors.black,)),
-        title:
-            Text(category.name, style: TextStyle(color: dark ? EColors.whiteColor : EColors.black),),
-            actions: [
+            onPressed: () => Get.back(),
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: dark ? EColors.secondaryColor : EColors.black,
+            )),
+        title: Text(
+          category.name,
+          style: TextStyle(color: dark ? EColors.whiteColor : EColors.black),
+        ),
+        actions: [
           EVerticalImage(
-                image: category.image,
-                title: category.name,
-                textColor: dark ? EColors.whiteColor : EColors.black,
-                onTap: () {},
-              )
+            image: category.image,
+            title: category.name,
+            textColor: dark ? EColors.whiteColor : EColors.black,
+            onTap: () {},
+          )
         ],
       ),
       // EAppBar(
@@ -99,7 +105,9 @@ class SubCategoriesScreen extends StatelessWidget {
                                   children: [
                                     ESectionHeading(
                                       title: subCategory.name,
-                                      textColor: dark ? EColors.whiteColor : EColors.black,
+                                      textColor: dark
+                                          ? EColors.whiteColor
+                                          : EColors.black,
                                       onPressed: () => Get.to(
                                         () => AllProducts(
                                           title: subCategory.name,

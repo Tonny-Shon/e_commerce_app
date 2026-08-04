@@ -31,8 +31,6 @@ class PaymentWebViewScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Complete Payment',
             style: TextStyle(color: dark ? Colors.white : Colors.black)),
-        // backgroundColor: dark ? Colors.black : Colors.white,
-        // foregroundColor: dark ? Colors.white : Colors.black,
         leading: IconButton(
           icon: Icon(Icons.close, color: dark ? Colors.white : Colors.black),
           onPressed: () => Get.back(),
@@ -42,43 +40,53 @@ class PaymentWebViewScreen extends StatelessWidget {
         () => Stack(
           children: [
             InAppWebView(
-  initialUrlRequest: URLRequest(url: WebUri(redirectUrl)),
-  initialSettings: InAppWebViewSettings(
-    javaScriptEnabled: true,
-    useShouldOverrideUrlLoading: true,
-    supportZoom: false,
-   
-  ),
-  onWebViewCreated: (InAppWebViewController webviewcontroller) {
-    controller.webViewController = webviewcontroller;
-  },
-  onLoadStart: (InAppWebViewController webviewcontroller, url) {
-    controller.isLoading.value = true;
-  },
-  onLoadStop: (InAppWebViewController webviewcontroller, url) {
-    controller.isLoading.value = false;
-  },
-  onReceivedError: (InAppWebViewController webviewcontroller, request, error) {  // ✅ updated
-    // print("WebView Load Error: ${error.errorCode} - ${error.description}");
-    controller.isLoading.value = false;
-  },
-  onReceivedServerTrustAuthRequest: (controller, challenge) async {
-    return ServerTrustAuthResponse(
-      action: ServerTrustAuthResponseAction.PROCEED,
-    );
-  },
-  shouldOverrideUrlLoading: (controller, navigationAction) async {
-    final uri = navigationAction.request.url?.toString() ?? '';
-    if (uri.startsWith('myapp://payment/complete') ||
-        uri.contains('success') ||
-        uri.contains('completed')) {
-      Get.back();
-      _handleSuccessfulPayment();
-      return NavigationActionPolicy.CANCEL;
-    }
-    return NavigationActionPolicy.ALLOW;
-  },
-),
+              initialUrlRequest: URLRequest(url: WebUri(redirectUrl)),
+              initialSettings: InAppWebViewSettings(
+                javaScriptEnabled: true,
+                useShouldOverrideUrlLoading: true,
+                supportZoom: false,
+              ),
+              onWebViewCreated: (InAppWebViewController webviewcontroller) {
+                controller.webViewController = webviewcontroller;
+              },
+              onLoadStart: (InAppWebViewController webviewcontroller, url) {
+                controller.isLoading.value = true;
+              },
+              onLoadStop: (InAppWebViewController webviewcontroller, url) {
+                controller.isLoading.value = false;
+              },
+              onReceivedError:
+                  (InAppWebViewController webviewcontroller, request, error) {
+
+                controller.isLoading.value = false;
+              },
+              onReceivedServerTrustAuthRequest: (controller, challenge) async {
+                return ServerTrustAuthResponse(
+                  action: ServerTrustAuthResponseAction.PROCEED,
+                );
+              },
+              shouldOverrideUrlLoading: (controller, navigationAction) async {
+                final uri = navigationAction.request.url?.toString() ?? '';
+                if (uri.startsWith('myapp://payment/complete') ) {
+                  Get.back();
+
+                  //Parse query parameters
+                  final parsedUri = Uri.parse(uri);
+                  final queryParams = parsedUri.queryParameters;
+
+                  //Adjust key names based on your backend's response
+
+                  String? status = queryParams['status'] ?? queryParams['payment_status'] ?? queryParams['status_code'];
+                  String? paymentMethod = queryParams['payment_method'] ??
+                      queryParams['payment_method_id'] ??
+                      queryParams['method'] ??
+                      queryParams['payment_method_name'];
+                  _handleSuccessfulPayment(status: status, paymentMethod: paymentMethod);
+                  return NavigationActionPolicy.CANCEL;
+                }
+                return NavigationActionPolicy.ALLOW;
+              },
+            ),
 
             // Loading Indicator
             if (controller.isLoading.value)
@@ -91,15 +99,19 @@ class PaymentWebViewScreen extends StatelessWidget {
     );
   }
 
-  void _handleSuccessfulPayment() {
-    ELoaders.successSnackBar(
-      title: "Payment Successful",
-      message: "Thank you! Your order is being processed.",
+  void _handleSuccessfulPayment({String? status,String? paymentMethod}) {
+   // Optional: You can check status if Pesapal sends it
+  if (status != null && status.toLowerCase() != "success") {
+    ELoaders.warningSnackBar(
+      title: "Payment Not Confirmed",
+      message: "Please check your payment status",
     );
+    return;
+  }
 
     // Process order
     final orderController = Get.find<OrderController>();
-    orderController.processOrder(totalAmount);
+    orderController.processOrder(totalAmount, paymentMethod: paymentMethod);
 
     // Go to success / order confirmation screen
     Get.offAll(() => const SuccessScreen(

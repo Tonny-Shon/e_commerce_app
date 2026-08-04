@@ -9,6 +9,8 @@ import 'package:e_commerce_app/utils/effects/vertical_shimmer_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../utils/helpers/helper_functions.dart';
+
 class HomeProductSection extends StatelessWidget {
   const HomeProductSection({
     super.key,
@@ -19,6 +21,7 @@ class HomeProductSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CategoryController.instance;
+    final dark = EHelperFunctions.isDarkMode(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,9 +29,10 @@ class HomeProductSection extends StatelessWidget {
         //Section Header
         ESectionHeading(
           title: category.name,
-          textColor: EColors.black,
+          textColor: dark ? EColors.white :   EColors.black,
           showActionButton: true,
           onPressed: () => Get.to(() => AllProducts(
+            
                 title: category.name,
                 futureMethod:
                     controller.getCategoryProducts(categoryId: category.id),

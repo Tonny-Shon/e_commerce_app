@@ -60,20 +60,13 @@ class PaymentController extends GetxController {
 
   Future<void> startPayment(double totalAmount) async {
     if (isProcessing.value) return;
-    // if (!validatePhone()) return;
 
     isProcessing.value = true;
     errorMessage.value = '';
 
     try {
-      // String rawPhone =
-      //     phoneController.text.trim().replaceAll(RegExp(r'[^0-9]'), '');
-      // if (rawPhone.startsWith('0')) rawPhone = rawPhone.substring(1);
-      // if (!rawPhone.startsWith('256')) rawPhone = '256$rawPhone';
-
       final response = await http.post(
-        Uri.parse('http://192.168.0.117:3000/api/pay'), // Emulator
-
+        Uri.parse('https://pesapal-service-meww.onrender.com/api/pay'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "amount": totalAmount,
@@ -85,28 +78,18 @@ class PaymentController extends GetxController {
         }),
       );
 
-      // print("Backend Status: ${response.statusCode}");
-      // // print("Backend Body: ${response.body}");
-
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-
-        // print("Full response from backend: ${response.body}");
-
         final redirectUrl = data['redirect_url'] as String?;
         final trackingId = data['order_tracking_id'] as String?;
-        final error = data['error'];
 
-        // print("🔗 Redirect URL: ${redirectUrl ?? 'NULL'}");
-        // print("Tracking ID: ${trackingId ?? 'NULL'}");
-
-        if (error != null) {
-          throw Exception("Pesapal Error: ${error['message'] ?? error}");
-        }
 
         if (redirectUrl != null && redirectUrl.isNotEmpty) {
-          Get.to(() => PaymentWebViewScreen(redirectUrl: redirectUrl, trackingId: trackingId, totalAmount: totalAmount,));
-          
+          Get.to(() => PaymentWebViewScreen(
+                redirectUrl: redirectUrl,
+                trackingId: trackingId,
+                totalAmount: totalAmount,
+              ));
         } else {
           throw Exception(
               "No redirect_url received. Full response: ${response.body}");
@@ -116,12 +99,10 @@ class PaymentController extends GetxController {
         throw Exception(errorData['error']?['message'] ?? "Unknown error");
       }
     } catch (e) {
-      // print("❌ Payment Error: $e");
       errorMessage.value = e.toString();
       ELoaders.erroSnackBar(title: 'Payment Failed', message: e.toString());
     } finally {
       isProcessing.value = false;
     }
   }
-
 }

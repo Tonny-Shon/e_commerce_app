@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../features/shop/controllers/category_controller.dart';
+import '../../../features/shop/screens/all_products/all_products.dart';
 import '../vertical_image/vertical_image.dart';
 
 class EHomeCategories extends StatelessWidget {
@@ -38,8 +39,13 @@ class EHomeCategories extends StatelessWidget {
               return EVerticalImage(
                 image: category.image,
                 title: category.name,
-                onTap: () =>
-                    Get.to(() => SubCategoriesScreen(category: category)),
+                onTap: () => Get.to(() => AllProducts(
+                title: category.name,
+                futureMethod:
+                    categoryController.getCategoryProducts(categoryId: category.id),
+              )),
+                // =>
+                    // Get.to(() => SubCategoriesScreen(category: category)),
               );
             }),
       );

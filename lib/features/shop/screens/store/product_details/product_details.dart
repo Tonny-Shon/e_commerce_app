@@ -36,7 +36,7 @@ class ProductDetails extends StatelessWidget {
                 children: [
                   //Rating and Share
 
-                  const ERatingsAndShare(),
+                  // const ERatingsAndShare(),
                   //Price, Title, Stack and Brand
 
                   EProductMetaData(

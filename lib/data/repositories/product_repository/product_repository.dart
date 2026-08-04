@@ -73,6 +73,24 @@ class ProductRepository extends GetxController {
     }
   }
 
+  Future<List<ProductModel>> getAllProductsByQuery(Query query) async {
+    try {
+      final querySnapshot = await query.get();
+      print('Fetched documents; ${querySnapshot.docs.length}');
+      final List<ProductModel> productList = querySnapshot.docs
+          .map((doc) => ProductModel.fromQuerySnapshot(doc))
+          .toList();
+
+      return productList;
+    } on FirebaseException catch (e) {
+      throw Exception(e.toString());
+    } on PlatformException catch (e) {
+      throw Exception(e.toString());
+    } catch (e) {
+      throw Exception('Something went wrong. Please try again');
+    }
+  }
+
   Future<List<ProductModel>> getProductsForBrand(
       {required String brandId, int limit = -1}) async {
     try {
@@ -121,13 +139,13 @@ class ProductRepository extends GetxController {
 
   Future<List<ProductModel>> getProductsForCategory({
   required String categoryId,
-  int limit = 6,
+
 }) async {
   // 1️⃣ Get Product IDs for Category
   final productCategoryQuery = await _db
       .collection('ProductCategory')
       .where('CategoryId', isEqualTo: categoryId)
-      .limit(limit)
+      
       .get();
 
   // 2️⃣ Extract Product IDs

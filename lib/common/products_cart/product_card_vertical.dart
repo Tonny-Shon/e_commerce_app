@@ -47,12 +47,14 @@ class EProductCardVertical extends StatelessWidget {
                   //image thumbnail
                   Center(
                     child: ERoundedImage(
+                      padding: EdgeInsets.zero,
+                      backgroundColor: Colors.white,
                       width: double.infinity,
                       height: double.infinity,
                       imageUrl: product.thumbnail,
                       applyImageRadius: true,
                       isNetworkImage: true,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ),
 
@@ -80,6 +82,7 @@ class EProductCardVertical extends StatelessWidget {
                   EProductTitleText(
                     title: product.title,
                     smallSize: true,
+                    maxlines: 1,
                   ),
                   const SizedBox(
                     height: ESizes.spaceBtnItems / 2,
@@ -119,23 +122,23 @@ class EProductCardVertical extends StatelessWidget {
                 Flexible(
                   child: Column(
                     children: [
-                      if (product.productType ==
-                              ProductType.single.toString() &&
-                          product.salePrice > 0)
-                        Padding(
-                          //Price, show sale price as main price if sale exists.
-                          padding: const EdgeInsets.only(left: ESizes.sm),
-                          child: Text(
-                            product.price.toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .apply(
-                                    decoration: TextDecoration.lineThrough,
-                                    color:
-                                        dark ? EColors.white : EColors.black),
-                          ),
-                        ),
+                      // if (product.productType ==
+                      //         ProductType.single.toString() &&
+                      //     product.salePrice > 0)
+                      //   Padding(
+                      //     //Price, show sale price as main price if sale exists.
+                      //     padding: const EdgeInsets.only(left: ESizes.sm),
+                      //     child: Text(
+                      //       product.price.toString(),
+                      //       style: Theme.of(context)
+                      //           .textTheme
+                      //           .labelMedium!
+                      //           .apply(
+                      //               decoration: TextDecoration.lineThrough,
+                      //               color:
+                      //                   dark ? EColors.white : EColors.black),
+                      //     ),
+                      //   ),
                       Padding(
                         //Price, show sale price as main price if sale exists.
                         padding: const EdgeInsets.only(left: ESizes.sm),

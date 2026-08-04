@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/utils/constants/sizes.dart';
+import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../utils/constants/colors.dart';
 
 class ImageController extends GetxController {
   static ImageController get instance => Get.find();
@@ -34,6 +37,7 @@ class ImageController extends GetxController {
 
   ////Show image popup
   void showLargeImage(String image) {
+    final dark = EHelperFunctions.isDarkMode(Get.context!);
     Get.to(
         fullscreenDialog: true,
         () => Dialog.fullscreen(
@@ -59,7 +63,7 @@ class ImageController extends GetxController {
                       width: 150,
                       child: OutlinedButton(
                         onPressed: () => Get.back(),
-                        child: const Text('Close'),
+                        child:  Text('Close', style: TextStyle(color: dark ? EColors.black : EColors.white),),
                       ),
                     ),
                   )

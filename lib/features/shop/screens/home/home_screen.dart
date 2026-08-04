@@ -17,8 +17,10 @@ import '../../../../common/common_shapes/containers/primary_curved_widget.dart';
 import '../../../../common/common_shapes/home_categories/home_categories.dart';
 import '../../../../common/common_shapes/layouts/grid_layout.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
+import '../../../../utils/constants/texts.dart';
 import '../../controllers/category_controller.dart';
 import '../../controllers/product/product_controller.dart';
+import 'all_categories_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -35,11 +37,11 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const EPrimaryCurvedWidget(
+            EPrimaryCurvedWidget(
               child: Column(
                 children: [
                   //appbar
-                  EHomeAppBar(),
+                  const EHomeAppBar(),
 
                   // SizedBox(
                   //   height: ESizes.spaceBtnItems,
@@ -47,7 +49,7 @@ class HomeScreen extends StatelessWidget {
 
                   //categories
                   Padding(
-                    padding: EdgeInsets.only(left: ESizes.defaultSpace),
+                    padding: const EdgeInsets.only(left: ESizes.defaultSpace),
                     child: Column(
                       children: [
                         // ESearchContainer(
@@ -57,22 +59,23 @@ class HomeScreen extends StatelessWidget {
                         // SizedBox(
                         //   height: ESizes.spaceBtnItems / 4,
                         // ),
-                        //Heading
-                        // ESectionHeading(
-                        //   textColor: EColors.whiteColor,
-                        //   title: ETexts.popularCategories,
-                        //   showActionButton: false,
-                        // ),
-                        // SizedBox(
-                        //   height: ESizes.spaceBtnItems / 2,
-                        // ),
+                        // Heading
+                        ESectionHeading(
+                          textColor: EColors.whiteColor,
+                          title: ETexts.popularCategories,
+                          showActionButton: true,
+                          onPressed: () => Get.to(() => const AllCategoriesScreen()),
+                        ),
+                        const SizedBox(
+                          height: ESizes.spaceBtnItems / 2,
+                        ),
 
                         //Categories
-                        EHomeCategories(),
+                        const EHomeCategories(),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: ESizes.spaceBtnSections,
                   )
                 ],
@@ -134,7 +137,7 @@ class HomeScreen extends StatelessWidget {
 
                   const SizedBox(height: ESizes.spaceBtnSections,),
 
-                  // HomeProductSection(title: 'Sports', futureMethod: controller.getCategoryProducts('Sports'))
+                  
                 ],
               ),
             ),

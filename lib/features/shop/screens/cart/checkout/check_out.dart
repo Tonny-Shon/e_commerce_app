@@ -66,6 +66,31 @@ class CheckoutScreen extends StatelessWidget {
               // const ELocationSelection(),
               Obx(() {
                 return DropdownButtonFormField<BranchModel>(
+                  decoration: InputDecoration(
+                    // Border when enabled and not focused
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.grey.shade400, width: 1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    // Border when focused
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: Colors.blue, width: 2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    // Border when there's an error
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red, width: 1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    // Fill color (optional, keeps background consistent)
+                    fillColor: dark ? Colors.grey[800] : Colors.white,
+                    filled: true,
+                    // Hint style
+                    hintStyle:
+                        TextStyle(color: dark ? Colors.white70 : Colors.grey),
+                  ),
                   value: addressController.selectedBranch.value.id.isEmpty
                       ? null
                       : addressController.selectedBranch.value,
@@ -98,6 +123,31 @@ class CheckoutScreen extends StatelessWidget {
 
               Obx(() {
                 return DropdownButtonFormField<AddressModel>(
+                  decoration: InputDecoration(
+                    // Border when enabled and not focused
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.grey.shade400, width: 1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    // Border when focused
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: Colors.blue, width: 2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    // Border when there's an error
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red, width: 1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    // Fill color (optional, keeps background consistent)
+                    fillColor: dark ? Colors.grey[800] : Colors.white,
+                    filled: true,
+                    // Hint style
+                    hintStyle:
+                        TextStyle(color: dark ? Colors.white70 : Colors.grey),
+                  ),
                   focusColor: Colors.transparent,
                   value: addressController.selectedAddress.value.id.isEmpty
                       ? null
@@ -155,25 +205,44 @@ class CheckoutScreen extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: EColors.primaryColor,
               side: BorderSide.none,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
-            onPressed: () {
-              if (subTotal <= 0) {
-                ELoaders.warningSnackBar(
-                  title: 'Empty Cart',
-                  message: 'Add items to proceed',
-                );
-                return;
-              }
+            onPressed: controller.isProcessing.value
+                ? null // Disable button while processing
+                : () {
+                    if (subTotal <= 0) {
+                      ELoaders.warningSnackBar(
+                        title: 'Empty Cart',
+                        message: 'Add items to proceed',
+                      );
+                      return;
+                    }
 
-              if (controller.isProcessing.value) {
-                return; // Button is already disabled while processing
-              }
-              // Get.to(() => PaymentScreen(totalAmount: totalAmount));
-              controller.startPayment(totalAmount);
-            },
-            child: Text(
-              'Checkout UGX - ${PricingCalculator.calculateTotalPrice(subTotal, '${addressController.selectedAddress.value}')}',
-            ),
+                    controller.startPayment(totalAmount);
+                  },
+            child: controller.isProcessing.value
+                ? const SizedBox(
+                    height: 22,
+                    width: 22,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                      backgroundColor: EColors.primaryColor, // Match button color
+                      color: Colors.white, // White spinner on primary color
+                    ),
+                  )
+                : Text(
+                    'Checkout UGX - ${PricingCalculator.calculateTotalPrice(
+                      subTotal,
+                      '${addressController.selectedAddress.value}',
+                    )}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ),
         ),
       ),

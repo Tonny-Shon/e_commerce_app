@@ -44,8 +44,8 @@ class CategoryController extends GetxController {
       //filter featured categories
       featuredCategories.assignAll(allCategories
           .where(
-              (category) => category.isFeatured && category.parentId.isNotEmpty)
-          .take(8)
+              (category) => category.isFeatured).take(4)
+          
           .toList());
     } catch (e) {
       ELoaders.erroSnackBar(title: 'Ooops', message: e.toString());
@@ -85,7 +85,7 @@ class CategoryController extends GetxController {
     try {
       //fetch limited products against each subcategory;
       final products = await ProductRepository.instance
-          .getProductsForCategory(categoryId: categoryId, limit: 4);
+          .getProductsForCategory(categoryId: categoryId);
       return products;
     } catch (e) {
       ELoaders.erroSnackBar(title: 'Ooops', message: e.toString());

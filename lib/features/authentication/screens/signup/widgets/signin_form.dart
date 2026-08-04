@@ -22,57 +22,7 @@ class ESignInForm extends StatelessWidget {
       key: controller.signupFormkey,
       child: Column(
         children: [
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       child: TextFormField(
-          //         style: const TextStyle(color: Colors.black),
-          //         controller: controller.firstname,
-          //         validator: (value) =>
-          //             EValidator.validateEmptyText('First Name', value),
-          //         expands: false,
-                  
-          //         decoration:InputDecoration(
-          //             prefixIcon:const  Icon(Iconsax.user),
-          //             labelText: ETexts.firstName,
-          //             labelStyle: TextStyle(color: dark ? EColors.white : EColors.black),
-          //             floatingLabelStyle: TextStyle(color: dark ? EColors.white : EColors.black), 
-          //             focusedBorder: OutlineInputBorder(
-          //         borderSide: const BorderSide(color: EColors.primaryColor),
-          //         borderRadius: BorderRadius.circular(ESizes.inputFieldRadius),
-          //       ),
-          //             ),
-                    
-                      
-          //       ),
-          //     ),
-          //     const SizedBox(
-          //       width: ESizes.spaceBtnItems,
-          //     ),
-          //     Expanded(
-          //       child: TextFormField(
-          //         style: const TextStyle(color: Colors.black),
-          //         validator: (value) =>
-          //             EValidator.validateEmptyText('Last Name', value),
-          //         controller: controller.lastname,
-          //         expands: false,
-          //         decoration:  InputDecoration(
-          //             prefixIcon: Icon(Iconsax.user),
-          //             labelText: ETexts.lastName,
-          //             labelStyle: TextStyle(color: dark ? EColors.white : EColors.black),
-          //             floatingLabelStyle: TextStyle(color: dark ? EColors.white : EColors.black), 
-          //             focusedBorder: OutlineInputBorder(
-          //         borderSide: const BorderSide(color: EColors.primaryColor),
-          //         borderRadius: BorderRadius.circular(ESizes.inputFieldRadius),
-          //       ),
-          //             ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // const SizedBox(
-          //   height: ESizes.spaceBtnInputFields,
-          // ),
+       
           TextFormField(
             style: const TextStyle(color: Colors.black),
             validator: (value) =>

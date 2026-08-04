@@ -28,7 +28,7 @@ class EProductImageSlider extends StatelessWidget {
 
     return EPrimaryCurvedWidget(
         child: Container(
-          color: dark ? EColors.darkerGrey : EColors.light,
+          color: dark ? EColors.light : EColors.light,
           child: Stack(
             children: [
               //Main Image
@@ -40,14 +40,17 @@ class EProductImageSlider extends StatelessWidget {
                     return GestureDetector(
                       onTap: () => controller.showLargeImage(image),
                       child: CachedNetworkImage(
-                        height: double.infinity,
-                        width: double.infinity,
-                        fit: BoxFit.fill,
+                        height: double.infinity - 20,
+                        width: double.infinity - 20,
+                        fit: BoxFit.fitHeight,
                         imageUrl: image,
                         progressIndicatorBuilder: (_, __, downloadProgress) =>
-                            CircularProgressIndicator(
-                              value: downloadProgress.progress,
-                              color: EColors.primaryColor,
+                            Center(
+                              child: CircularProgressIndicator(
+                              
+                                value: downloadProgress.progress,
+                                color: EColors.primaryColor,
+                              ),
                             ),
                       ),
                     );
